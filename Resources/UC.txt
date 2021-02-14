@@ -1,0 +1,61 @@
+@startuml
+
+title Use Case Diagram
+
+
+(Créer un compte) as C
+(Se connecter) as CO
+(Se déconnecter) as DE
+(Gestion de compte) as GC
+(Gestion du topic) as GT
+(Creer un topic) as CT
+(Rechercher les topics) as RT
+(Afficher les posts d’un topic) as AP
+(Ecrire un post) as EP
+(Modifier ses posts) as MP
+(Supprimer un post) as SP
+(Consulter l'accueil) as CA
+(Réagir à un post) as RP
+(Commenter un post) as CP
+(Réagir à un commentaire) as RC
+(Rejoindre ou quitter un topic) as RQT
+(Partager le lien du post) as PL 
+(Recevoir les notifications) as RN
+
+actor :Visiteur: as V<<Personne>>
+:Utilisateur: as UT
+:Moderateur: as M
+
+MP ..> CO:include
+GC ..> CO:include
+GT ..> CO:include
+CT ..> CO:include
+EP ..> CO:include
+SP ..> CO:include
+RP ..> CO:include
+CP ..> CO:include
+RC ..> CO:include
+RQT ..> CO:include
+RN ..> CO:include
+V -> C
+V -> CO
+V -> CA
+V -> RT
+V -> AP
+V -> PL
+UT -> DE
+UT -> GC
+UT -> CT
+UT -> EP
+UT -> RP
+UT -> CP
+UT -> RC
+UT -> RQT
+UT -> RN
+UT -> MP
+M -> GT
+M -> SP
+UT ---> V
+M ---> UT
+
+@enduml

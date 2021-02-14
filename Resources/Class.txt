@@ -1,0 +1,109 @@
+@startuml
+
+title Class Diagram
+
+
+class User {
+  -Int id
+  -String username
+  -String password
+  -String email
+  +Int getId()
+  +String getUsername()
+  +String getPassword()
+  +String getEmail()
+  +void setId(Int id)
+  +void setUsername(String username)
+  +void setPassword(String password)
+  +void setEmail(String email)
+}
+
+class Topic {
+  -Int id
+  -String title
+  -String description
+  -String iconUrl
+  -String coverUrl
+  +Int getId()
+  +String getTitle()
+  +String getDescription()
+  +String getIconUrl()
+  +String getCoverUrl()
+  +void setId(Int id)
+  +void setTitle(String title)
+  +void setDescription(String description)
+  +void setIconUrl(String iconUrl)
+  +void setCoverUrl(String coverUrl)
+}
+class Event {
+  -String location
+  -Date date
+  +String getLocation()
+  +Date getDate()
+  +void setLocation(String location)
+  +void setDate(Date date)
+  
+}
+class Post {
+  -Int id
+  -String title
+  -Int likes
+  -Int dislikes
+  -Date date
+  +Int getId()
+  +String getTitle()
+  +Int getLikes()
+  +Int getDislikes()
+  +Date getDate()
+  +void setId(Int id)
+  +void setTitle(String title)
+  +void setLikes(Int likes)
+  +void setDislikes(Int dislikes)
+  +void setDate(Date date)
+}
+class Comment {
+  -Int id
+  -String text
+  -Int likes
+  -Int dislikes
+  -Date date
+  +Int getId()
+  +String getText()
+  +Int getLikes()
+  +Int getDislikes()
+  +Date getDate()
+  +void setId(Int id)
+  +void setText(String text)
+  +void setLikes(Int likes)
+  +void setDislikes(Int dislikes)
+  +void setDate(Date date)
+}
+abstract class Content
+class Text {
+    -String text
+    +String getText()
+    +void setText(String text)
+}
+class Image {
+    -String url
+    +String getUrl()
+    +void setUr(String url)
+}
+class Invitation {
+    -Int joined
+    +String getJoined()
+    +void setJoined(String joined)
+}
+
+Topic <|-down- Event: Inheritance
+Content <|-down- Text: Inheritance
+Content <|-down- Image: Inheritance
+Content <|-down- Invitation: Inheritance
+Post "1" *-up- "1" Content: Composition
+Post "1" -- "1" User: Own
+Topic "many" -- "many" User: Moderate
+Comment "many" -- "1" User: Own
+Comment "many" -- "1" Post: Own
+Topic "1" -- "many" Post: Contains
+
+@enduml
