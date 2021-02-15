@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -20,7 +20,7 @@ public class Post {
 	
 	public Post() {}
 	
-	public Post(int id, String title,Content content,Topic topic,User user) {
+	public Post(String title,Content content,Topic topic,User user) {
 	
 		this.id = NEXTIDVALUE++;
 		this.title = title;
@@ -103,9 +103,4 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-	
-	
-
 }

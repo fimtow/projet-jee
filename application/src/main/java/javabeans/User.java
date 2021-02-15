@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class User {
 	
 	public User() {}
 	
-	public User(int id, String username, String email) {
+	public User(String username, String email) {
 		
 		this.id = NEXTIDVALUE++;
 		this.username = username;

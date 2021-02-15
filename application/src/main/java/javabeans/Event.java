@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 import java.util.Date;
 
@@ -9,8 +9,8 @@ public class Event extends Topic {
 	
 	public Event() {}
 
-	public Event(int id,String title,String description,String iconUrl,String coverUrl,String location, Date date) {
-		super(id,title,description,iconUrl,coverUrl);
+	public Event(String title,String description,String iconUrl,String coverUrl,String location, Date date) {
+		super(title,description,iconUrl,coverUrl);
 		this.location = location;
 		this.date = date;
 	}

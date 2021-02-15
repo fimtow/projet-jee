@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 public class Topic {
 	
@@ -12,7 +12,7 @@ public class Topic {
 	
 	public Topic(){}
 	
-	public Topic(int id, String title, String description, String iconUrl, String coverUrl)
+	public Topic(String title, String description, String iconUrl, String coverUrl)
 	{
 		
 		this.id = NEXTIDVALUE++;

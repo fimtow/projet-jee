@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 import java.util.Date;
 
@@ -78,7 +78,5 @@ public class Comment {
 		this.user = user;
 	}
 	
-	
-	
-	
+
 }

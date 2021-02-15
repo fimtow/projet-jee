@@ -1,4 +1,4 @@
-package application_classes;
+package javabeans;
 
 public class Image extends Content {
 	
