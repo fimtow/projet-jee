@@ -1,4 +1,4 @@
-package javabeans;
+package ma.ensias.beans;
 
 public class Invitation extends Content {
 	

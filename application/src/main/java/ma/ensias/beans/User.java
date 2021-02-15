@@ -1,4 +1,4 @@
-package javabeans;
+package ma.ensias.beans;
 
 import java.util.List;
 
