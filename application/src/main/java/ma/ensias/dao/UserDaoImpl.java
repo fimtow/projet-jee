@@ -1,6 +1,7 @@
 package ma.ensias.dao;
 
 import ma.ensias.beans.User;
+import static ma.ensias.dao.DAOusef.*;
 
 public class UserDaoImpl implements UserDao {
 	

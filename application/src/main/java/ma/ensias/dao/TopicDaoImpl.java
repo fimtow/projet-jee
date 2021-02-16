@@ -1,6 +1,7 @@
 package ma.ensias.dao;
 
 import ma.ensias.beans.Topic;
+import static ma.ensias.dao.DAOusef.*;
 
 public class TopicDaoImpl implements TopicDao {
 	

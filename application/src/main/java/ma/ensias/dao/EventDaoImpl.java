@@ -1,6 +1,7 @@
 package ma.ensias.dao;
 
 import ma.ensias.beans.Event;
+import static ma.ensias.dao.DAOusef.*;
 
 public class EventDaoImpl implements EventDao {
 	
@@ -33,6 +34,7 @@ public class EventDaoImpl implements EventDao {
 	@Override
 	public void delete(Event event) throws DAOException {
 		// TODO Auto-generated method stub
+		
 
 	}
 

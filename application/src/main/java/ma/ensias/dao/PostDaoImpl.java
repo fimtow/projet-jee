@@ -4,6 +4,7 @@ import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
+import static ma.ensias.dao.DAOusef.*;
 
 public class PostDaoImpl implements PostDao {
 	
