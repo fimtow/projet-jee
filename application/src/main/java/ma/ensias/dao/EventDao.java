@@ -4,12 +4,12 @@ import ma.ensias.beans.Event;
 
 public interface EventDao {
 	
-	void create(Event event) ;
+	void create(Event event) throws DAOException;
 	
-	Event find (String title);
+	Event find (String title) throws DAOException;
 	// la fonction utilise varargs pour avoir la possibilte de changer un nombre variable de parametre
-	void update(Object...  fields); 
+	void update(Object...  fields) throws DAOException; 
 	
-	void delete(Event event);
+	void delete(Event event) throws DAOException;
 
 }
