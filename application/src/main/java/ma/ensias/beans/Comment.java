@@ -21,7 +21,11 @@ public class Comment {
 		this.likes = this.dislikes = 0;
 		this.date = new Date();
 	}
-
+	
+	public Comment()
+	{
+		
+	}
 	public static int getNEXTIDVALUE() {
 		return NEXTIDVALUE;
 	}
