@@ -6,7 +6,7 @@ public class Image extends Content {
 	
 
 	public Image(String url) {
-		
+		super();
 		this.url = url;
 	}
 	

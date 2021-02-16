@@ -5,7 +5,7 @@ public class Invitation extends Content {
 	private int joined;
 
 	public Invitation() {
-		
+		super();
 		this.joined = 0;
 	}
 
