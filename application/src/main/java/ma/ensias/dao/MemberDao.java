@@ -5,7 +5,7 @@ import java.util.Map;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 
-public interface DAOmember {
+public interface MemberDao {
 	
 	public void create(int idUser ,Topic topic) throws DAOException;
 	

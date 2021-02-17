@@ -59,7 +59,7 @@ public class EventDaoImpl implements EventDao {
 			 closeConnectionItems(preparedStatement,connexion);
 			 
 			 for(int idUser : event.getMembers().keySet())
-					new DAOmemberImpl(daoFactory).create(idUser, event);
+					new MemberDaoImpl(daoFactory).create(idUser, event);
 			 
 		}
 
@@ -87,7 +87,7 @@ public class EventDaoImpl implements EventDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    event.setMembers(new DAOmemberImpl(daoFactory).find(event));
+	    event.setMembers(new MemberDaoImpl(daoFactory).find(event));
 	    return event;
 	}
 

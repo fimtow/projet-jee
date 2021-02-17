@@ -13,7 +13,7 @@ import java.util.Map;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 
-public class DAOmemberImpl implements DAOmember{
+public class MemberDaoImpl implements MemberDao{
 	
 	public static final String SQL_INSERT = "INSERT INTO membre(userid,topicid,ismoderator) values (?,?,?)";
 	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,ismoderator FROM member WHERE topicid = ? ";
@@ -23,7 +23,7 @@ public class DAOmemberImpl implements DAOmember{
 	
 	
 	
-	DAOmemberImpl(DAOFactory daoFactory) {
+	MemberDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 	

@@ -72,7 +72,7 @@ public class TopicDaoImpl implements TopicDao {
 			 closeConnectionItems(preparedStatement,connexion);
 			 
 			 for(int idUser : topic.getMembers().keySet())
-					new DAOmemberImpl(daoFactory).create(idUser, topic);
+					new MemberDaoImpl(daoFactory).create(idUser, topic);
 			 
 		}
 	}
@@ -97,7 +97,7 @@ public class TopicDaoImpl implements TopicDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    topic.setMembers(new DAOmemberImpl(daoFactory).find(topic));
+	    topic.setMembers(new MemberDaoImpl(daoFactory).find(topic));
 	    return topic;
 	}
 
