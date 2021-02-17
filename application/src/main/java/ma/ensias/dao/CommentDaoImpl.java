@@ -8,7 +8,7 @@ public class CommentDaoImpl implements CommentDao{
 
 	private DAOFactory daoFactory;
 	
-	private static final String SQL_SELECT_BY_ID = "SELECT id, text, likes , dislikes, date, user FROM comment WHERE id = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, text, likes , dislikes, date, user, post FROM comment WHERE id = ?";
 	private static final String SQL_INSERT = "INSERT INTO comment (text,likes,dislikes,date,user,post) VALUES (?,?,?,NOW(),?,?)";
 	
 	CommentDaoImpl(DAOFactory daoFactory)
@@ -23,7 +23,8 @@ public class CommentDaoImpl implements CommentDao{
 		comment.setLikes(resultset.getInt("likes"));
 		comment.setDislikes(resultset.getInt("dislikes"));
 		comment.setDate(resultset.getDate("date"));
-		// TO DO : add setUser
+		// TODO : map user
+		// TODO : map post
 		return comment;
 		
 	}

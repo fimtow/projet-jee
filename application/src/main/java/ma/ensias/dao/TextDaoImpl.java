@@ -9,7 +9,7 @@ import ma.ensias.beans.Text;
 public class TextDaoImpl implements TextDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT id, text FROM text WHERE id = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, text, post FROM text WHERE id = ?";
 	private static final String SQL_INSERT = "INSERT INTO text (text,post) VALUES (?,?)";
 	
 	TextDaoImpl(DAOFactory daoFactory)
@@ -21,6 +21,7 @@ public class TextDaoImpl implements TextDao{
 		Text text = new Text();
 		text.setId(resultset.getInt("id"));
 		text.setText(resultset.getString("text"));
+		// TODO : map post
 		return text;
 	}
 	@Override

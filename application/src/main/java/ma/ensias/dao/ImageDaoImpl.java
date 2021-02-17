@@ -10,7 +10,7 @@ public class ImageDaoImpl implements ImageDao{
 
 	private DAOFactory daoFactory;
 	
-	private static final String SQL_SELECT_BY_ID = "SELECT id, url FROM image WHERE id = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, url, post FROM image WHERE id = ?";
 	private static final String SQL_INSERT = "INSERT INTO image (url,post) VALUES (?,?)";
 	
 	ImageDaoImpl(DAOFactory daoFactory)

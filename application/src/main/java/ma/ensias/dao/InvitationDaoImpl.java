@@ -12,8 +12,9 @@ import ma.ensias.beans.Invitation;
 public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT id, joined FROM invitation WHERE id = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, joined, post FROM invitation WHERE id = ?";
 	private static final String SQL_INSERT = "INSERT INTO invitation (joined,post) VALUES (?,?)";
+	private static final String SQL_UPDATE = "UPDATE invitation SET joined=? WHERE id=?;";
 	
 	InvitationDaoImpl(DAOFactory daoFactory)
 	{
@@ -24,6 +25,7 @@ public class InvitationDaoImpl implements InvitationDao{
 		Invitation invitation = new Invitation();
 		invitation.setId(resultset.getInt("id"));
 		invitation.setJoined(resultset.getInt("joined"));
+		// TODO : map post
 		return invitation;
 		
 	}
@@ -78,7 +80,21 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	@Override
 	public void update(Object... fields) {
-		// TODO Auto-generated method stub
+		Invitation invitation = (Invitation) fields[0];
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, invitation.getJoined(), invitation.getId() );
+	        int statut = preparedStatement.executeUpdate();
+	        if ( statut == 0 ) {
+	            throw new DAOException( "invitation creation error, no line was inserted" );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        closeConnectionItems( preparedStatement, connexion );
+	    }
 		
 	}
 
