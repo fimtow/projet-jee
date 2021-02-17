@@ -59,4 +59,5 @@ public class DAOFactory {
     public BeanTestDao getBeanTestDao() {
         return new BeanTestDaoImpl( this );
     }
+    
 }

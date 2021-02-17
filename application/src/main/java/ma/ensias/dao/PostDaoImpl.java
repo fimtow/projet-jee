@@ -38,7 +38,7 @@ public class PostDaoImpl implements PostDao {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		post.setUser(new UserDaoImpl(daoFactory).find(resultset.getInt("user")));
 		post.setTopic(new TopicDaoImpl(daoFactory).find(resultset.getInt("topic")));
-		// TODO : Content
+		
 		return post;
 	}
 

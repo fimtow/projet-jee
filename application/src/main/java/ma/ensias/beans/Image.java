@@ -6,8 +6,12 @@ public class Image extends Content {
 	
 
 	public Image(String url) {
-		
 		this.url = url;
+	}
+	
+	public Image()
+	{
+		
 	}
 	
 	public String getUrl() {
