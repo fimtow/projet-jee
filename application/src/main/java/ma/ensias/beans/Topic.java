@@ -1,35 +1,30 @@
 package ma.ensias.beans;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Topic {
-	
-	private static int NEXTIDVALUE = 0 ;
 	
 	private int id;
 	private String title;
 	private String description;
 	private String iconUrl;
 	private String coverUrl;
+	private List<User> moderators;
 	
 	public Topic(){}
 	
-	public Topic(String title, String description, String iconUrl, String coverUrl)
+	public Topic(String title, String description, String iconUrl, String coverUrl,User user)
 	{
 		
-		this.id = NEXTIDVALUE++;
 		this.title = title;
 		this.description = description;
 		this.iconUrl = iconUrl;
 		this.coverUrl = coverUrl;
+		this.moderators = new LinkedList<>();
+		this.moderators.add(user);
 	}
 
-	public Topic(int id, String title, String description)
-	{
-		
-		this.id = NEXTIDVALUE++;
-		this.title = title;
-		this.description = description;
-	}
-	
 	public int getId() 
 	{
 		return id;
@@ -69,6 +64,8 @@ public class Topic {
 	{
 		this.coverUrl = coverUrl;
 	}
+
+	
 	
 
 }

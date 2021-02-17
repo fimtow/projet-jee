@@ -6,9 +6,9 @@ public interface UserDao {
 	
 	void create(User user ) throws DAOException ;
 	
-	User find (String username) throws DAOException;
+	User find (String username,String password) throws DAOException;
 	// la fonction utilise varargs pour avoir la possibilte de changer un nombre variable de parametre
 	
-	void update(Object...  fields) throws DAOException; 
+	void update(User user) throws DAOException; 
 
 }

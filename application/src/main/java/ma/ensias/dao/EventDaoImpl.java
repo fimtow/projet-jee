@@ -12,6 +12,8 @@ public class EventDaoImpl implements EventDao {
 	{
 		this.daoFactory = daoFactory;
 	}
+	
+	
 
 	@Override
 	public void create(Event event) throws DAOException {
@@ -20,7 +22,7 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
-	public Event find(String title) throws DAOException {
+	public Event find(int id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

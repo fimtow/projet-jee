@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Post {
 	
-	private static int NEXTIDVALUE = 0;
-	
 	private int id;
 	private String title;
 	private int likes;
@@ -22,7 +20,6 @@ public class Post {
 	
 	public Post(String title,Content content,Topic topic,User user) {
 	
-		this.id = NEXTIDVALUE++;
 		this.title = title;
 		this.content = content;
 		this.likes = 0;

@@ -13,7 +13,7 @@ public final class DAOusef {
 	 * Initialise la requête préparée basée sur la connexion passée en argument,
 	 * avec la requête SQL et les objets donnés.
 	 */
-	public static PreparedStatement initialisationRequetePreparee( Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets ) throws SQLException {
+	public static PreparedStatement initQueryPrepared( Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets ) throws SQLException {
 	    PreparedStatement preparedStatement = connexion.prepareStatement( sql, returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS );
 	    for ( int i = 0; i < objets.length; i++ ) {
 	        preparedStatement.setObject( i + 1, objets[i] );
@@ -22,7 +22,7 @@ public final class DAOusef {
 	}
 	
 	/* Fermeture silencieuse du resultset */
-	public static void fermetureSilencieuse( ResultSet resultSet ) {
+	public static void closeConnectionItems( ResultSet resultSet ) {
 	    if ( resultSet != null ) {
 	        try {
 	            resultSet.close();
@@ -33,7 +33,7 @@ public final class DAOusef {
 	}
 
 	/* Fermeture silencieuse du statement */
-	public static void fermetureSilencieuse( Statement statement ) {
+	public static void closeConnectionItems( Statement statement ) {
 	    if ( statement != null ) {
 	        try {
 	            statement.close();
@@ -44,7 +44,7 @@ public final class DAOusef {
 	}
 
 	/* Fermeture silencieuse de la connexion */
-	public static void fermetureSilencieuse( Connection connexion ) {
+	public static void closeConnectionItems( Connection connexion ) {
 	    if ( connexion != null ) {
 	        try {
 	            connexion.close();
@@ -55,16 +55,16 @@ public final class DAOusef {
 	}
 
 	/* Fermetures silencieuses du statement et de la connexion */
-	public static void fermeturesSilencieuses( Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
+	public static void closeConnectionItems( Statement statement, Connection connexion ) {
+	    closeConnectionItems( statement );
+	    closeConnectionItems( connexion );
 	}
 
 	/* Fermetures silencieuses du resultset, du statement et de la connexion */
-	public static void fermeturesSilencieuses( ResultSet resultSet, Statement statement, Connection connexion ) {
-	    fermetureSilencieuse( resultSet );
-	    fermetureSilencieuse( statement );
-	    fermetureSilencieuse( connexion );
+	public static void closeConnectionItems( ResultSet resultSet, Statement statement, Connection connexion ) {
+	    closeConnectionItems( resultSet );
+	    closeConnectionItems( statement );
+	    closeConnectionItems( connexion );
 	}
 	
 }

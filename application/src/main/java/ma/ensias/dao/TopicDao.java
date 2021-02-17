@@ -4,11 +4,11 @@ import ma.ensias.beans.Topic;
 
 public interface TopicDao {
 	
-	void create(Topic topic) throws DAOException;
+	public void create(Topic topic,boolean isevent) throws DAOException;
 	
-	Topic find (String title) throws DAOException;
+	Topic find (int id) throws DAOException;
 	// la fonction utilise varargs pour avoir la possibilte de changer un nombre variable de parametre
-	void update(Object...  fields) throws DAOException; 
+	void update(Topic topic) throws DAOException; 
 	
 	void delete(Topic topic) throws DAOException;
 
