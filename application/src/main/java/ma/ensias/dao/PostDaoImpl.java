@@ -11,6 +11,7 @@ import java.util.Date;
 
 import ma.ensias.beans.Post;
 
+
 public class PostDaoImpl implements PostDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO topic(title,likes,dislikes,date,content,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
@@ -35,7 +36,6 @@ public class PostDaoImpl implements PostDao {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		post.setUser(new UserDaoImpl(daoFactory).find(resultset.getInt("user")));
 		post.setTopic(new TopicDaoImpl(daoFactory).find(resultset.getInt("topic")));
-		
 		return post;
 	}
 
