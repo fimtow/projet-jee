@@ -6,6 +6,10 @@ import java.util.List;
 
 public class Post {
 	
+	private static final int IMAGE = 0;
+	private static final int TEXT = 1;
+	private static final int INVITATION = 2;
+	
 	private int id;
 	private String title;
 	private int likes;
@@ -13,6 +17,7 @@ public class Post {
 	private Date date;
 	private Content content;
 	private Topic topic;
+	private int type;
 	private List<Comment> comments;
 	private User user;
 	
@@ -28,6 +33,12 @@ public class Post {
 		this.user = user;
 		this.topic = topic;
 		comments = new LinkedList<>();
+		if(content instanceof Image)
+		  type = IMAGE;
+		else if(content instanceof Text)
+			type = TEXT;
+		else
+			type = INVITATION;
 	}
 
 	public Content getContent() {
@@ -100,4 +111,13 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	
 }

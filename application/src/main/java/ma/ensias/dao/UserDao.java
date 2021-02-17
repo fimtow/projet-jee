@@ -8,6 +8,7 @@ public interface UserDao {
 	
 	User find (String username,String password) throws DAOException;
 	// la fonction utilise varargs pour avoir la possibilte de changer un nombre variable de parametre
+	User find (int id) throws DAOException;
 	
 	void update(User user) throws DAOException; 
 

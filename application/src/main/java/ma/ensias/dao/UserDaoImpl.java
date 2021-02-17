@@ -16,7 +16,8 @@ import ma.ensias.beans.User;
 public class UserDaoImpl implements UserDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO User(username,password,email) VALUES (?,?,?) ";
-	private static final String SQL_SELECT_BY_ID = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ? ";
+	private static final String SQL_SELECT_BY_USERNAME_PASSWORD = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ? ";
+	private static final String SQL_SELECT_BY_ID = "SELECT id,username,password,email FROM user WHERE id = ? ";
 	private static final String SQL_UPDATE = "UPDATE user SET username = ?, password = ?, email = ? WHERE id = ?";
 	
 	private DAOFactory daoFactory;
@@ -81,7 +82,29 @@ public class UserDaoImpl implements UserDao {
 		User user = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, username,getMd5(password) );
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USERNAME_PASSWORD, false, username,getMd5(password) );
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            user = map( resultSet );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return user;
+	}
+	
+	public User find(int id) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		User user = null;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_ID, false,id);
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );

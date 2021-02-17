@@ -13,7 +13,7 @@ public class Event extends Topic {
 		super(title,description,iconUrl,coverUrl,user);
 		this.location = location;
 		this.date = date;
-		this.getMembers().put(user,true); // the creator is moderator
+		this.getMembers().put(user.getId(),true); // the creator is moderator
 	}
 
 	public String getLocation() {

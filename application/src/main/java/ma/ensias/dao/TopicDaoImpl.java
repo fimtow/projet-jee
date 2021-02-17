@@ -59,6 +59,7 @@ public class TopicDaoImpl implements TopicDao {
 			if(valeursAutoGenerees.next() )
 			{
 				topic.setId(valeursAutoGenerees.getInt(1));
+				
 			}
 			else
 			{
@@ -69,6 +70,10 @@ public class TopicDaoImpl implements TopicDao {
 			e.printStackTrace();
 		} finally {
 			 closeConnectionItems(preparedStatement,connexion);
+			 
+			 for(int idUser : topic.getMembers().keySet())
+					new DAOmemberImpl(daoFactory).create(idUser, topic);
+			 
 		}
 	}
 
@@ -78,7 +83,7 @@ public class TopicDaoImpl implements TopicDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Topic topic = null;
-		// TODO :  Query for the users and put it in the list of participed 
+		
 		
 	    try {
 	        connexion = daoFactory.getConnection();
@@ -92,6 +97,7 @@ public class TopicDaoImpl implements TopicDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
+	    topic.setMembers(new DAOmemberImpl(daoFactory).find(topic));
 	    return topic;
 	}
 
