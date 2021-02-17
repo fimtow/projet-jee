@@ -1,23 +1,21 @@
 package ma.ensias.beans;
 
-import java.util.List;
-
 public class User {
-	
-	private static int NEXTIDVALUE = 0 ;
 	
 	private int id;
 	private String username;
 	private String email;
-	private List<Topic> topics;
+	private String password;
 	
 	public User() {}
 	
-	public User(String username, String email) {
+	public User(String username,String password,String email)
+	{
 		
-		this.id = NEXTIDVALUE++;
 		this.username = username;
+		this.password = password; 
 		this.email = email;
+		
 	}
 	public int getId() {
 		return id;
@@ -37,13 +35,13 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Topic> getTopics() {
-		return topics;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
 	
 }

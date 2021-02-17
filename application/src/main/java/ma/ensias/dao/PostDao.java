@@ -7,12 +7,12 @@ import ma.ensias.beans.User;
 
 public interface PostDao {
 	
-	void create(Post post);
+	void create(Post post) throws DAOException;
 	
-	Post find(String title,Content content,Topic topic,User user);
+	Post find(String title,Content content,Topic topic,User user) throws DAOException;
 	
-	void update(Object... fields);
+	void update(Object... fields) throws DAOException;
 	
-	void delete(Post post);
+	void delete(Post post) throws DAOException;
 
 }

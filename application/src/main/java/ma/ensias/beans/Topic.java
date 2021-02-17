@@ -1,35 +1,31 @@
 package ma.ensias.beans;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Topic {
-	
-	private static int NEXTIDVALUE = 0 ;
 	
 	private int id;
 	private String title;
 	private String description;
 	private String iconUrl;
 	private String coverUrl;
+	private Map<Integer,Boolean> members;
 	
 	public Topic(){}
 	
-	public Topic(String title, String description, String iconUrl, String coverUrl)
+	public Topic(String title, String description, String iconUrl, String coverUrl,User user)
 	{
 		
-		this.id = NEXTIDVALUE++;
 		this.title = title;
 		this.description = description;
 		this.iconUrl = iconUrl;
 		this.coverUrl = coverUrl;
+		this.members = new HashMap<>();
+		this.members.put(user.getId(),true); // the creator is moderator
 	}
 
-	public Topic(int id, String title, String description)
-	{
-		
-		this.id = NEXTIDVALUE++;
-		this.title = title;
-		this.description = description;
-	}
-	
 	public int getId() 
 	{
 		return id;
@@ -69,6 +65,16 @@ public class Topic {
 	{
 		this.coverUrl = coverUrl;
 	}
+
+	public Map<Integer,Boolean> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Map<Integer,Boolean> members) {
+		this.members = members;
+	}
+
+	
 	
 
 }

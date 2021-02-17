@@ -51,7 +51,8 @@ public class DAOFactory {
         return instance;
     }
 
-    	Connection getConnection() throws SQLException {
+	Connection getConnection() throws SQLException 
+	{
         return DriverManager.getConnection( url, username, password );
     }
 
