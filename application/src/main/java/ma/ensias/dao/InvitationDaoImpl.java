@@ -13,7 +13,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_BY_ID = "SELECT id, joined FROM invitation WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO invitation (joined) VALUES (?)";
+	private static final String SQL_INSERT = "INSERT INTO invitation (joined,post) VALUES (?,?)";
 	
 	InvitationDaoImpl(DAOFactory daoFactory)
 	{
@@ -35,7 +35,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(), invitation.getPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );

@@ -10,7 +10,7 @@ public class TextDaoImpl implements TextDao{
 
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_BY_ID = "SELECT id, text FROM text WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO text (text) VALUES (?)";
+	private static final String SQL_INSERT = "INSERT INTO text (text,post) VALUES (?,?)";
 	
 	TextDaoImpl(DAOFactory daoFactory)
 	{
@@ -31,7 +31,7 @@ public class TextDaoImpl implements TextDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText(), text.getPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "text creation error, no line was inserted" );

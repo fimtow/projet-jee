@@ -11,7 +11,7 @@ public class ImageDaoImpl implements ImageDao{
 	private DAOFactory daoFactory;
 	
 	private static final String SQL_SELECT_BY_ID = "SELECT id, url FROM image WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO image (url) VALUES (?)";
+	private static final String SQL_INSERT = "INSERT INTO image (url,post) VALUES (?,?)";
 	
 	ImageDaoImpl(DAOFactory daoFactory)
 	{
@@ -33,7 +33,7 @@ public class ImageDaoImpl implements ImageDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, image.getUrl() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, image.getUrl(), image.getPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "image creation error, no line was inserted" );

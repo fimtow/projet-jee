@@ -9,7 +9,7 @@ public class CommentDaoImpl implements CommentDao{
 	private DAOFactory daoFactory;
 	
 	private static final String SQL_SELECT_BY_ID = "SELECT id, text, likes , dislikes, date, user FROM comment WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO comment (text,likes,dislikes,date,user) VALUES (?,?,?,NOW(),?)";
+	private static final String SQL_INSERT = "INSERT INTO comment (text,likes,dislikes,date,user,post) VALUES (?,?,?,NOW(),?,?)";
 	
 	CommentDaoImpl(DAOFactory daoFactory)
 	{
@@ -35,7 +35,7 @@ public class CommentDaoImpl implements CommentDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, comment.getText(), comment.getLikes(), comment.getDislikes(), comment.getUser().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, comment.getText(), comment.getLikes(), comment.getDislikes(), comment.getUser().getId(), comment.getPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "comment creation error, no line was inserted" );

@@ -3,22 +3,29 @@ package ma.ensias.beans;
 import java.util.Date;
 
 public class Comment {
-	
-	private static int NEXTIDVALUE = 0;
-	
+		
 	private int id;
 	private String text;
 	private int likes;
 	private int dislikes;
 	private Date date;
 	private User user;
+	private Post post;
 	
-	public Comment(int id, String text, User user) {
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public Comment(String text, User user, Post post) {
 		
-		this.id = NEXTIDVALUE++;
 		this.text = text;
 		this.user = user;
 		this.likes = this.dislikes = 0;
+		this.post = post;
 		this.date = new Date();
 	}
 	
@@ -26,13 +33,7 @@ public class Comment {
 	{
 		
 	}
-	public static int getNEXTIDVALUE() {
-		return NEXTIDVALUE;
-	}
 
-	public static void setNEXTIDVALUE(int nEXTIDVALUE) {
-		NEXTIDVALUE = nEXTIDVALUE;
-	}
 
 	public int getId() {
 		return id;
