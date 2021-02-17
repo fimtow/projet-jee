@@ -14,8 +14,8 @@ import ma.ensias.beans.Post;
 
 public class PostDaoImpl implements PostDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO topic(title,likes,dislikes,date,content,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
-	private static final String SQL_SELECT_BY_ID = "SELECT title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,content,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
+	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
 	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
