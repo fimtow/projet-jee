@@ -14,8 +14,8 @@ import ma.ensias.beans.Post;
 
 public class PostDaoImpl implements PostDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO topic(title,likes,dislikes,date,content,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
-	private static final String SQL_SELECT_BY_ID = "SELECT title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
+	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
 	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -26,16 +26,28 @@ public class PostDaoImpl implements PostDao {
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Post map(ResultSet resultset) throws SQLException {
+	private Post map(ResultSet resultset) throws SQLException {
+		int type;
 		Post post = new Post();
 		post.setId(resultset.getInt("id"));
 		post.setTitle(resultset.getString("title"));		
 		post.setLikes(resultset.getInt("likes"));
 		post.setDislikes(resultset.getInt("dislikes"));
 		post.setDate(resultset.getDate("date"));
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		post.setUser(new UserDaoImpl(daoFactory).find(resultset.getInt("user")));
-		post.setTopic(new TopicDaoImpl(daoFactory).find(resultset.getInt("topic")));
+		post.setType(resultset.getInt("type"));
+		type = resultset.getInt("type");
+		
+		if( type == Post.IMAGE )
+			post.setContent(daoFactory.getImageDao().find(post));
+		else if ( type == Post.INVITATION )
+			post.setContent(daoFactory.getInvitationDao().find(post));
+		else
+			post.setContent(daoFactory.getTextDao().find(post));
+		
+		post.setUser(daoFactory.getUserDao().find(resultset.getInt("user")));
+		post.setTopic(daoFactory.getTopicDao().find(resultset.getInt("topic")));
+		post.setComments(daoFactory.getCommentDao().find(post));
+		
 		return post;
 	}
 
@@ -45,7 +57,6 @@ public class PostDaoImpl implements PostDao {
 		Connection connexion = null;
 		PreparedStatement  preparedStatement = null;
 		ResultSet valeursAutoGenerees = null;
-		
 		
 		String title = post.getTitle();
 		int likes = post.getLikes();

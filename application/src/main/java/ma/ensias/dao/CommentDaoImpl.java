@@ -70,7 +70,7 @@ public class CommentDaoImpl implements CommentDao{
 	        connexion = daoFactory.getConnection();
 	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
 	        resultSet = preparedStatement.executeQuery();
-	        while ( resultSet.next() ) {
+	        if( resultSet.next() ) {
 	            comment = map( resultSet );
 	        }
 	    } catch ( SQLException e ) {
@@ -104,7 +104,7 @@ public class CommentDaoImpl implements CommentDao{
 	        connexion = daoFactory.getConnection();
 	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );
 	        resultSet = preparedStatement.executeQuery();
-	        if ( resultSet.next() ) {
+	        while( resultSet.next() ) {
 	            comment.add( map(resultSet) );
 	        }
 	    } catch ( SQLException e ) {

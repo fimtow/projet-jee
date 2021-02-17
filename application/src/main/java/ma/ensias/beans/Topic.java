@@ -10,7 +10,7 @@ public class Topic {
 	private String description;
 	private String iconUrl;
 	private String coverUrl;
-	private Map<Integer,Boolean> members;
+	private Map<User,Boolean> members;
 	
 	public Topic(){}
 	
@@ -22,7 +22,17 @@ public class Topic {
 		this.iconUrl = iconUrl;
 		this.coverUrl = coverUrl;
 		this.members = new HashMap<>();
-		this.members.put(user.getId(),true); // the creator is moderator
+		this.members.put(user,true); // the creator is moderator
+	}
+	public Topic(String title, String description, String iconUrl, String coverUrl)
+	{
+		
+		this.title = title;
+		this.description = description;
+		this.iconUrl = iconUrl;
+		this.coverUrl = coverUrl;
+		this.members = new HashMap<>();
+		
 	}
 
 	public int getId() 
@@ -65,11 +75,11 @@ public class Topic {
 		this.coverUrl = coverUrl;
 	}
 
-	public Map<Integer,Boolean> getMembers() {
+	public Map<User,Boolean> getMembers() {
 		return members;
 	}
 
-	public void setMembers(Map<Integer,Boolean> members) {
+	public void setMembers(Map<User,Boolean> members) {
 		this.members = members;
 	}
 
