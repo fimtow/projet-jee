@@ -22,6 +22,7 @@ public class ImageDaoImpl implements ImageDao{
 		Image image = new Image();
 		image.setId(resultset.getInt("id"));
 		image.setUrl(resultset.getString("url"));
+		// TODO : map post
 		return image;
 		
 	}
