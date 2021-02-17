@@ -9,7 +9,7 @@ public interface PostDao {
 	
 	void create(Post post) throws DAOException;
 	
-	Post find(String title,Content content,Topic topic,User user) throws DAOException;
+	Post find(int id) throws DAOException;
 	
 	void update(Object... fields) throws DAOException;
 	
