@@ -66,5 +66,5 @@ public final class DAOusef {
 	    closeConnectionItems( statement );
 	    closeConnectionItems( connexion );
 	}
-	
 }
+	

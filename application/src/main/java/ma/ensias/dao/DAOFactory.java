@@ -60,23 +60,4 @@ public class DAOFactory {
         return new BeanTestDaoImpl( this );
     }
     
-    public CommentDao getCommentDao()
-    {
-    	return new CommentDaoImpl( this );
-    }
-    
-    public TextDao getTextDao()
-    {
-    	return new TextDaoImpl( this );
-    }
-    
-    public ImageDao getImageDao()
-    {
-    	return new ImageDaoImpl( this );
-    }
-    
-    public InvitationDao getInvitationDao()
-    {
-    	return new InvitationDaoImpl( this );
-    }
 }

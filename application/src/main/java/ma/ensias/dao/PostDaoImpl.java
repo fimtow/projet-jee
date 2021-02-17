@@ -9,10 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
-import ma.ensias.beans.Topic;
-import ma.ensias.beans.User;
+
 
 public class PostDaoImpl implements PostDao {
 	
@@ -38,7 +36,6 @@ public class PostDaoImpl implements PostDao {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		post.setUser(new UserDaoImpl(daoFactory).find(resultset.getInt("user")));
 		post.setTopic(new TopicDaoImpl(daoFactory).find(resultset.getInt("topic")));
-		// TODO : Content
 		return post;
 	}
 
@@ -88,9 +85,27 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public Post find(String title, Content content, Topic topic, User user) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public Post find(int id) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Post post = null;
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_ID, false,id);
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            post = map( resultSet ); 
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+	    
+	    return post;
 	}
 
 	@Override
