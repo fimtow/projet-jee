@@ -1,7 +1,8 @@
 package ma.ensias.beans;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Topic {
 	
@@ -10,7 +11,7 @@ public class Topic {
 	private String description;
 	private String iconUrl;
 	private String coverUrl;
-	private List<User> moderators;
+	private Map<User,Boolean> members;
 	
 	public Topic(){}
 	
@@ -21,8 +22,8 @@ public class Topic {
 		this.description = description;
 		this.iconUrl = iconUrl;
 		this.coverUrl = coverUrl;
-		this.moderators = new LinkedList<>();
-		this.moderators.add(user);
+		this.members = new HashMap<>();
+		this.members.put(user,true); // the creator is moderator
 	}
 
 	public int getId() 
@@ -63,6 +64,14 @@ public class Topic {
 	public void setCoverUrl(String coverUrl) 
 	{
 		this.coverUrl = coverUrl;
+	}
+
+	public Map<User,Boolean> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Map<User,Boolean> members) {
+		this.members = members;
 	}
 
 	

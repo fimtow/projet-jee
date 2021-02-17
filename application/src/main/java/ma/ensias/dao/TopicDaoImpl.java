@@ -78,7 +78,7 @@ public class TopicDaoImpl implements TopicDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Topic topic = null;
-		
+		// TODO :  Query for the users and put it in the list of participed 
 		
 	    try {
 	        connexion = daoFactory.getConnection();
@@ -122,10 +122,6 @@ public class TopicDaoImpl implements TopicDao {
 		}
 	}
 
-	@Override
-	public void delete(Topic topic) throws DAOException {
-		// 
-		
-	}
+	
 
 }

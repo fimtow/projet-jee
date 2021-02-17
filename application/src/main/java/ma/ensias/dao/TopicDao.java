@@ -10,6 +10,5 @@ public interface TopicDao {
 	// la fonction utilise varargs pour avoir la possibilte de changer un nombre variable de parametre
 	void update(Topic topic) throws DAOException; 
 	
-	void delete(Topic topic) throws DAOException;
-
+	
 }
