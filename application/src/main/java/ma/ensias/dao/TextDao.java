@@ -5,8 +5,8 @@ import ma.ensias.beans.Text;
 
 public interface TextDao {
 	void create(Text text);
-	Text findByPost(Post post);
-	Text findById(int id);
+	Text find(Post post);
+	Text find(int id);
 	void update(Object...  fields);
 	void delete(Text text);
 }

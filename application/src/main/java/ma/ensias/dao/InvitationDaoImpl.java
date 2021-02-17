@@ -59,7 +59,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	}
 
 	@Override
-	public Invitation findByPost(Post post) {
+	public Invitation find(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -107,7 +107,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	}
 
 	@Override
-	public Invitation findById(int id) {
+	public Invitation find(int id) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

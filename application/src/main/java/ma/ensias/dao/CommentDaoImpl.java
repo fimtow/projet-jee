@@ -1,7 +1,7 @@
 package ma.ensias.dao;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static ma.ensias.dao.DAOusef.*;
@@ -95,11 +95,11 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public List<Comment> findByPost(Post post) {
+	public List<Comment> find(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		List<Comment> comment = new ArrayList<Comment>();
+		List<Comment> comment = new LinkedList<Comment>();
 	    try {
 	        connexion = daoFactory.getConnection();
 	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );

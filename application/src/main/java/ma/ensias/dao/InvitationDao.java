@@ -5,8 +5,8 @@ import ma.ensias.beans.Post;
 
 public interface InvitationDao {
 	void create(Invitation invitation);
-	Invitation findByPost(Post post);
-	Invitation findById(int id);
+	Invitation find(Post post);
+	Invitation find(int id);
 	void update(Object...  fields);
 	void delete(Invitation invitation);
 }

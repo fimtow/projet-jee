@@ -5,8 +5,8 @@ import ma.ensias.beans.Post;
 
 public interface ImageDao {
 	void create(Image image);
-	Image findByPost(Post post);
-	Image findById(int id);
+	Image find(Post post);
+	Image find(int id);
 	void update(Object...  fields);
 	void delete(Image image);
 }

@@ -56,7 +56,7 @@ public class ImageDaoImpl implements ImageDao{
 	}
 
 	@Override
-	public Image findByPost(Post post) {
+	public Image find(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -90,7 +90,7 @@ public class ImageDaoImpl implements ImageDao{
 	}
 
 	@Override
-	public Image findById(int id) {
+	public Image find(int id) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

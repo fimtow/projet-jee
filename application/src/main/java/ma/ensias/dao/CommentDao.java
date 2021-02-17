@@ -8,7 +8,7 @@ import ma.ensias.beans.Post;
 public interface CommentDao {
 	void create(Comment comment);
 	Comment find(int id);
-	List<Comment> findByPost(Post post);
+	List<Comment> find(Post post);
 	void update(Object...  fields);
 	void delete(Comment comment);
 }

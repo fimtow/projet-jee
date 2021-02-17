@@ -54,7 +54,7 @@ public class TextDaoImpl implements TextDao{
 	}
 
 	@Override
-	public Text findByPost(Post post) {
+	public Text find(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -88,7 +88,7 @@ public class TextDaoImpl implements TextDao{
 	}
 
 	@Override
-	public Text findById(int id) {
+	public Text find(int id) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
