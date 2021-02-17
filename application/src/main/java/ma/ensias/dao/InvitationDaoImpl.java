@@ -8,11 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ma.ensias.beans.Invitation;
+import ma.ensias.beans.Post;
 
 public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_BY_ID = "SELECT id, joined, post FROM invitation WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT id, joined, post FROM invitation WHERE post = ?";
 	private static final String SQL_INSERT = "INSERT INTO invitation (joined,post) VALUES (?,?)";
 	private static final String SQL_UPDATE = "UPDATE invitation SET joined=? WHERE id=?;";
 	
@@ -57,14 +59,14 @@ public class InvitationDaoImpl implements InvitationDao{
 	}
 
 	@Override
-	public Invitation find(int id) {
+	public Invitation findByPost(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Invitation invitation = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            invitation = map( resultSet );
@@ -102,6 +104,28 @@ public class InvitationDaoImpl implements InvitationDao{
 	public void delete(Invitation invitation) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Invitation findById(int id) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Invitation invitation = null;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            invitation = map( resultSet );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return invitation;
 	}
 
 }

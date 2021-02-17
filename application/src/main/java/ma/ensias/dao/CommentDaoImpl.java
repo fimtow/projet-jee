@@ -1,14 +1,19 @@
 package ma.ensias.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static ma.ensias.dao.DAOusef.*;
 import ma.ensias.beans.Comment;
+import ma.ensias.beans.Post;
 
 public class CommentDaoImpl implements CommentDao{
 
 	private DAOFactory daoFactory;
 	
 	private static final String SQL_SELECT_BY_ID = "SELECT id, text, likes , dislikes, date, user, post FROM comment WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT id, text, likes , dislikes, date, user, post FROM comment WHERE post = ?";
 	private static final String SQL_INSERT = "INSERT INTO comment (text,likes,dislikes,date,user,post) VALUES (?,?,?,NOW(),?,?)";
 	
 	CommentDaoImpl(DAOFactory daoFactory)
@@ -87,6 +92,28 @@ public class CommentDaoImpl implements CommentDao{
 	public void delete(Comment comment) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Comment> findByPost(Post post) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Comment> comment = new ArrayList<Comment>();
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            comment.add( map(resultSet) );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return comment;
 	}
 
 }

@@ -5,12 +5,14 @@ import static ma.ensias.dao.DAOusef.*;
 import java.sql.*;
 
 import ma.ensias.beans.Image;
+import ma.ensias.beans.Post;
 
 public class ImageDaoImpl implements ImageDao{
 
 	private DAOFactory daoFactory;
 	
 	private static final String SQL_SELECT_BY_ID = "SELECT id, url, post FROM image WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT id, url, post FROM image WHERE post = ?";
 	private static final String SQL_INSERT = "INSERT INTO image (url,post) VALUES (?,?)";
 	
 	ImageDaoImpl(DAOFactory daoFactory)
@@ -54,14 +56,14 @@ public class ImageDaoImpl implements ImageDao{
 	}
 
 	@Override
-	public Image find(int id) {
+	public Image findByPost(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Image image = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            image = map( resultSet );
@@ -85,6 +87,28 @@ public class ImageDaoImpl implements ImageDao{
 	public void delete(Image image) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Image findById(int id) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Image image = null;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            image = map( resultSet );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return image;
 	}
 
 }

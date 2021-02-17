@@ -4,12 +4,14 @@ import static ma.ensias.dao.DAOusef.*;
 
 import java.sql.*;
 
+import ma.ensias.beans.Post;
 import ma.ensias.beans.Text;
 
 public class TextDaoImpl implements TextDao{
 
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_BY_ID = "SELECT id, text, post FROM text WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT id, text, post FROM text WHERE post = ?";
 	private static final String SQL_INSERT = "INSERT INTO text (text,post) VALUES (?,?)";
 	
 	TextDaoImpl(DAOFactory daoFactory)
@@ -52,14 +54,14 @@ public class TextDaoImpl implements TextDao{
 	}
 
 	@Override
-	public Text find(int id) {
+	public Text findByPost(Post post) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Text text = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_POST, false, post.getId() );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            text = map( resultSet );
@@ -83,6 +85,28 @@ public class TextDaoImpl implements TextDao{
 	public void delete(Text text) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Text findById(int id) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Text text = null;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            text = map( resultSet );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return text;
 	}
 
 }
