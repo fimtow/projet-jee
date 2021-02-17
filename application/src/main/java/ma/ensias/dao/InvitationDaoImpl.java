@@ -1,7 +1,6 @@
 package ma.ensias.dao;
 
-import static ma.ensias.dao.DAOUtilitaire.fermeturesSilencieuses;
-import static ma.ensias.dao.DAOUtilitaire.initialisationRequetePreparee;
+import static ma.ensias.dao.DAOusef.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +12,8 @@ import ma.ensias.beans.Invitation;
 public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT id, joined FROM content WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO content (joined) VALUES (?)";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, joined FROM invitation WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO invitation (joined) VALUES (?)";
 	
 	InvitationDaoImpl(DAOFactory daoFactory)
 	{
@@ -36,7 +35,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, invitation.getJoined() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );
@@ -50,7 +49,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
+	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
 	    }
 		
 	}
@@ -63,7 +62,7 @@ public class InvitationDaoImpl implements InvitationDao{
 		Invitation invitation = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            invitation = map( resultSet );
@@ -71,7 +70,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }		
 
 		return invitation;

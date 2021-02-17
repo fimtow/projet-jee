@@ -1,7 +1,6 @@
 package ma.ensias.dao;
 
-import static ma.ensias.dao.DAOUtilitaire.fermeturesSilencieuses;
-import static ma.ensias.dao.DAOUtilitaire.initialisationRequetePreparee;
+import static ma.ensias.dao.DAOusef.*;
 
 import java.sql.*;
 
@@ -10,8 +9,8 @@ import ma.ensias.beans.Text;
 public class TextDaoImpl implements TextDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT id, text FROM content WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO content (text) VALUES (?)";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, text FROM text WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO text (text) VALUES (?)";
 	
 	TextDaoImpl(DAOFactory daoFactory)
 	{
@@ -32,7 +31,7 @@ public class TextDaoImpl implements TextDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, text.getText() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "text creation error, no line was inserted" );
@@ -46,7 +45,7 @@ public class TextDaoImpl implements TextDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
+	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
 	    }
 		
 	}
@@ -59,7 +58,7 @@ public class TextDaoImpl implements TextDao{
 		Text text = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            text = map( resultSet );
@@ -67,7 +66,7 @@ public class TextDaoImpl implements TextDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }		
 
 		return text;

@@ -1,7 +1,6 @@
 package ma.ensias.dao;
 
-import static ma.ensias.dao.DAOUtilitaire.fermeturesSilencieuses;
-import static ma.ensias.dao.DAOUtilitaire.initialisationRequetePreparee;
+import static ma.ensias.dao.DAOusef.*;
 
 import java.sql.*;
 
@@ -11,8 +10,8 @@ public class ImageDaoImpl implements ImageDao{
 
 	private DAOFactory daoFactory;
 	
-	private static final String SQL_SELECT_BY_ID = "SELECT id, url FROM content WHERE id = ?";
-	private static final String SQL_INSERT = "INSERT INTO content (url) VALUES (?)";
+	private static final String SQL_SELECT_BY_ID = "SELECT id, url FROM image WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO image (url) VALUES (?)";
 	
 	ImageDaoImpl(DAOFactory daoFactory)
 	{
@@ -34,7 +33,7 @@ public class ImageDaoImpl implements ImageDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, image.getUrl() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, image.getUrl() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "image creation error, no line was inserted" );
@@ -48,7 +47,7 @@ public class ImageDaoImpl implements ImageDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
+	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
 	    }
 		
 	}
@@ -61,7 +60,7 @@ public class ImageDaoImpl implements ImageDao{
 		Image image = null;
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initialisationRequetePreparee( connexion, SQL_SELECT_BY_ID, false, id );
+	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
 	        resultSet = preparedStatement.executeQuery();
 	        if ( resultSet.next() ) {
 	            image = map( resultSet );
@@ -69,7 +68,7 @@ public class ImageDaoImpl implements ImageDao{
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
-	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+	        closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }		
 
 		return image;
