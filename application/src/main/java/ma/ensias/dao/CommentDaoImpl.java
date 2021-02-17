@@ -21,15 +21,15 @@ public class CommentDaoImpl implements CommentDao{
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Comment map(ResultSet resultset) throws SQLException {
+	private Comment map(ResultSet resultset) throws SQLException {
 		Comment comment = new Comment();
 		comment.setId(resultset.getInt("id"));
 		comment.setText(resultset.getString("text"));
 		comment.setLikes(resultset.getInt("likes"));
 		comment.setDislikes(resultset.getInt("dislikes"));
 		comment.setDate(resultset.getDate("date"));
-		// TODO : map user
-		// TODO : map post
+		comment.setUser(daoFactory.getUserDao().find(resultset.getInt("user")));
+		comment.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
 		return comment;
 		
 	}
@@ -70,7 +70,7 @@ public class CommentDaoImpl implements CommentDao{
 	        connexion = daoFactory.getConnection();
 	        preparedStatement = initQueryPrepared( connexion, SQL_SELECT_BY_ID, false, id );
 	        resultSet = preparedStatement.executeQuery();
-	        if ( resultSet.next() ) {
+	        while ( resultSet.next() ) {
 	            comment = map( resultSet );
 	        }
 	    } catch ( SQLException e ) {

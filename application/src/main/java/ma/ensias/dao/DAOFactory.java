@@ -60,4 +60,49 @@ public class DAOFactory {
         return new BeanTestDaoImpl( this );
     }
     
+    public CommentDao getCommentDao()
+    {
+    	return new CommentDaoImpl( this );
+    }
+
+    public TextDao getTextDao()
+    {
+    	return new TextDaoImpl( this );
+    }
+
+    public ImageDao getImageDao()
+    {
+    	return new ImageDaoImpl( this );
+    }
+
+    public InvitationDao getInvitationDao()
+    {
+    	return new InvitationDaoImpl( this );
+    }
+    
+    public EventDao getEventDao()
+    {
+    	return new EventDaoImpl( this );
+    }
+    
+    public MemberDao getMemberDao()
+    {
+    	return new MemberDaoImpl( this );
+    }
+    
+    public PostDao getPostDao()
+    {
+    	return new PostDaoImpl( this );
+    }
+    
+    public TopicDao getTopicDao()
+    {
+    	return new TopicDaoImpl( this );
+    }
+    
+    public UserDao getUserDao()
+    {
+    	return new UserDaoImpl( this );
+    }
+    
 }
