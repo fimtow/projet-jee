@@ -9,10 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
-import ma.ensias.beans.Topic;
-import ma.ensias.beans.User;
 
 public class PostDaoImpl implements PostDao {
 	

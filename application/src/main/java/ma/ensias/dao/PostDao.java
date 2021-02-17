@@ -1,9 +1,6 @@
 package ma.ensias.dao;
 
-import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
-import ma.ensias.beans.Topic;
-import ma.ensias.beans.User;
 
 public interface PostDao {
 	
