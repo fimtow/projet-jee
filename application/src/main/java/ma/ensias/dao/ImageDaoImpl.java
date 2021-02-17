@@ -20,11 +20,11 @@ public class ImageDaoImpl implements ImageDao{
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Image map(ResultSet resultset) throws SQLException {
+	private Image map(ResultSet resultset) throws SQLException {
 		Image image = new Image();
 		image.setId(resultset.getInt("id"));
 		image.setUrl(resultset.getString("url"));
-		// TODO : map post
+		image.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
 		return image;
 		
 	}

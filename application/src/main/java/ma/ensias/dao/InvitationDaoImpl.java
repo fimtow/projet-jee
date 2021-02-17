@@ -23,11 +23,11 @@ public class InvitationDaoImpl implements InvitationDao{
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Invitation map(ResultSet resultset) throws SQLException {
+	private Invitation map(ResultSet resultset) throws SQLException {
 		Invitation invitation = new Invitation();
 		invitation.setId(resultset.getInt("id"));
 		invitation.setJoined(resultset.getInt("joined"));
-		// TODO : map post
+		invitation.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
 		return invitation;
 		
 	}

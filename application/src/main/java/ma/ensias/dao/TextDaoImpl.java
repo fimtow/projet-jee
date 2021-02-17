@@ -19,11 +19,11 @@ public class TextDaoImpl implements TextDao{
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Text map(ResultSet resultset) throws SQLException {
+	private Text map(ResultSet resultset) throws SQLException {
 		Text text = new Text();
 		text.setId(resultset.getInt("id"));
 		text.setText(resultset.getString("text"));
-		// TODO : map post
+		text.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
 		return text;
 	}
 	@Override
