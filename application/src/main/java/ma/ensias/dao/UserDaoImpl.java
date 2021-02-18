@@ -15,9 +15,10 @@ import ma.ensias.beans.User;
 
 public class UserDaoImpl implements UserDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO User(username,password,email) VALUES (?,?,?) ";
+	private static final String SQL_INSERT = "INSERT INTO user(username,password,email) VALUES (?,?,?) ";
 	private static final String SQL_SELECT_BY_USERNAME_PASSWORD = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ? ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,username,password,email FROM user WHERE id = ? ";
+	private static final String SQL_SELECT_BY_USERNAME = "SELECT id,username,password,email FROM user WHERE username =? ";
 	private static final String SQL_UPDATE = "UPDATE user SET username = ?, password = ?, email = ? WHERE id = ?";
 	
 	private DAOFactory daoFactory;
@@ -87,7 +88,32 @@ public class UserDaoImpl implements UserDao {
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );
 	        }
-	    } catch ( SQLException e ) {
+	    } catch ( SQLException | ClassNotFoundException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return user;
+	}
+	
+	@Override
+	public User find(String username) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		User user = null;
+		
+	    try {
+	    	
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USERNAME, false, username );
+	        resultSet = preparedStatement.executeQuery();
+	        
+	        if ( resultSet.next() ) {
+	            user = map( resultSet );
+	        }
+	    } catch ( SQLException | ClassNotFoundException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -109,7 +135,7 @@ public class UserDaoImpl implements UserDao {
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );
 	        }
-	    } catch ( SQLException e ) {
+	    } catch ( SQLException | ClassNotFoundException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -138,7 +164,7 @@ public class UserDaoImpl implements UserDao {
 	        	throw new DAOException("user update error , no line was updated");
 	        }
 
-		} catch(SQLException e) {
+		} catch(SQLException | ClassNotFoundException e) {
 			throw new DAOException(e);
 		} finally {
 			closeConnectionItems(preparedStatement, connexion );

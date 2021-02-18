@@ -20,7 +20,7 @@ public class BeanTestDaoImpl implements BeanTestDao{
             {
                 System.out.println(rs.getString("TABLE_NAME"));
             }
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
