@@ -27,11 +27,11 @@ public class MemberDaoImpl implements MemberDao{
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Map<Integer,Boolean> map(ResultSet resultset) throws SQLException {
-		Map<Integer,Boolean> members = new HashMap<>();
+	private  Map<User,Boolean> map(ResultSet resultset) throws SQLException {
+		Map<User,Boolean> members = new HashMap<>();
 		while(resultset.next())
 		{
-			members.put(resultset.getInt("userid"),resultset.getBoolean("ismoderaotr"));
+			members.put(daoFactory.getUserDao().find(resultset.getInt("userid")),resultset.getBoolean("ismoderaotr"));
 		}
 		
 		return members;
@@ -39,7 +39,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
 	@Override
-	public void create(int idUser,Topic topic) throws DAOException {
+	public void create(User user,Topic topic) throws DAOException {
 		
 		Connection connexion = null;
 		PreparedStatement  preparedStatement = null;
@@ -47,7 +47,7 @@ public class MemberDaoImpl implements MemberDao{
 		try {
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,idUser,topic.getId(),topic.getMembers().get(idUser));
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),topic.getId(),topic.getMembers().get(user));
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0 )
 			{
@@ -64,12 +64,12 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	@Override
-	public Map<Integer, Boolean> find(Topic topic) throws DAOException {
+	public Map<User, Boolean> find(Topic topic) throws DAOException {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Map<Integer, Boolean> members = null;
+		Map<User, Boolean> members = null;
 	    try {
 	        connexion = daoFactory.getConnection();
 	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC, false, topic.getId());

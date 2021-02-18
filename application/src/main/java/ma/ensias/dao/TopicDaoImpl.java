@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ma.ensias.beans.Topic;
+import ma.ensias.beans.User;
 
 public class TopicDaoImpl implements TopicDao {
 	
@@ -24,12 +25,13 @@ public class TopicDaoImpl implements TopicDao {
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Topic map(ResultSet resultset) throws SQLException {
+	private Topic map(ResultSet resultset) throws SQLException {
 		Topic topic = new Topic();
 		topic.setId(resultset.getInt("id"));
 		topic.setDescription(resultset.getString("description"));
 		topic.setTitle(resultset.getString("title"));
-		topic.setIconUrl(resultset.getString("iconUrl"));		
+		topic.setIconUrl(resultset.getString("iconUrl"));	
+		topic.setMembers(daoFactory.getMemberDao().find(topic));
 		return topic;
 	}
 
@@ -63,7 +65,7 @@ public class TopicDaoImpl implements TopicDao {
 			}
 			else
 			{
-				throw new DAOException("User creation error in DB , no auto generated ID was returned");
+				throw new DAOException("Topic creation error in DB , no auto generated ID was returned");
 			}
 			
 		} catch(Exception e) {
@@ -71,8 +73,8 @@ public class TopicDaoImpl implements TopicDao {
 		} finally {
 			 closeConnectionItems(preparedStatement,connexion);
 			 
-			 for(int idUser : topic.getMembers().keySet())
-					new MemberDaoImpl(daoFactory).create(idUser, topic);
+			 for(User User : topic.getMembers().keySet())
+					daoFactory.getMemberDao().create(User, topic);
 			 
 		}
 	}
@@ -97,7 +99,7 @@ public class TopicDaoImpl implements TopicDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    topic.setMembers(new MemberDaoImpl(daoFactory).find(topic));
+	    topic.setMembers(daoFactory.getMemberDao().find(topic));
 	    return topic;
 	}
 
@@ -118,7 +120,7 @@ public class TopicDaoImpl implements TopicDao {
 	        int statut = preparedStatement.executeUpdate();
 	        if(statut  == 0)
 	        {
-	        	throw new DAOException("topic update error , no line was updated");
+	        	throw new DAOException("Topic update error , no line was updated");
 	        }
 
 		} catch(SQLException e) {

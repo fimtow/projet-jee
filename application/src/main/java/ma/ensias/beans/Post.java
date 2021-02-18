@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Post {
 	
-	private static final int IMAGE = 0;
-	private static final int TEXT = 1;
-	private static final int INVITATION = 2;
+	public static final int IMAGE = 0;
+	public static final int TEXT = 1;
+	public static final int INVITATION = 2;
 	
 	private int id;
 	private String title;
@@ -33,6 +33,7 @@ public class Post {
 		this.user = user;
 		this.topic = topic;
 		comments = new LinkedList<>();
+		
 		if(content instanceof Image)
 		  type = IMAGE;
 		else if(content instanceof Text)

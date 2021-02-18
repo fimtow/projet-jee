@@ -1,5 +1,6 @@
 package ma.ensias.dao;
 
+@SuppressWarnings("serial")
 public class DAOConfigurationException extends RuntimeException {
 
     public DAOConfigurationException( String message ) {

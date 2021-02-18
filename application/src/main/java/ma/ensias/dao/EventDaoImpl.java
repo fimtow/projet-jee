@@ -10,11 +10,13 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import ma.ensias.beans.Event;
+import ma.ensias.beans.Topic;
+import ma.ensias.beans.User;
 
 public class EventDaoImpl implements EventDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO event(id,location,datetime) VALUES (?,?,?) ";
-	private static final String SQL_SELECT_BY_ID = "SELECT location,datetime FROM event WHERE id = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT topic.id, topic.title, topic.iconUrl, topic.coverUrl,event.location,event.datetime FROM event,topic WHERE id = ? AND topic.id = event.id";
 	private static final String SQL_UPDATE = "UPDATE event SET location = ?, datetime = ?  WHERE id = ?";
 	
 	private DAOFactory daoFactory;
@@ -24,8 +26,12 @@ public class EventDaoImpl implements EventDao {
 		this.daoFactory = daoFactory;
 	}
 	
-	private static Event map(ResultSet resultset) throws SQLException {
+	private Event map(ResultSet resultset) throws SQLException {
 		Event event = new Event();
+		event.setId(resultset.getInt("id"));
+		event.setTitle(resultset.getString("title"));
+		event.setIconUrl(resultset.getString("iconUrl"));
+		event.setCoverUrl(resultset.getString("coverUrl"));
 		event.setLocation(resultset.getString("location"));
 		event.setDate(resultset.getDate("datetime"));
 		return event;
@@ -41,7 +47,8 @@ public class EventDaoImpl implements EventDao {
 		int id = event.getId();
 		String location = event.getLocation();
 		Date date = event.getDate();
-		
+		Topic topic = new Topic(event.getTitle(),event.getDescription(),event.getIconUrl(),event.getCoverUrl());
+		daoFactory.getTopicDao().create(topic,true); // To store the part of topic into table topic
 		
 		try 
 		{	
@@ -56,10 +63,11 @@ public class EventDaoImpl implements EventDao {
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
+			
 			 closeConnectionItems(preparedStatement,connexion);
 			 
-			 for(int idUser : event.getMembers().keySet())
-					new MemberDaoImpl(daoFactory).create(idUser, event);
+			 for(User user : event.getMembers().keySet())
+					daoFactory.getMemberDao().create(user, event);
 			 
 		}
 
@@ -87,7 +95,7 @@ public class EventDaoImpl implements EventDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    event.setMembers(new MemberDaoImpl(daoFactory).find(event));
+	    event.setMembers(daoFactory.getMemberDao().find(event));
 	    return event;
 	}
 
