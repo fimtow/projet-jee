@@ -7,7 +7,7 @@ import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.UserDao;
 
-public final class ConnexionForm {
+public final class SignInForm {
     private static final String USERNAME_FIELD  = "username";
     private static final String PASSWORD_FIELD   = "password";
 
