@@ -15,7 +15,7 @@ import ma.ensias.beans.User;
 
 public class UserDaoImpl implements UserDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO User(username,password,email) VALUES (?,?,?) ";
+	private static final String SQL_INSERT = "INSERT INTO user(username,password,email) VALUES (?,?,?) ";
 	private static final String SQL_SELECT_BY_USERNAME_PASSWORD = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ? ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,username,password,email FROM user WHERE id = ? ";
 	private static final String SQL_UPDATE = "UPDATE user SET username = ?, password = ?, email = ? WHERE id = ?";
