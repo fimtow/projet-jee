@@ -57,6 +57,12 @@ public class DAOFactory {
 
 	Connection getConnection() throws SQLException 
 	{
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return DriverManager.getConnection( url, username, password );
     }
 
