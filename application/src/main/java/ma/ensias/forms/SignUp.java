@@ -17,14 +17,14 @@ public final class SignUp {
     private static final String EMAIL_FIELD = "email";
     
 
-    private String              result;
+    private boolean              result;
     private Map<String, String>  errors = new HashMap<String, String>();
 
     public Map<String, String> geterrors() {
         return errors;
     }
 
-    public String getResult() {
+    public Boolean getResult() {
         return result;
     }
 
@@ -37,16 +37,21 @@ public final class SignUp {
         User user = new User();
        
         try {
-        	checkUserinDataBase(username);
+        	checkUsernameinDataBase(username);
         } catch ( Exception e ) {
             setErreur( USERNAME_FIELD, e.getMessage() );
+        }
+        try {
+        	checkEmailinDataBase(email);
+        } catch ( Exception e ) {
+            setErreur( EMAIL_FIELD, e.getMessage() );
         }
         
         
 
         if ( errors.isEmpty() ){
         	
-            result = "User created successfully.";
+            result = true;
             user.setUsername( username );
             user.setEmail( email );
             user.setPassword(password);
@@ -55,7 +60,7 @@ public final class SignUp {
         	userDao.create(user);
             
         } else {
-            result = "Errors occurred";
+            result = false;
         }
 
         return user;
@@ -64,14 +69,25 @@ public final class SignUp {
      *  Method to check if the username exists in BD
      */
 
-    private void checkUserinDataBase(String username) throws Exception {
+    private void checkUsernameinDataBase(String username) throws Exception {
     	DAOFactory daoFactory = DAOFactory.getInstance();
     	UserDaoImpl userDao = (UserDaoImpl)daoFactory.getUserDao();
-    	System.out.println(userDao.find(username));
-        if ( userDao.find(username) != null ) {
+    	
+        if ( userDao.find(username,userDao.USERNAME) != null ) {
         	
-        	throw new Exception( "The user name exist , Please chose another one" );
+        	throw new Exception( "The username is used , Please chose another one" );
         } 
+        
+    }
+    private void checkEmailinDataBase(String email) throws Exception {
+    	DAOFactory daoFactory = DAOFactory.getInstance();
+    	UserDaoImpl userDao = (UserDaoImpl)daoFactory.getUserDao();
+    	
+        if ( userDao.find(email,userDao.EMAIL) != null ) {
+        	
+        	throw new Exception( "The email is used , Please chose another one" );
+        } 
+        
     }
 
     /*

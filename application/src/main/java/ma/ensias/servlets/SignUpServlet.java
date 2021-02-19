@@ -2,6 +2,7 @@ package ma.ensias.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,8 +49,8 @@ public class SignUpServlet extends HttpServlet {
 		
 		SignUp signupform  = new SignUp();
 		User user = signupform.createUser(request);
+		
 		HttpSession session = request.getSession();
-
 		session.setAttribute(USER_SESSION, user); 
 		
 		String message = new Gson().toJson(signupform.geterrors());

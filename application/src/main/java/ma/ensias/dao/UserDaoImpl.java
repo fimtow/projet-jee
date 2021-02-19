@@ -19,6 +19,7 @@ public class UserDaoImpl implements UserDao {
 	private static final String SQL_SELECT_BY_USERNAME_PASSWORD = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ? ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,username,password,email FROM user WHERE id = ? ";
 	private static final String SQL_SELECT_BY_USERNAME = "SELECT id,username,password,email FROM user WHERE username =? ";
+	private static final String SQL_SELECT_BY_EMAIL = "SELECT id,username,password,email FROM user WHERE email=? ";
 	private static final String SQL_UPDATE = "UPDATE user SET username = ?, password = ?, email = ? WHERE id = ?";
 	
 	private DAOFactory daoFactory;
@@ -98,16 +99,17 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public User find(String username) throws DAOException {
+	public User find(String refChamp , int champ) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		User user = null;
+		String query = (champ == UserDao.EMAIL) ? SQL_SELECT_BY_EMAIL : SQL_SELECT_BY_USERNAME ;
 		
 	    try {
 	    	
 	        connexion = daoFactory.getConnection();
-	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USERNAME, false, username );
+	        preparedStatement =  initQueryPrepared( connexion,query, false, refChamp );
 	        resultSet = preparedStatement.executeQuery();
 	        
 	        if ( resultSet.next() ) {
@@ -122,6 +124,7 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 	
+	@Override
 	public User find(int id) throws DAOException
 	{
 		Connection connexion = null;
