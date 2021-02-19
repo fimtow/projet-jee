@@ -45,7 +45,7 @@ public class TextDaoImpl implements TextDao{
 	        } else {
 	            throw new DAOException( "text creation error in DB, no auto generated ID was returned" );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
@@ -66,7 +66,7 @@ public class TextDaoImpl implements TextDao{
 	        if ( resultSet.next() ) {
 	            text = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -100,7 +100,7 @@ public class TextDaoImpl implements TextDao{
 	        if ( resultSet.next() ) {
 	            text = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );

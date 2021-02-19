@@ -47,7 +47,7 @@ public class ImageDaoImpl implements ImageDao{
 	        } else {
 	            throw new DAOException( "image creation error in DB, no auto generated ID was returned" );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
@@ -68,7 +68,7 @@ public class ImageDaoImpl implements ImageDao{
 	        if ( resultSet.next() ) {
 	            image = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -102,7 +102,7 @@ public class ImageDaoImpl implements ImageDao{
 	        if ( resultSet.next() ) {
 	            image = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );

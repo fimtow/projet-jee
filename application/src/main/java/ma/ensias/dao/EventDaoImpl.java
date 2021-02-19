@@ -90,7 +90,7 @@ public class EventDaoImpl implements EventDao {
 	        if ( resultSet.next() ) {
 	            event = map( resultSet ); 
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -117,7 +117,7 @@ public class EventDaoImpl implements EventDao {
 	        	throw new DAOException("topic update error , no line was updated");
 	        }
 
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			closeConnectionItems(preparedStatement, connexion );

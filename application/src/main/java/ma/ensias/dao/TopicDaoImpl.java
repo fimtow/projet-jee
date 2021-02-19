@@ -94,7 +94,7 @@ public class TopicDaoImpl implements TopicDao {
 	        if ( resultSet.next() ) {
 	            topic = map( resultSet ); 
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -123,7 +123,7 @@ public class TopicDaoImpl implements TopicDao {
 	        	throw new DAOException("Topic update error , no line was updated");
 	        }
 
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			closeConnectionItems(preparedStatement, connexion );

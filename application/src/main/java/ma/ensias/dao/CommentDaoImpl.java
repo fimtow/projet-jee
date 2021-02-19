@@ -52,7 +52,7 @@ public class CommentDaoImpl implements CommentDao{
 	        } else {
 	            throw new DAOException( "comment creation error in DB, no auto generated ID was returned" );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
@@ -73,7 +73,7 @@ public class CommentDaoImpl implements CommentDao{
 	        if( resultSet.next() ) {
 	            comment = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -107,7 +107,7 @@ public class CommentDaoImpl implements CommentDao{
 	        while( resultSet.next() ) {
 	            comment.add( map(resultSet) );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );

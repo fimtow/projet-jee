@@ -55,7 +55,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 			
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -77,7 +77,7 @@ public class MemberDaoImpl implements MemberDao{
 	        if ( resultSet.next() ) {
 	            members = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -102,7 +102,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 			
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {

@@ -89,7 +89,7 @@ public class UserDaoImpl implements UserDao {
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -115,7 +115,7 @@ public class UserDaoImpl implements UserDao {
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -138,7 +138,7 @@ public class UserDaoImpl implements UserDao {
 	        if ( resultSet.next() ) {
 	            user = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -167,7 +167,7 @@ public class UserDaoImpl implements UserDao {
 	        	throw new DAOException("user update error , no line was updated");
 	        }
 
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			closeConnectionItems(preparedStatement, connexion );

@@ -110,7 +110,7 @@ public class PostDaoImpl implements PostDao {
 	        if ( resultSet.next() ) {
 	            post = map( resultSet ); 
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );

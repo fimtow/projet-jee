@@ -50,7 +50,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	        } else {
 	            throw new DAOException( "invitation creation error in DB, no auto generated ID was returned" );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( valeursAutoGenerees, preparedStatement, connexion );
@@ -71,7 +71,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	        if ( resultSet.next() ) {
 	            invitation = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );
@@ -92,7 +92,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( preparedStatement, connexion );
@@ -119,7 +119,7 @@ public class InvitationDaoImpl implements InvitationDao{
 	        if ( resultSet.next() ) {
 	            invitation = map( resultSet );
 	        }
-	    } catch ( SQLException | ClassNotFoundException e ) {
+	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
 	    } finally {
 	        closeConnectionItems( resultSet, preparedStatement, connexion );
