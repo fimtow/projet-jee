@@ -18,7 +18,15 @@
 		<servlet-name>SignUpServlet</servlet-name>
 		<url-pattern>/signup</url-pattern>
 	</servlet-mapping>
-
 	
+	<servlet>
+	<servlet-name>Connexion</servlet-name>
+	<servlet-class>ma.ensias.servlets.Connexion</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>Connexion</servlet-name>
+	<url-pattern>/connexion</url-pattern>
+	</servlet-mapping>
 
 </web-app>
