@@ -24,7 +24,7 @@ public final class SignUp {
         return errors;
     }
 
-    public String getResultat() {
+    public String getResult() {
         return result;
     }
 
