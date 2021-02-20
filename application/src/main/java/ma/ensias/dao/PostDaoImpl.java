@@ -39,7 +39,6 @@ public class PostDaoImpl implements PostDao {
 		post.setDate(resultset.getDate("date"));
 		post.setType(resultset.getInt("type"));
 		type = resultset.getInt("type");
-		
 		if( type == Post.IMAGE )
 			post.setContent(daoFactory.getImageDao().find(post));
 		else if ( type == Post.INVITATION )
@@ -49,7 +48,6 @@ public class PostDaoImpl implements PostDao {
 		
 		post.setUser(daoFactory.getUserDao().find(resultset.getInt("user")));
 		post.setTopic(daoFactory.getTopicDao().find(resultset.getInt("topic")));
-		post.setComments(daoFactory.getCommentDao().find(post));
 		
 		return post;
 	}

@@ -2,7 +2,7 @@ package ma.ensias.beans;
 
 public abstract class Content {
 	private int id;
-	private Post post;
+	private int postId;
 
 	public int getId() {
 		return id;
@@ -11,12 +11,12 @@ public abstract class Content {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Post getPost() {
-		return post;
+	public int getPostId() {
+		return postId;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 	
 	

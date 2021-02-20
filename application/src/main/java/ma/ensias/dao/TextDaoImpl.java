@@ -23,7 +23,7 @@ public class TextDaoImpl implements TextDao{
 		Text text = new Text();
 		text.setId(resultset.getInt("id"));
 		text.setText(resultset.getString("text"));
-		text.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
+		text.setPostId(resultset.getInt("post"));
 		return text;
 	}
 	@Override
@@ -34,7 +34,7 @@ public class TextDaoImpl implements TextDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText(), text.getPost().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText(), text.getPostId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "text creation error, no line was inserted" );
