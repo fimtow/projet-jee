@@ -17,7 +17,7 @@ public class TopicDaoImpl implements TopicDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
-	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 5";
+	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -29,12 +29,14 @@ public class TopicDaoImpl implements TopicDao {
 	}
 	
 	private Topic map(ResultSet resultset) throws SQLException {
+		
 		Topic topic = new Topic();
 		topic.setId(resultset.getInt("id"));
 		topic.setDescription(resultset.getString("description"));
 		topic.setTitle(resultset.getString("title"));
 		topic.setIconUrl(resultset.getString("iconUrl"));	
 		topic.setMembers(daoFactory.getMemberDao().find(topic));
+		
 		return topic;
 	}
 
@@ -105,7 +107,7 @@ public class TopicDaoImpl implements TopicDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    topic.setMembers(daoFactory.getMemberDao().find(topic));
+	    
 	    return listOfTopics;
 	}
 
@@ -130,6 +132,7 @@ public class TopicDaoImpl implements TopicDao {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
 	    topic.setMembers(daoFactory.getMemberDao().find(topic));
+	    
 	    return topic;
 	}
 	

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import ma.ensias.beans.User;
+import ma.ensias.dao.DAOFactory;
 import ma.ensias.process.HomeGenerator;
 
 
@@ -35,7 +37,12 @@ public class Home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		DAOFactory dao = DAOFactory.getInstance();
+		User user = dao.getUserDao().find(1);
+		request.setAttribute("userSession",user);
 		HomeGenerator home = new HomeGenerator(request);
+		System.out.println(home.getListOfTopics());
+		System.out.println(home.getListOfPosts());
 		// TODO : Test 
 		String message = new Gson().toJson(home);
 		PrintWriter out = response.getWriter();

@@ -8,6 +8,8 @@ public interface TopicDao {
 	
 	public void create(Topic topic,boolean isevent) throws DAOException;
 	
+
+	
 	public List<Topic> find() throws DAOException;
 	
 	Topic find (int id) throws DAOException;

@@ -1,6 +1,7 @@
 package ma.ensias.process;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ public class HomeGenerator implements Serializable  {
 	public HomeGenerator(HttpServletRequest request) {
 		
 		user = (User) request.getAttribute(USER_SESSION);
+		listOfTopics = new LinkedList<>();
+		listOfPosts = new LinkedList<>();
 		if( user != null)
 		{
 			getTopicsOfUser();
@@ -42,7 +45,8 @@ public class HomeGenerator implements Serializable  {
 		{
 			 DAOFactory daoFactory = DAOFactory.getInstance();
 			 PostDao postDao = daoFactory.getPostDao();
-			 this.listOfPosts = postDao.find(topic);
+			 for(Post post : postDao.find(topic))
+				 this.listOfPosts.add(post);
 		}
 	}
 	public void getTopicsOfUser()
@@ -57,6 +61,30 @@ public class HomeGenerator implements Serializable  {
 		TopicDao topicDao = daoFactory.getTopicDao();
 		listOfTopics = topicDao.find();
 		
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Topic> getListOfTopics() {
+		return listOfTopics;
+	}
+
+	public void setListOfTopics(List<Topic> listOfTopics) {
+		this.listOfTopics = listOfTopics;
+	}
+
+	public List<Post> getListOfPosts() {
+		return listOfPosts;
+	}
+
+	public void setListOfPosts(List<Post> listOfPosts) {
+		this.listOfPosts = listOfPosts;
 	}
 	
 	

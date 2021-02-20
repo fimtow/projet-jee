@@ -18,7 +18,7 @@ import ma.ensias.beans.User;
 public class MemberDaoImpl implements MemberDao{
 	
 	public static final String SQL_INSERT = "INSERT INTO membre(userid,topicid,ismoderator) values (?,?,?)";
-	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,ismoderator FROM member WHERE topicid = ? ";
+	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,topicid,ismoderator FROM member WHERE topicid = ? ";
 	public static final String SQL_SELECT_BY_USER = "SELECT topicid FROM member WHERE member.userid = ? ";
 	public static final String SQL_DELETE = "DELETE FROM membre WHERE userid = ? AND topicid = ?";
 	
@@ -32,9 +32,10 @@ public class MemberDaoImpl implements MemberDao{
 	
 	private  Map<User,Boolean> map(ResultSet resultset) throws SQLException {
 		Map<User,Boolean> members = new HashMap<>();
+		
 		while(resultset.next())
 		{
-			members.put(daoFactory.getUserDao().find(resultset.getInt("userid")),resultset.getBoolean("ismoderaotr"));
+			members.put(daoFactory.getUserDao().find(resultset.getInt("userid")),resultset.getBoolean("ismoderator"));
 		}
 		
 		return members;
@@ -72,13 +73,13 @@ public class MemberDaoImpl implements MemberDao{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Map<User, Boolean> members = null;
+		Map<User, Boolean> members = new HashMap<>();
 	    try {
 	        connexion = daoFactory.getConnection();
 	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC, false, topic.getId());
 	        resultSet = preparedStatement.executeQuery();
-	        if ( resultSet.next() ) {
-	            members = map( resultSet );
+	        while( resultSet.next() ) {
+	            members.put(daoFactory.getUserDao().find(resultSet.getInt("userid")),resultSet.getBoolean("ismoderator"));
 	        }
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
@@ -101,7 +102,8 @@ public class MemberDaoImpl implements MemberDao{
 	        connexion = daoFactory.getConnection();
 	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER ,false, user.getId());
 	        resultSet = preparedStatement.executeQuery();
-	        if ( resultSet.next() ) {
+	       while( resultSet.next() )
+	        {
 	            topic = topicDao.find(resultSet.getInt("topicid"));
 	            topics.add(topic);
 	        }
