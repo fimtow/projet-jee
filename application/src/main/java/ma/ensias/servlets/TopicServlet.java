@@ -40,7 +40,7 @@ public class TopicServlet extends HttpServlet {
 		
 		
 		String message;
-		if(topicForm.getResult())
+		if(!topicForm.getResult())
 		{ 
 			JsonObject jsonObject = new JsonObject();
     		jsonObject.addProperty("error", "Inexistent topic");

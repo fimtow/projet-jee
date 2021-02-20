@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ma.ensias.beans.Post;
 import ma.ensias.beans.Topic;
+import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.PostDao;
 import ma.ensias.dao.TopicDao;
@@ -36,6 +37,14 @@ public class TopicForm {
         {
         	PostDao postDao = daoFactory.getPostDao();
         	posts = postDao.find(topic);
+        	for(Post post : posts)
+        	{
+        		post.setTopic(null);
+        		User user = post.getUser();
+        		user.setPassword(null);
+        		user.setEmail(null);
+        		post.setUser(user);
+        	}
         }
         return topic;
     }
