@@ -48,5 +48,15 @@
 	<servlet-name>PostServlet</servlet-name>
 	<url-pattern>/post</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>CommentServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.CommentServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>CommentServlet</servlet-name>
+	<url-pattern>/comment</url-pattern>
+	</servlet-mapping>
 
 </web-app>
