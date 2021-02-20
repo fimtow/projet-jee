@@ -20,13 +20,13 @@
 	</servlet-mapping>
 	
 	<servlet>
-	<servlet-name>Connexion</servlet-name>
-	<servlet-class>ma.ensias.servlets.Connexion</servlet-class>
+	<servlet-name>SignIn</servlet-name>
+	<servlet-class>ma.ensias.servlets.SignIn</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-	<servlet-name>Connexion</servlet-name>
-	<url-pattern>/connexion</url-pattern>
+	<servlet-name>SignIn</servlet-name>
+	<url-pattern>/signin</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -59,4 +59,13 @@
 	<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
 
+
+	<filter>
+		<filter-name>RestrictionFilter</filter-name>
+		<filter-class>ma.ensias.filters.RestrictionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RestrictionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

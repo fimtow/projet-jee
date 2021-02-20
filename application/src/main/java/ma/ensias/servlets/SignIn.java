@@ -12,20 +12,20 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import ma.ensias.beans.User;
-import ma.ensias.forms.ConnexionForm;
+import ma.ensias.forms.SignInForm;
 
 /**
- * Servlet implementation class Connexion
+ * Servlet implementation class SingIn
  */
 
-public class Connexion extends HttpServlet {
+public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final String USER_SESSION = "userSession";
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Connexion() {
+    public SignIn() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnexionForm form = new ConnexionForm();
+		SignInForm form = new SignInForm();
 		
 		User user = form.connectUser(request);
 		
