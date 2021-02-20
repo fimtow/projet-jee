@@ -20,13 +20,23 @@
 	</servlet-mapping>
 	
 	<servlet>
-	<servlet-name>Connexion</servlet-name>
-	<servlet-class>ma.ensias.servlets.Connexion</servlet-class>
+		<servlet-name>Connexion</servlet-name>
+		<servlet-class>ma.ensias.servlets.Connexion</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-	<servlet-name>Connexion</servlet-name>
-	<url-pattern>/connexion</url-pattern>
+		<servlet-name>Connexion</servlet-name>
+		<url-pattern>/connexion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>ma.ensias.servlets.Home</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 
 </web-app>

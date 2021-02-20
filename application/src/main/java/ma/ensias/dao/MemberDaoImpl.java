@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import ma.ensias.beans.Topic;
@@ -17,6 +19,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	public static final String SQL_INSERT = "INSERT INTO membre(userid,topicid,ismoderator) values (?,?,?)";
 	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,ismoderator FROM member WHERE topicid = ? ";
+	public static final String SQL_SELECT_BY_USER = "SELECT topicid FROM member WHERE member.userid = ? ";
 	public static final String SQL_DELETE = "DELETE FROM membre WHERE userid = ? AND topicid = ?";
 	
 	private DAOFactory daoFactory;
@@ -85,6 +88,32 @@ public class MemberDaoImpl implements MemberDao{
 
 		return members;
 	}
+	@Override
+	public List<Topic> find(User user) throws DAOException {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Topic topic = null;
+		List<Topic> topics = new LinkedList<>();
+		TopicDao topicDao = daoFactory.getTopicDao();
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER ,false, user.getId());
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            topic = topicDao.find(resultSet.getInt("topicid"));
+	            topics.add(topic);
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return topics;
+	}
+
 
 	@Override
 	public void delete(Topic topic , User user) throws DAOException {

@@ -34,7 +34,7 @@ public class TextDaoImpl implements TextDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText(), text.getPost().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, text.getText(), text.getidPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "text creation error, no line was inserted" );

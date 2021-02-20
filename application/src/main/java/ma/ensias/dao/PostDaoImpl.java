@@ -8,14 +8,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import ma.ensias.beans.Post;
+import ma.ensias.beans.Topic;
 
 
 public class PostDaoImpl implements PostDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
+	private static final String SQL_SELECT_BY_TOPIC = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE topic = ?";
 	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -46,7 +50,6 @@ public class PostDaoImpl implements PostDao {
 		
 		post.setUser(daoFactory.getUserDao().find(resultset.getInt("user")));
 		post.setTopic(daoFactory.getTopicDao().find(resultset.getInt("topic")));
-		post.setComments(daoFactory.getCommentDao().find(post));
 		
 		return post;
 	}
@@ -117,6 +120,34 @@ public class PostDaoImpl implements PostDao {
 	    }	
 	    
 	    return post;
+	}
+	
+	public List<Post> find(Topic topic) throws DAOException 
+	{	
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Post post = null;
+		List<Post> listOfPosts = new LinkedList<>();
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC, false,topic.getId());
+	        resultSet = preparedStatement.executeQuery();
+	        while( resultSet.next() ) {
+	            post = map( resultSet ); 
+	            listOfPosts.add(post);
+	        }
+	        
+		    } catch ( SQLException e ) {
+		        throw new DAOException( e );
+		    } finally {
+		    	closeConnectionItems( resultSet, preparedStatement, connexion );
+		    }	
+	   
+	    return listOfPosts;
+		
 	}
 
 	@Override

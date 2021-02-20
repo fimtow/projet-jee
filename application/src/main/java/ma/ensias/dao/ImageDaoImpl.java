@@ -36,7 +36,7 @@ public class ImageDaoImpl implements ImageDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, image.getUrl(), image.getPost().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, image.getUrl(), image.getidPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "image creation error, no line was inserted" );

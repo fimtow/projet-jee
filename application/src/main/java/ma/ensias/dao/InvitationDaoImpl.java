@@ -39,7 +39,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(), invitation.getPost().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(), invitation.getidPost().getId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );

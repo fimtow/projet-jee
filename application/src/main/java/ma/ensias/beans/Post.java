@@ -18,7 +18,6 @@ public class Post {
 	private Content content;
 	private Topic topic;
 	private int type;
-	private List<Comment> comments;
 	private User user;
 	
 	public Post() {}
@@ -32,10 +31,9 @@ public class Post {
 		this.date = new Date();
 		this.user = user;
 		this.topic = topic;
-		comments = new LinkedList<>();
 		
 		if(content instanceof Image)
-		  type = IMAGE;
+			type = IMAGE;
 		else if(content instanceof Text)
 			type = TEXT;
 		else
@@ -47,14 +45,6 @@ public class Post {
 	}
 	public void setContent(Content content) {
 		this.content = content;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 
 	public int getId() {
