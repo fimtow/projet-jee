@@ -38,5 +38,15 @@
 	<servlet-name>TopicServlet</servlet-name>
 	<url-pattern>/topic</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>PostServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.PostServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>PostServlet</servlet-name>
+	<url-pattern>/post</url-pattern>
+	</servlet-mapping>
 
 </web-app>
