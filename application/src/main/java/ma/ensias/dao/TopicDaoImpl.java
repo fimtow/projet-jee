@@ -98,8 +98,9 @@ public class TopicDaoImpl implements TopicDao {
 	        throw new DAOException( e );
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
-	    }	
-	    topic.setMembers(daoFactory.getMemberDao().find(topic));
+	    }
+	    if(topic != null)
+	    	topic.setMembers(daoFactory.getMemberDao().find(topic));
 	    return topic;
 	}
 

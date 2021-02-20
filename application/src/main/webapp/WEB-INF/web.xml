@@ -28,5 +28,35 @@
 	<servlet-name>Connexion</servlet-name>
 	<url-pattern>/connexion</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>TopicServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.TopicServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>TopicServlet</servlet-name>
+	<url-pattern>/topic</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>PostServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.PostServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>PostServlet</servlet-name>
+	<url-pattern>/post</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>CommentServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.CommentServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>CommentServlet</servlet-name>
+	<url-pattern>/comment</url-pattern>
+	</servlet-mapping>
 
 </web-app>

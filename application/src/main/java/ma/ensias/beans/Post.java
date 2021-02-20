@@ -1,8 +1,6 @@
 package ma.ensias.beans;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Post {
 	
@@ -18,7 +16,6 @@ public class Post {
 	private Content content;
 	private Topic topic;
 	private int type;
-	private List<Comment> comments;
 	private User user;
 	
 	public Post() {}
@@ -32,7 +29,6 @@ public class Post {
 		this.date = new Date();
 		this.user = user;
 		this.topic = topic;
-		comments = new LinkedList<>();
 		
 		if(content instanceof Image)
 		  type = IMAGE;
@@ -47,14 +43,6 @@ public class Post {
 	}
 	public void setContent(Content content) {
 		this.content = content;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 
 	public int getId() {

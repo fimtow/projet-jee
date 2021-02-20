@@ -8,8 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import ma.ensias.beans.Post;
+import ma.ensias.beans.Topic;
 
 
 public class PostDaoImpl implements PostDao {
@@ -17,7 +20,7 @@ public class PostDaoImpl implements PostDao {
 	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
 	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
-	
+	private static final String SQL_SELECT_BY_TOPIC = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE topic = ?";
 	
 	private DAOFactory daoFactory;
 	
@@ -36,7 +39,6 @@ public class PostDaoImpl implements PostDao {
 		post.setDate(resultset.getDate("date"));
 		post.setType(resultset.getInt("type"));
 		type = resultset.getInt("type");
-		
 		if( type == Post.IMAGE )
 			post.setContent(daoFactory.getImageDao().find(post));
 		else if ( type == Post.INVITATION )
@@ -46,7 +48,6 @@ public class PostDaoImpl implements PostDao {
 		
 		post.setUser(daoFactory.getUserDao().find(resultset.getInt("user")));
 		post.setTopic(daoFactory.getTopicDao().find(resultset.getInt("topic")));
-		post.setComments(daoFactory.getCommentDao().find(post));
 		
 		return post;
 	}
@@ -129,6 +130,29 @@ public class PostDaoImpl implements PostDao {
 	public void delete(Post post) throws DAOException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Post> find(Topic topic) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Post> post = new LinkedList<Post>();
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC, false,topic.getId());
+	        resultSet = preparedStatement.executeQuery();
+	        while ( resultSet.next() ) {
+	            post.add(map( resultSet )); 
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+		return post;
 	}
 
 }
