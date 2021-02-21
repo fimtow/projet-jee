@@ -17,10 +17,10 @@ import ma.ensias.beans.User;
 
 public class MemberDaoImpl implements MemberDao{
 	
-	public static final String SQL_INSERT = "INSERT INTO membre(userid,topicid,ismoderator) values (?,?,?)";
+	public static final String SQL_INSERT = "INSERT INTO member(userid,topicid,ismoderator) values (?,?,?)";
 	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,topicid,ismoderator FROM member WHERE topicid = ? ";
 	public static final String SQL_SELECT_BY_USER = "SELECT topicid FROM member WHERE member.userid = ? ";
-	public static final String SQL_DELETE = "DELETE FROM membre WHERE userid = ? AND topicid = ?";
+	public static final String SQL_DELETE = "DELETE FROM member WHERE userid = ? AND topicid = ?";
 	
 	private DAOFactory daoFactory;
 	
