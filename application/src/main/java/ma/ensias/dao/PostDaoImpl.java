@@ -120,33 +120,6 @@ public class PostDaoImpl implements PostDao {
 	    return post;
 	}
 	
-	public List<Post> find(Topic topic) throws DAOException 
-	{	
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Post post = null;
-		List<Post> listOfPosts = new LinkedList<>();
-		
-		
-	    try {
-	        connexion = daoFactory.getConnection();
-	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC, false,topic.getId());
-	        resultSet = preparedStatement.executeQuery();
-	        while( resultSet.next() ) {
-	            post = map( resultSet ); 
-	            listOfPosts.add(post);
-	        }
-	        
-		    } catch ( SQLException e ) {
-		        throw new DAOException( e );
-		    } finally {
-		    	closeConnectionItems( resultSet, preparedStatement, connexion );
-		    }	
-	   
-	    return listOfPosts;
-		
-	}
 
 	@Override
 	public void update(Object... fields) throws DAOException {
