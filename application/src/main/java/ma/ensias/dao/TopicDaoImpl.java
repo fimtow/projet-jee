@@ -136,11 +136,6 @@ public class TopicDaoImpl implements TopicDao {
 	    return topic;
 	}
 	
-	
-	
-	
-	
-
 	@Override
 	public void update(Topic topic) throws DAOException {
 		Connection connexion = null;
@@ -167,6 +162,8 @@ public class TopicDaoImpl implements TopicDao {
 			closeConnectionItems(preparedStatement, connexion );
 		}
 	}
+
+
 
 	
 

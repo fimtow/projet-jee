@@ -17,7 +17,7 @@ import ma.ensias.beans.Topic;
 
 public class PostDaoImpl implements PostDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
+	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
 	private static final String SQL_SELECT_BY_TOPIC = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE topic = ?";
 	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
@@ -63,7 +63,6 @@ public class PostDaoImpl implements PostDao {
 		int likes = post.getLikes();
 		int dislikes = post.getDislikes();
 		Date date = post.getDate();
-		int idContent = post.getContent().getId();
 		int type = post.getType();
 		int idTopic = post.getTopic().getId();
 		int idUser = post.getUser().getId();
@@ -72,7 +71,7 @@ public class PostDaoImpl implements PostDao {
 		try 
 		{	
 			connexion = daoFactory.getConnection();
-			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,true,title,title,likes,dislikes,date,idContent,type,idTopic,idUser);
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,true,title,likes,dislikes,date,type,idTopic,idUser);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0)
 			{

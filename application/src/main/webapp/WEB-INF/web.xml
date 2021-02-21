@@ -68,7 +68,7 @@
 	<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
 
-
+	<!--  
 	<filter>
 		<filter-name>RestrictionFilter</filter-name>
 		<filter-class>ma.ensias.filters.RestrictionFilter</filter-class>
@@ -77,4 +77,5 @@
 		<filter-name>RestrictionFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	-->
 </web-app>
