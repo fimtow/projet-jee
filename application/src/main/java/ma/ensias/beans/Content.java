@@ -18,7 +18,4 @@ public abstract class Content {
 	public void setPostId(int postId) {
 		this.postId = postId;
 	}
-	
-	
-
 }
