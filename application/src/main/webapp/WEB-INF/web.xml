@@ -28,6 +28,15 @@
 	<servlet-name>SignIn</servlet-name>
 	<url-pattern>/signin</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>ma.ensias.servlets.Home</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 	<servlet-name>TopicServlet</servlet-name>

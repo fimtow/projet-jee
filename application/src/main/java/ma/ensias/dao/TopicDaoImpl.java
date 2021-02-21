@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
@@ -15,6 +17,7 @@ public class TopicDaoImpl implements TopicDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
+	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -26,12 +29,14 @@ public class TopicDaoImpl implements TopicDao {
 	}
 	
 	private Topic map(ResultSet resultset) throws SQLException {
+		
 		Topic topic = new Topic();
 		topic.setId(resultset.getInt("id"));
 		topic.setDescription(resultset.getString("description"));
 		topic.setTitle(resultset.getString("title"));
 		topic.setIconUrl(resultset.getString("iconUrl"));	
 		topic.setMembers(daoFactory.getMemberDao().find(topic));
+		
 		return topic;
 	}
 
@@ -78,6 +83,33 @@ public class TopicDaoImpl implements TopicDao {
 			 
 		}
 	}
+	@Override
+	public List<Topic> find() throws DAOException {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Topic topic = null;
+		List<Topic> listOfTopics = new LinkedList<>();
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_RAND_TOPIC, false);
+	        resultSet = preparedStatement.executeQuery();
+	        while( resultSet.next() ) {
+	        	
+	            topic = map( resultSet ); 
+	            listOfTopics.add(topic);
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+	    
+	    return listOfTopics;
+	}
 
 	@Override
 	public Topic find(int id) throws DAOException {
@@ -103,6 +135,11 @@ public class TopicDaoImpl implements TopicDao {
 	    	topic.setMembers(daoFactory.getMemberDao().find(topic));
 	    return topic;
 	}
+	
+	
+	
+	
+	
 
 	@Override
 	public void update(Topic topic) throws DAOException {

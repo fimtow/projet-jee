@@ -31,7 +31,7 @@ public class Post {
 		this.topic = topic;
 		
 		if(content instanceof Image)
-		  type = IMAGE;
+			type = IMAGE;
 		else if(content instanceof Text)
 			type = TEXT;
 		else

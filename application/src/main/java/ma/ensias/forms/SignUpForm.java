@@ -10,7 +10,7 @@ import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.UserDaoImpl;
 
 
-public final class SignUp {
+public final class SignUpForm {
 	
     private static final String  USERNAME_FIELD    = "username";
     private static final String  PASSWORD_FIELD   = "password";
