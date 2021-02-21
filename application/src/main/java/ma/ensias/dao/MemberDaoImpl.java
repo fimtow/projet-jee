@@ -66,6 +66,30 @@ public class MemberDaoImpl implements MemberDao{
 			closeConnectionItems(preparedStatement,connexion);
 		}
 	}
+	@Override
+	public void create(User user,int idTopic, Boolean isModerator) throws DAOException {
+		
+		Connection connexion = null;
+		PreparedStatement  preparedStatement = null;
+		
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),idTopic,isModerator);
+			int statut = preparedStatement.executeUpdate();
+			if(statut == 0 )
+			{
+				throw new DAOException("Member Insertion error , no line was inserted");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConnectionItems(preparedStatement,connexion);
+		}
+	}
 	
 	@Override
 	public Map<User, Boolean> find(Topic topic) throws DAOException {
