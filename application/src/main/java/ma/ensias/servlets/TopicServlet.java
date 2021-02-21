@@ -66,7 +66,15 @@ public class TopicServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		TopicForm topicForm = new TopicForm();
+		topicForm.createTopic(request);
+		
+		String message = new Gson().toJson(topicForm.getResult());
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(message);
+		out.flush();
 	}
 
 }
