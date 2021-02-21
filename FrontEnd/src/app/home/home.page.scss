@@ -1,0 +1,77 @@
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
+}
+
+ion-content {
+    --ion-background-color: #f2f2f2;
+}
+
+ion-card {
+    box-shadow: none;
+    border: #bbbbbb solid 1px;
+    margin: 0 0 0 10px;
+    border-radius: 0;
+    text-decoration: none;
+}
+
+h2.topics {
+    margin-left: 20px;
+    border-bottom: #bbbbbb solid 1px;
+    color: #adadad;
+}
+
+ion-toolbar {
+    --ion-background-color: #dd4e35;
+    color: #fff;
+    font-family: 'Courier New', Courier, sans-serif;
+}
+
+ion-title {
+    font-size: 17px;
+}
+
+.widget {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 2px #e4e4e4;
+    -moz-box-shadow: 0px 2px #e4e4e4;
+    -ms-box-shadow: 0px 2px #e4e4e4;
+    -o-box-shadow: 0px 2px #e4e4e4;
+    box-shadow: 0px 2px #e4e4e4;
+    text-align: center;
+}
+
+.backgrnd {
+    position: relative;
+    height: 15%;
+}
+
+.image {
+    position: absolute;
+}
