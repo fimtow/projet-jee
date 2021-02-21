@@ -12,21 +12,20 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import ma.ensias.beans.User;
-import ma.ensias.forms.SignUpForm;
+import ma.ensias.forms.SignInForm;
 
 /**
- * Servlet implementation class SignUpServlet
+ * Servlet implementation class SingIn
  */
 
-public class SignUp extends HttpServlet {
-	
+public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String USER_SESSION = "userSession";
-       
+    private static final String USER_SESSION = "userSession";
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUp() {
+    public SignIn() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,35 +35,28 @@ public class SignUp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doPost(request,response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		SignInForm form = new SignInForm();
 		
-		SignUpForm signupform  = new SignUpForm();
-		User user = signupform.createUser(request);
+		User user = form.connectUser(request);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute(USER_SESSION, user); 
 		
-		String message = new Gson().toJson(signupform.geterrors());
+		session.setAttribute(USER_SESSION, user);
+		
+		String message = new Gson().toJson(form.getResult());
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		out.print(message);
 		out.flush();
-		
-	
-		
-		  
-		 
-		
 	}
 
 }

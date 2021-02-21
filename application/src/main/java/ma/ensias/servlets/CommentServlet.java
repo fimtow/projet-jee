@@ -7,26 +7,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import ma.ensias.beans.User;
-import ma.ensias.forms.ConnexionForm;
+import ma.ensias.forms.CommentForm;
 
 /**
- * Servlet implementation class Connexion
+ * Servlet implementation class CommentServlet
  */
 
-public class Connexion extends HttpServlet {
-	
+public class CommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final String USER_SESSION = "userSession";
-    
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Connexion() {
+    public CommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,13 +39,9 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnexionForm form = new ConnexionForm();
+		CommentForm form = new CommentForm();
 		
-		User user = form.connectUser(request);
-		
-		HttpSession session = request.getSession();
-		
-		session.setAttribute(USER_SESSION, user);
+		form.createComment(request);
 		
 		String message = new Gson().toJson(form.getResult());
 		

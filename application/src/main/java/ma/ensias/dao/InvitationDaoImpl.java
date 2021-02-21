@@ -27,7 +27,7 @@ public class InvitationDaoImpl implements InvitationDao{
 		Invitation invitation = new Invitation();
 		invitation.setId(resultset.getInt("id"));
 		invitation.setJoined(resultset.getInt("joined"));
-		invitation.setPost(daoFactory.getPostDao().find(resultset.getInt("post")));
+		invitation.setPostId(resultset.getInt("post"));
 		return invitation;
 		
 	}
@@ -39,7 +39,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(), invitation.getidPost().getId() );
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(), invitation.getPostId() );
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );
