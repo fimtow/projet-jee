@@ -29,7 +29,7 @@ public class MemberDaoImpl implements MemberDao{
 	MemberDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
-	
+	/*
 	private  Map<User,Boolean> map(ResultSet resultset) throws SQLException {
 		Map<User,Boolean> members = new HashMap<>();
 		
@@ -40,7 +40,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return members;
 	}
-
+	*/
 
 	@Override
 	public void create(User user,Topic topic) throws DAOException {
