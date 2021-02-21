@@ -14,7 +14,6 @@ public interface TopicDao {
 	
 	Topic find (int id) throws DAOException;
 	
-	Topic find (String title) throws DAOException;
 	
 	
 	void update(Topic topic) throws DAOException; 

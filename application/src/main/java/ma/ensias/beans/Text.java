@@ -4,14 +4,14 @@ public class Text extends Content{
 	
 	private String text;
 
-	public Text(String text,int idPost) {
-		this.setId(idPost);
+	public Text(String text) {
+		super();
 		this.text = text;
 	}
 	
 	public Text()
 	{
-		
+		super();
 	}
 
 	public String getText() {

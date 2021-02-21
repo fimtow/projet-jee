@@ -7,7 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import ma.ensias.beans.Comment;
 import ma.ensias.beans.Content;
+import ma.ensias.beans.Image;
+import ma.ensias.beans.Invitation;
 import ma.ensias.beans.Post;
+import ma.ensias.beans.Text;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 import ma.ensias.dao.CommentDao;
@@ -32,41 +35,76 @@ public class PostForm {
     
     public void createPost(HttpServletRequest request)
     {	
-    	String title = getFieldValue(request , TITLE_FIELD);
-    	String titleOfTopic = getFieldValue(request , TOPIC_FIELD);
-    	String typeOfContent = getFieldValue(request, CONTENT_TYPE_FIELD);
+    	
+    
+    	String title = getFieldValue(request,TITLE_FIELD);
+    	String idTopicString = getFieldValue(request,TOPIC_FIELD);
+    	if(idTopicString == null)
+    	{	
+    		success = false;
+    		return;
+    		
+    	}
+    	int  idTopic = Integer.parseInt(idTopicString);
+    	String typeOfContent = getFieldValue(request,CONTENT_TYPE_FIELD);
     	HttpSession session = request.getSession();
     	User user = (User) session.getAttribute(SESSION_USER);
+    	Content content = null ;
     	
     	DAOFactory daoFactory = DAOFactory.getInstance();
     	TopicDao topicDao = daoFactory.getTopicDao();
-    	Topic topic = topicDao.find(titleOfTopic);
-    	Post post = new Post(title,topic,user);
-    	PostDao postDao = daoFactory.getPostDao();
-    	postDao.create(post);
-    	Content content = null;
-    	
+    	Topic topic = topicDao.find(idTopic);
     	if(topic == null)
     	{	
     		this.success = false;
     		return;
     	}
-    	if(typeOfContent == "text")
-    		 content = new TextForm().createText(getFieldValue(request,"text"),post.getId());
-    	else if (typeOfContent == "image")
-    		content = new ImageForm().createImage(getFieldValue(request,"url"),post.getId());
+
+    	
+    	Post post = new Post(title,topic,user);
+    	PostDao postDao = daoFactory.getPostDao();
+    	
+
+    	if(typeOfContent.equals("text"))
+    	{
+    		post.setType(Post.TEXT);
+    		content = new Text(getFieldValue(request,"text"));
+    		
+    		 
+    	}
+    	else if (typeOfContent.equals("image"))
+    	{
+    		post.setType(Post.IMAGE);
+    		content = new Image(getFieldValue(request,"url"));
+    	}
     	else 
-    		content = new InvitationForm().createInvitation(post.getId());
-    	
+    	{
+    		post.setType(Post.INVITATION);
+    		content = new Invitation();
+    	}
     	post.setContent(content);
-    		
-    	// TODO : nkmel hada o ngad post n affecti lih dakshi dyalo 
+    	postDao.create(post);
+    	content.setPostId(post.getId());
     	
-    	
+    	if(typeOfContent.equals("text"))
+    	{
+    		daoFactory.getTextDao().create((Text)content);
     		
+    		 
+    	}
+    	else if (typeOfContent.equals("image"))
+    	{
+    		daoFactory.getImageDao().create((Image)content);
+    	}
+    	else 
+    	{
+    		daoFactory.getInvitationDao().create((Invitation)content);
+    	}
+    	
     	
     }
-
+    
+   
 
     public Post searchPost( HttpServletRequest request ) {
 

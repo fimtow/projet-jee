@@ -5,8 +5,7 @@ public class Image extends Content {
 	private String url;
 	
 
-	public Image(String url,int idPost) {
-		setId(idPost);
+	public Image(String url) {
 		this.url = url;
 	}
 	
