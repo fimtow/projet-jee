@@ -4,7 +4,8 @@ public class Text extends Content{
 	
 	private String text;
 
-	public Text(String text) {
+	public Text(String text,int idPost) {
+		this.setId(idPost);
 		this.text = text;
 	}
 	

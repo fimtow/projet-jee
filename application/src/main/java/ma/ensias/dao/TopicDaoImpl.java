@@ -17,6 +17,7 @@ public class TopicDaoImpl implements TopicDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
+	private static final String SQL_SELECT_BY_TITLE = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE title = ?";
 	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
@@ -135,7 +136,31 @@ public class TopicDaoImpl implements TopicDao {
 	    	topic.setMembers(daoFactory.getMemberDao().find(topic));
 	    return topic;
 	}
-	
+	@Override
+	public Topic find(String title) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Topic topic = null;
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TITLE, false,title);
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	            topic = map( resultSet ); 
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }
+	    if(topic != null)
+	    	topic.setMembers(daoFactory.getMemberDao().find(topic));
+	    return topic;
+		
+	}
 	
 	
 	
@@ -167,6 +192,8 @@ public class TopicDaoImpl implements TopicDao {
 			closeConnectionItems(preparedStatement, connexion );
 		}
 	}
+
+
 
 	
 
