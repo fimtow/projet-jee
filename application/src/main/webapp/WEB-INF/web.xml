@@ -85,6 +85,16 @@
 	<servlet-name>JoinTopicServlet</servlet-name>
 	<url-pattern>/jointopic</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>SearchTopic</servlet-name>
+	<servlet-class>ma.ensias.servlets.SearchTopicServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>SearchTopic</servlet-name>
+	<url-pattern>/searchtopic</url-pattern>
+	</servlet-mapping>
 
 	<!--  
 	<filter>

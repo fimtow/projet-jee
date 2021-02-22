@@ -18,6 +18,7 @@ public class TopicDaoImpl implements TopicDao {
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
 	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
+	private static final String SQL_SELECT_TITLE = "select id,title,description,iconUrl,coverUrl,isevent from topic WHERE title LIKE ?";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -96,6 +97,33 @@ public class TopicDaoImpl implements TopicDao {
 	    try {
 	        connexion = daoFactory.getConnection();
 	        preparedStatement =  initQueryPrepared( connexion, SQL_RAND_TOPIC, false);
+	        resultSet = preparedStatement.executeQuery();
+	        while( resultSet.next() ) {
+	        	
+	            topic = map( resultSet ); 
+	            listOfTopics.add(topic);
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+	    
+	    return listOfTopics;
+	}
+	
+	public List<Topic> find (String title) throws DAOException 
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Topic topic = null;
+		List<Topic> listOfTopics = new LinkedList<>();
+		title = '%'+title+"%";
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_TITLE ,false,title);
 	        resultSet = preparedStatement.executeQuery();
 	        while( resultSet.next() ) {
 	        	
