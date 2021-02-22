@@ -9,6 +9,7 @@ import ma.ensias.beans.Post;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
+import ma.ensias.dao.MemberDao;
 import ma.ensias.dao.PostDao;
 import ma.ensias.dao.TopicDao;
 
@@ -24,6 +25,12 @@ public class TopicForm {
     
     private boolean success = true;
     private List<Post> posts;
+    private boolean joined;
+    
+    public boolean getJoined()
+    {
+    	return joined;
+    }
     public boolean getResult() {
         return success;
     }
@@ -63,6 +70,14 @@ public class TopicForm {
         
         if(success)
         {
+            HttpSession session = request.getSession();
+            User cuser = (User) session.getAttribute( SESSION_USER );
+            if(cuser != null)
+            {
+            	MemberDao memberDao = daoFactory.getMemberDao();
+            	joined = memberDao.find(cuser, topic);
+            	// TODO add the joined property to json file and manage the visitor case
+            }
         	PostDao postDao = daoFactory.getPostDao();
         	posts = postDao.find(topic);
         	for(Post post : posts)
