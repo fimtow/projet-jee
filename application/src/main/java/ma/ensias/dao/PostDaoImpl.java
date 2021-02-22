@@ -65,7 +65,12 @@ public class PostDaoImpl implements PostDao {
 		int dislikes = post.getDislikes();
 		Date date = post.getDate();
 		int type = post.getType();
-		int idTopic = post.getTopic().getId();
+		Integer idTopic;
+		if(post.getTopic() != null)
+			idTopic = post.getTopic().getId();
+		else
+			idTopic = null;
+		
 		int idUser = post.getUser().getId();
 		
 		

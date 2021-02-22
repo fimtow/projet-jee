@@ -7,12 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import ma.ensias.beans.Post;
+import ma.ensias.dao.DAOFactory;
 import ma.ensias.forms.PostForm;
 
 
@@ -35,6 +37,7 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		PostForm postForm = new PostForm();
 		Post post = postForm.searchPost(request);
 		
@@ -66,7 +69,8 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession httpsession = request.getSession();
+		httpsession.setAttribute("userSession",DAOFactory.getInstance().getUserDao().find(1) );
 		PostForm postForm = new PostForm();
 		postForm.createPost(request);
 		

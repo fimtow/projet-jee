@@ -44,16 +44,16 @@ public class EventDaoImpl implements EventDao {
 		
 		Connection connexion = null;
 		PreparedStatement  preparedStatement = null;
-		int id = event.getId();
+		
 		String location = event.getLocation();
 		Date date = event.getDate();
 		Topic topic = new Topic(event.getTitle(),event.getDescription(),event.getIconUrl(),event.getCoverUrl());
 		daoFactory.getTopicDao().create(topic,true); // To store the part of topic into table topic
-		
+		event.setId(topic.getId());
 		try 
 		{	
 			connexion = daoFactory.getConnection();
-			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,id,location,date);
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,topic.getId(),location,date);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0)
 			{
