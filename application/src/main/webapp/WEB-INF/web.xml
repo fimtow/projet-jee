@@ -67,6 +67,17 @@
 	<servlet-name>CommentServlet</servlet-name>
 	<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>PostLikeServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.PostLikeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>PostLikeServlet</servlet-name>
+	<url-pattern>/postlike</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 	<servlet-name>UserServlet</servlet-name>
 	<servlet-class>ma.ensias.servlets.UserServlet</servlet-class>
