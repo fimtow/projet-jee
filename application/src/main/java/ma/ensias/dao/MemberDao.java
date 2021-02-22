@@ -10,6 +10,8 @@ public interface MemberDao {
 	
 	public void create(User user ,Topic topic) throws DAOException;
 	
+	public void create(User user,int idTopic, Boolean isModerator) throws DAOException;
+	
 	public List<Topic> find(User user) throws DAOException;
 	
 	public Map<User,Boolean> find(Topic topic) throws DAOException;

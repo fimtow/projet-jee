@@ -67,6 +67,24 @@
 	<servlet-name>CommentServlet</servlet-name>
 	<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>UserServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.UserServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>UserServlet</servlet-name>
+	<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+	<servlet>
+	<servlet-name>JoinTopicServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.JoinTopicServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>JoinTopicServlet</servlet-name>
+	<url-pattern>/jointopic</url-pattern>
+	</servlet-mapping>
 
 	<!--  
 	<filter>

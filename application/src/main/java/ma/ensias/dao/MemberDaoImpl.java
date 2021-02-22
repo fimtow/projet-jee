@@ -29,7 +29,7 @@ public class MemberDaoImpl implements MemberDao{
 	MemberDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
-	
+	/*
 	private  Map<User,Boolean> map(ResultSet resultset) throws SQLException {
 		Map<User,Boolean> members = new HashMap<>();
 		
@@ -40,7 +40,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return members;
 	}
-
+	*/
 
 	@Override
 	public void create(User user,Topic topic) throws DAOException {
@@ -52,6 +52,30 @@ public class MemberDaoImpl implements MemberDao{
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),topic.getId(),topic.getMembers().get(user));
+			int statut = preparedStatement.executeUpdate();
+			if(statut == 0 )
+			{
+				throw new DAOException("Member Insertion error , no line was inserted");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConnectionItems(preparedStatement,connexion);
+		}
+	}
+	@Override
+	public void create(User user,int idTopic, Boolean isModerator) throws DAOException {
+		
+		Connection connexion = null;
+		PreparedStatement  preparedStatement = null;
+		
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),idTopic,isModerator);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0 )
 			{
