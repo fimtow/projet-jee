@@ -121,4 +121,9 @@ public class DAOFactory {
     	return new PostLikeDaoImpl( this );
     }
     
+    public CommentLikeDao getCommentLikeDao()
+    {
+    	return new CommentLikeDaoImpl( this );
+    }
+    
 }
