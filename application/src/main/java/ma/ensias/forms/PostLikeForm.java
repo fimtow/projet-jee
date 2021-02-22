@@ -9,10 +9,6 @@ import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.PostDao;
 import ma.ensias.dao.PostLikeDao;
 public class PostLikeForm {
-	public static final int NOTSET = 0;
-	public static final int NONE = 1;
-	public static final int DISLIKE = 2;
-	public static final int LIKE = 3;
 	
     private static final String POST_FIELD = "post";
     private static final String LIKE_FIELD = "like";
@@ -37,18 +33,18 @@ public class PostLikeForm {
     	User user = (User) session.getAttribute(SESSION_USER);
     	
     	
-    	String like = getFieldValue(request,LIKE_FIELD);
-    	int status;
-    	if(like.equals("true"))
-    		status = LIKE;
-    	else if(like.equals("false"))
-    		status = DISLIKE;
-    	else
-    		status = NONE;
+    	int status = Integer.parseInt(getFieldValue(request,LIKE_FIELD));
+    	if(status < 1 || status > 3)
+    	{
+    		success = false;
+    		return;
+    	}
+    	
+    	
     	PostLikeDao postLikeDao = daoFactory.getPostLikeDao();
     	int dbStatus = postLikeDao.find(post, user);
     	
-    	if(dbStatus == NOTSET)
+    	if(dbStatus == 0)
     		postLikeDao.create(post, user, status);
     	else if(dbStatus == status)
     		return;

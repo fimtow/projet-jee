@@ -75,7 +75,7 @@ public class PostLikeDaoImpl implements PostLikeDao{
 		int status = NONE;
 		if(resultSet.getBoolean("islike") && resultSet.wasNull() == false)
 			status = LIKE;
-		else if(resultSet.getBoolean("islike") && resultSet.wasNull() == false)
+		else if(!resultSet.getBoolean("islike") && resultSet.wasNull() == false)
 			status = DISLIKE;
 		return status;
 	}
@@ -86,11 +86,14 @@ public class PostLikeDaoImpl implements PostLikeDao{
 	    try {
 	        connexion = daoFactory.getConnection();
 	        if(status == LIKE)
-	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, post.getId(), user.getId(), true );
+	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, true, post.getId(), user.getId());
 	        else if(status == DISLIKE)
-	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, post.getId(), user.getId(), false );
+	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, false, post.getId(), user.getId());
 	        else if(status == NONE)
-	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, post.getId(), user.getId(), null );
+	        {
+	        	preparedStatement = initQueryPrepared( connexion, SQL_UPDATE, false, null, post.getId(), user.getId());
+	        }
+	        	
 	        else
 	        	return;
 	        int statut = preparedStatement.executeUpdate();
