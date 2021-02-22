@@ -20,12 +20,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-	<servlet-name>SignIn</servlet-name>
-	<servlet-class>ma.ensias.servlets.SignIn</servlet-class>
+	<servlet-name>SignInServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.SignInServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-	<servlet-name>SignIn</servlet-name>
+	<servlet-name>SignInServlet</servlet-name>
 	<url-pattern>/signin</url-pattern>
 	</servlet-mapping>
 	<servlet>
@@ -67,6 +67,27 @@
 	<servlet-name>CommentServlet</servlet-name>
 	<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>PostLikeServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.PostLikeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>PostLikeServlet</servlet-name>
+	<url-pattern>/postlike</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>CommentLikeServlet</servlet-name>
+	<servlet-class>ma.ensias.servlets.CommentLikeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>CommentLikeServlet</servlet-name>
+	<url-pattern>/commentlike</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 	<servlet-name>UserServlet</servlet-name>
 	<servlet-class>ma.ensias.servlets.UserServlet</servlet-class>
