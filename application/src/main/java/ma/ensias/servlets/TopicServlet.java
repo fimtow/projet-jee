@@ -50,6 +50,10 @@ public class TopicServlet extends HttpServlet {
 		{
 			Gson gson = new Gson();
 			JsonElement jsonElement = gson.toJsonTree(topic);
+			if(topicForm.getLogged())
+			{
+				jsonElement.getAsJsonObject().addProperty("joined", topicForm.getJoined());
+			}
 			JsonElement jsonElement2 = gson.toJsonTree(topicForm.getPosts());
 			jsonElement.getAsJsonObject().add("posts", jsonElement2);
 			message = gson.toJson(jsonElement);

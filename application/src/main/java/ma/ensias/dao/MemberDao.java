@@ -18,5 +18,5 @@ public interface MemberDao {
 	
 	public void delete(Topic topic, User user) throws DAOException;
 	
-
+	public boolean find(User user, Topic topic) throws DAOException;
 }
