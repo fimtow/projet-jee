@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UserPagePageRoutingModule } from './user-page-routing.module';
 
 import { UserPagePage } from './user-page.page';
+import { HeaderComponent } from '../layout/header/header.component';
 
 @NgModule({
   imports: [

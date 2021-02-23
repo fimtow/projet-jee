@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './Auth/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -24,14 +26,22 @@ const routes: Routes = [
     loadChildren: () => import('./Auth/signup/signup.module').then( m => m.SignupPageModule)
   },
   {
-    path: 'user-page',
+    path: 'userpage',
     loadChildren: () => import('./user-page/user-page.module').then( m => m.UserPagePageModule)
+  },
+  {
+    path: 'topic',
+    loadChildren: () => import('./feed/topic/topic.module').then( m => m.TopicPageModule)
+  },
+  {
+    path: 'post',
+    loadChildren: () => import('./feed/post/post.module').then( m => m.PostPageModule)
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules})
   ],
   exports: [RouterModule]
 })

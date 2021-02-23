@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border" [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Forum JEE
+        </ion-title>
+        <ion-buttons slot="end">
+            <ng-container *ngIf="isAuth == false">
+                <ion-button routerLink="/login">
+                    Sign in
+                </ion-button>
+                <ion-button (click)="onClick()" style="--ion-background-color:#fff;">
+                    Sign up
+                </ion-button>
+            </ng-container>
+            <ng-container *ngIf="isAuth == true">
+                <ion-button (click)="presentPopover($event)" expand="block" fill="clear" shape="round">
+                    <ion-icon name="person-sharp"></ion-icon>
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                </ion-button>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
