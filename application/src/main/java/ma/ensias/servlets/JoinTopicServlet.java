@@ -33,6 +33,13 @@ public class JoinTopicServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JoinTopic joinTopic = new JoinTopic(request);
 		
 		Gson gson = new Gson();
@@ -42,15 +49,6 @@ public class JoinTopicServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		out.print(message);
 		out.flush();
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
