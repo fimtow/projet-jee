@@ -75,6 +75,10 @@ public class TopicForm {
         
         if(success)
         {
+        	
+        	// topic members isn't showing correctly (it's showing the user oject reference) , so i hid it
+        	topic.setMembers(null);
+        	
             HttpSession session = request.getSession();
             User cuser = (User) session.getAttribute( SESSION_USER );
             if(cuser != null)
