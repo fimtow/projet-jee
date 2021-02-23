@@ -4,14 +4,13 @@ public class Image extends Content {
 	
 	private String url;
 	
-
-	public Image(String url) {
-		this.url = url;
-	}
 	
 	public Image()
 	{
-		
+		super();
+	}
+	public Image(String url) {
+		this.url = url;
 	}
 	
 	public String getUrl() {

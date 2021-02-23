@@ -57,7 +57,7 @@ public class PostForm {
     	User user = (User) session.getAttribute(SESSION_USER);
     	Content content = null ;
     	Post post;
-    	// A Completer
+    	
     	if(typeOfContent.equals("invitation"))
     	{	
     		
@@ -68,7 +68,7 @@ public class PostForm {
 			try {
 				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 				success = false;
 				return;

@@ -1,4 +1,4 @@
-package ma.ensias.beans;
+ package ma.ensias.beans;
 
 public abstract class Content {
 	private int id;

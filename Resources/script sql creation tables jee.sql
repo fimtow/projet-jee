@@ -67,6 +67,9 @@ create table image(
 create table invitation(
     id int not null primary key AUTO_INCREMENT,
     joined int not null,
+    description text not null,
+    location varchar(50) not null,
+    date date not null,
     post int not null,
     foreign key(post) references post(id)
 );
