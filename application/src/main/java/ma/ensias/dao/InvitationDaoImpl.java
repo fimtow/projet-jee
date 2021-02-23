@@ -13,9 +13,9 @@ import ma.ensias.beans.Post;
 public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT id,description,joined, post FROM invitation WHERE id = ?";
-	private static final String SQL_SELECT_BY_POST = "SELECT id,description,joined, post FROM invitation WHERE post = ?";
-	private static final String SQL_INSERT = "INSERT INTO invitation (joined,description,post) VALUES (?,?,?)";
+	private static final String SQL_SELECT_BY_ID = "SELECT description,date,location,joined,post FROM invitation WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT description,date,location,joined,post FROM invitation WHERE post = ?";
+	private static final String SQL_INSERT = "INSERT INTO invitation (description,date,location,joined,post) VALUES (?,?,?,?,?)";
 	private static final String SQL_UPDATE = "UPDATE invitation SET joined=? WHERE id=?;";
 	
 	InvitationDaoImpl(DAOFactory daoFactory)
@@ -28,6 +28,8 @@ public class InvitationDaoImpl implements InvitationDao{
 		invitation.setId(resultset.getInt("id"));
 		invitation.setJoined(resultset.getInt("joined"));
 		invitation.setDescription(resultset.getString("description"));
+		invitation.setDate(resultset.getDate("date"));
+		invitation.setLocation(resultset.getString("location"));
 		invitation.setPostId(resultset.getInt("post"));
 		return invitation;
 		
@@ -40,7 +42,7 @@ public class InvitationDaoImpl implements InvitationDao{
 
 	    try {
 	        connexion = daoFactory.getConnection();
-	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true, invitation.getJoined(),invitation.getDescription(),invitation.getPostId());
+	        preparedStatement = initQueryPrepared( connexion, SQL_INSERT, true,invitation.getDescription(),invitation.getDate(),invitation.getLocation(),invitation.getJoined(),invitation.getPostId());
 	        int statut = preparedStatement.executeUpdate();
 	        if ( statut == 0 ) {
 	            throw new DAOException( "invitation creation error, no line was inserted" );

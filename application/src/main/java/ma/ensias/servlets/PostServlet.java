@@ -69,6 +69,7 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession httpsession = request.getSession();
 		httpsession.setAttribute("userSession",DAOFactory.getInstance().getUserDao().find(1) );
 		PostForm postForm = new PostForm();

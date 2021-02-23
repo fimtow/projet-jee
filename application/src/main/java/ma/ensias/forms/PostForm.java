@@ -27,7 +27,13 @@ public class PostForm {
     private static final String ID_FIELD  = "id";
     private static final String TITLE_FIELD = "title";
     private static final String CONTENT_TYPE_FIELD = "type_content";
+    /*
+     * si le post est image ou texte
+     */
     private static final String TOPIC_FIELD = "topic";
+    /*
+     * si le post est event
+     */
     private static final String LOCATION_FIELD = "location";
     private static final String DATE_FIELD = "date";
     private static final String DESCRIPTION_FIELD = "description";
@@ -51,29 +57,32 @@ public class PostForm {
     	User user = (User) session.getAttribute(SESSION_USER);
     	Content content = null ;
     	Post post;
-    	
+    	// A Completer
     	if(typeOfContent.equals("invitation"))
     	{	
     		
     		String location = getFieldValue(request,LOCATION_FIELD);
     		String dateString = getFieldValue(request,DATE_FIELD);
     		String description = getFieldValue(request,DESCRIPTION_FIELD);
-    		Invitation invitation = new Invitation(description);
-    		
-    		post = new Post(title,invitation,user);
-    		DAOFactory.getInstance().getPostDao().create(post);
-    		invitation.setPostId(post.getId());
-    		DAOFactory.getInstance().getInvitationDao().create(invitation);
-    		try {
-				Date date	=new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
-	    		Event event = new Event(title,description,location,date,user);
-	    		DAOFactory.getInstance().getEventDao().create(event);
+    		Date date;
+			try {
+				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				success = false;
 				return;
 			}
+			
+    		Invitation invitation = new Invitation(description,date,location);
+    		Event event = new Event(title,description,location,date,user);
+    		DAOFactory.getInstance().getEventDao().create(event);
+    		post = new Post(title,invitation,event,user);
+    		DAOFactory.getInstance().getPostDao().create(post);
+    		invitation.setPostId(post.getId());
+    		DAOFactory.getInstance().getInvitationDao().create(invitation);
+    		
+			
     	}
     	else
     	{

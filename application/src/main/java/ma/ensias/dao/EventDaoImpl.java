@@ -15,7 +15,7 @@ import ma.ensias.beans.User;
 
 public class EventDaoImpl implements EventDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO event(id,location,datetime) VALUES (?,?,?) ";
+	private static final String SQL_INSERT = "INSERT INTO event(id,location,date) VALUES (?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT topic.id, topic.title, topic.iconUrl, topic.coverUrl,event.location,event.datetime FROM event,topic WHERE id = ? AND topic.id = event.id";
 	private static final String SQL_UPDATE = "UPDATE event SET location = ?, datetime = ?  WHERE id = ?";
 	
@@ -53,7 +53,7 @@ public class EventDaoImpl implements EventDao {
 		try 
 		{	
 			connexion = daoFactory.getConnection();
-			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,topic.getId(),location,date);
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,event.getId(),location,date);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0)
 			{
@@ -66,8 +66,8 @@ public class EventDaoImpl implements EventDao {
 			
 			 closeConnectionItems(preparedStatement,connexion);
 			 
-			 for(User user : event.getMembers().keySet())
-					daoFactory.getMemberDao().create(user, event);
+	    for(User user : event.getMembers().keySet())
+	    	daoFactory.getMemberDao().create(user, event);
 			 
 		}
 
@@ -95,7 +95,8 @@ public class EventDaoImpl implements EventDao {
 	    } finally {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
-	    event.setMembers(daoFactory.getMemberDao().find(event));
+	    if( event != null)
+	    	event.setMembers(daoFactory.getMemberDao().find(event));
 	    return event;
 	}
 
