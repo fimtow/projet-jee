@@ -26,10 +26,15 @@ public class TopicForm {
     private boolean success = true;
     private List<Post> posts;
     private boolean joined;
-    
+    private boolean logged = false;
     public boolean getJoined()
     {
     	return joined;
+    }
+    
+    public boolean getLogged()
+    {
+    	return logged;
     }
     public boolean getResult() {
         return success;
@@ -74,9 +79,9 @@ public class TopicForm {
             User cuser = (User) session.getAttribute( SESSION_USER );
             if(cuser != null)
             {
+            	logged = true;
             	MemberDao memberDao = daoFactory.getMemberDao();
             	joined = memberDao.find(cuser, topic);
-            	// TODO add the joined property to json file and manage the visitor case
             }
         	PostDao postDao = daoFactory.getPostDao();
         	posts = postDao.find(topic);
