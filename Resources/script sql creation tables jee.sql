@@ -37,7 +37,8 @@ create table comment(
     post int not null,
     user int not null,
     foreign key(post) references post(id),
-    foreign key (user) references user(id));
+    foreign key (user) references user(id)
+    );
 
 -- Table event
 create table event(

@@ -35,7 +35,8 @@ public class TopicDaoImpl implements TopicDao {
 		topic.setId(resultset.getInt("id"));
 		topic.setDescription(resultset.getString("description"));
 		topic.setTitle(resultset.getString("title"));
-		topic.setIconUrl(resultset.getString("iconUrl"));	
+		topic.setIconUrl(resultset.getString("iconUrl"));
+		topic.setCoverUrl(resultset.getString("coverUrl"));
 		topic.setMembers(daoFactory.getMemberDao().find(topic));
 		
 		return topic;
@@ -161,6 +162,7 @@ public class TopicDaoImpl implements TopicDao {
 	    }
 	    if(topic != null)
 	    	topic.setMembers(daoFactory.getMemberDao().find(topic));
+	    
 	    return topic;
 	}
 	

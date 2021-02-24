@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import ma.ensias.dao.DAOFactory;
 import ma.ensias.process.UserGenerator;
 
 /**
