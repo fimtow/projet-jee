@@ -12,13 +12,7 @@ public class Comment {
 	private User user;
 	private Post post;
 	
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
-	}
+	
 
 	public Comment(String text, User user, Post post) {
 		
@@ -49,6 +43,14 @@ public class Comment {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	public int getLikes() {
