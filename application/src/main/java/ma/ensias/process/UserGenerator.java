@@ -21,7 +21,7 @@ public class UserGenerator {
 	
 	public UserGenerator(HttpServletRequest request )
 	{	
-		
+	
 		HttpSession session = request.getSession();
 		User userOfTheSession = (User) session.getAttribute(SESSION_USER);
 		String idString = getFieldValue(request,"id");
@@ -41,6 +41,11 @@ public class UserGenerator {
 			if( user != null)
 			{
 				listOfPosts = DAOFactory.getInstance().getPostDao().find(user);
+				for(Post post : listOfPosts)
+				{
+					post.getUser().setPassword(null);
+				}
+				user.setPassword(null);
 				succes = true;
 			}
 		}
