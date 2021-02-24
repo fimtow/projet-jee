@@ -42,50 +42,50 @@ export class LoginPage implements OnInit {
       message: 'Logging in...',
       spinner: 'circular'
     }).then(loadingElement => {
-      //loadingElement.present();
-      this.authService.authenticate(username, password);
-        // .subscribe(resData => {
-        //   console.log(resData);
-        //   if (resData) {
-        //     loadingElement.dismiss();
-        //     //this.navCtrl.navigateRoot('/home');
-        //     this.cookieValue = this.cookieService.get('JSESSIONID');
-        //     console.log(this.cookieValue);
-        //   }
-        //   else {
-        //     loadingElement.dismiss();
-        //     loadingElement.dismiss();
-        //   this.alertCtrl.create({
-        //     header: 'Something wrong',
-        //     message: 'Username or password incorrect',
-        //     buttons: ['Ok']
-        //   }).then(alertElement => {
-        //     alertElement.present();
-        //   });
-        //     console.log("Login failed");
-        //     // this.modalCtrl.create({
-        //     //   component: VerifyEmailComponent,
-        //     //   componentProps: {
-        //     //     'email': email,
-        //     //     'password': password,
-        //     //     'role': role
-        //     //   }
-        //     // }).then(modalElement => {
-        //     //   loadingElement.dismiss();
-        //     //   modalElement.present();
-        //     // });
-        //   }
-        // }, err => {
-        //   console.log(err);
-        //   loadingElement.dismiss();
-        //   this.alertCtrl.create({
-        //     header: 'An error has occured',
-        //     message: err.error.message ? err.error.message : 'Failed to communicate with server. Please try again later...',
-        //     buttons: ['Ok']
-        //   }).then(alertElement => {
-        //     alertElement.present();
-        //   });
-        // });
+      loadingElement.present();
+      this.authService.authenticate(username, password)
+        .subscribe(resData => {
+          console.log(resData);
+          if (resData) {
+            loadingElement.dismiss();
+            this.navCtrl.navigateRoot('/home');
+            // this.cookieValue = this.cookieService.get('JSESSIONID');
+            // console.log(this.cookieValue);
+          }
+          else {
+            loadingElement.dismiss();
+            loadingElement.dismiss();
+          this.alertCtrl.create({
+            header: 'Something wrong',
+            message: 'Username or password incorrect',
+            buttons: ['Ok']
+          }).then(alertElement => {
+            alertElement.present();
+          });
+            console.log("Login failed");
+            // this.modalCtrl.create({
+            //   component: VerifyEmailComponent,
+            //   componentProps: {
+            //     'email': email,
+            //     'password': password,
+            //     'role': role
+            //   }
+            // }).then(modalElement => {
+            //   loadingElement.dismiss();
+            //   modalElement.present();
+            // });
+          }
+        }, err => {
+          console.log(err);
+          loadingElement.dismiss();
+          this.alertCtrl.create({
+            header: 'An error has occured',
+            message: err.error.message ? err.error.message : 'Failed to communicate with server. Please try again later...',
+            buttons: ['Ok']
+          }).then(alertElement => {
+            alertElement.present();
+          });
+        });
     });
 
   }

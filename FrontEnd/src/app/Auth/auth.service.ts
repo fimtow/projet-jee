@@ -77,24 +77,26 @@ export class AuthService {
   ) {
     return this.httpClient.post<boolean>(
       this.apiUrl + `/signin?username=${username}&password=${password}`, {}, 
-      {
-        // headers: new HttpHeaders({ 
-        //   'Access-Control-Allow-Origin':'*'
-        // }),
-        observe: 'events',
-        responseType: 'json',
-        withCredentials: true
-      })
-      // .pipe(take(1), tap(resData => {
-      //   this._authenticated = resData;
-      //   if (this._authenticated) {
-      //     this._authStatusListener.next(true);
-      //     this.storeAuthData();
-      //   }
-      // }));
-      .subscribe(data => {
-        console.log(data);
-      });
+      // {
+      //   headers: new HttpHeaders({ 
+      //     // 'Access-Control-Allow-Origin':'*'
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   }),
+      //   observe: 'events',
+      //   responseType: 'json',
+      //   withCredentials: true
+      // }
+      )
+      .pipe(take(1), tap(resData => {
+        this._authenticated = resData;
+        if (this._authenticated) {
+          this._authStatusListener.next(true);
+          this.storeAuthData();
+        }
+      }));
+      // .subscribe(data => {
+      //   console.log(data);
+      // });
   }
 
   // resetPasswordRequest(email: string) {
