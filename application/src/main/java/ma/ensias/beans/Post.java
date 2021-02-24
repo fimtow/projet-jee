@@ -37,6 +37,26 @@ public class Post {
 		else
 			type = INVITATION;
 	}
+	public Post(String title,Content content,User user) {
+		
+		this.title = title;
+		this.content = content;
+		this.likes = 0;
+		this.dislikes = 0;
+		this.date = new Date();
+		this.user = user;
+		this.type = INVITATION;
+	}
+	public Post(String title,Topic topic,User user) {
+		
+		this.title = title;
+		this.likes = 0;
+		this.dislikes = 0;
+		this.date = new Date();
+		this.user = user;
+		this.topic = topic;
+	
+	}
 
 	public Content getContent() {
 		return content;

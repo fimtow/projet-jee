@@ -15,6 +15,14 @@ public class Event extends Topic {
 		this.date = date;
 		this.getMembers().put(user,true); // the creator is moderator
 	}
+	public Event(String title,String description,String location, Date date ,User user) {
+		super();
+		setTitle(title);
+		setDescription(description);
+		this.location = location;
+		this.date = date;
+		this.getMembers().put(user,true); // the creator is moderator
+	}
 
 	public String getLocation() {
 		return location;

@@ -16,6 +16,11 @@ import ma.ensias.dao.TopicDao;
 
 public class HomeGenerator implements Serializable  { 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String USER_SESSION = "userSession";
 	
 	private User user;

@@ -20,6 +20,7 @@ public class MemberDaoImpl implements MemberDao{
 	public static final String SQL_INSERT = "INSERT INTO member(userid,topicid,ismoderator) values (?,?,?)";
 	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,topicid,ismoderator FROM member WHERE topicid = ? ";
 	public static final String SQL_SELECT_BY_USER = "SELECT topicid FROM member WHERE member.userid = ? ";
+	public static final String SQL_SELECT_BY_USER_TOPIC = "SELECT * FROM member WHERE userid = ?  and topicid = ?";
 	public static final String SQL_DELETE = "DELETE FROM member WHERE userid = ? AND topicid = ?";
 	
 	private DAOFactory daoFactory;
@@ -29,7 +30,7 @@ public class MemberDaoImpl implements MemberDao{
 	MemberDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
-	
+	/*
 	private  Map<User,Boolean> map(ResultSet resultset) throws SQLException {
 		Map<User,Boolean> members = new HashMap<>();
 		
@@ -40,7 +41,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return members;
 	}
-
+	*/
 
 	@Override
 	public void create(User user,Topic topic) throws DAOException {
@@ -52,6 +53,30 @@ public class MemberDaoImpl implements MemberDao{
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),topic.getId(),topic.getMembers().get(user));
+			int statut = preparedStatement.executeUpdate();
+			if(statut == 0 )
+			{
+				throw new DAOException("Member Insertion error , no line was inserted");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConnectionItems(preparedStatement,connexion);
+		}
+	}
+	@Override
+	public void create(User user,int idTopic, Boolean isModerator) throws DAOException {
+		
+		Connection connexion = null;
+		PreparedStatement  preparedStatement = null;
+		
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,false,user.getId(),idTopic,isModerator);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0 )
 			{
@@ -140,6 +165,29 @@ public class MemberDaoImpl implements MemberDao{
 			closeConnectionItems(preparedStatement,connexion);
 		}
 		
+	}
+
+	@Override
+	public boolean find(User user, Topic topic) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean joined =  false;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER_TOPIC ,false, user.getId(), topic.getId());
+	        resultSet = preparedStatement.executeQuery();
+	       if( resultSet.next() )
+	        {
+	    	   	joined = true;
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return joined;
 	}
 
 	

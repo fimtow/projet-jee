@@ -13,14 +13,15 @@ import java.util.List;
 
 import ma.ensias.beans.Post;
 import ma.ensias.beans.Topic;
+import ma.ensias.beans.User;
 
 
 public class PostDaoImpl implements PostDao {
 	
-	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?,?) ";
+	private static final String SQL_INSERT = "INSERT INTO post(title,likes,dislikes,date,type,topic,user) VALUES (?,?,?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE id = ?";
 	private static final String SQL_SELECT_BY_TOPIC = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE topic = ?";
-	//private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
+	private static final String SQL_SELECT_BY_USER = "SELECT id,title,likes,dislikes,date,type,topic,user FROM post WHERE user= ?";
 	
 	private DAOFactory daoFactory;
 	
@@ -63,16 +64,20 @@ public class PostDaoImpl implements PostDao {
 		int likes = post.getLikes();
 		int dislikes = post.getDislikes();
 		Date date = post.getDate();
-		int idContent = post.getContent().getId();
 		int type = post.getType();
-		int idTopic = post.getTopic().getId();
+		Integer idTopic;
+		if(post.getTopic() != null)
+			idTopic = post.getTopic().getId();
+		else
+			idTopic = null;
+		
 		int idUser = post.getUser().getId();
 		
 		
 		try 
 		{	
 			connexion = daoFactory.getConnection();
-			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,true,title,title,likes,dislikes,date,idContent,type,idTopic,idUser);
+			preparedStatement = initQueryPrepared(connexion,SQL_INSERT,true,title,likes,dislikes,date,type,idTopic,idUser);
 			int statut = preparedStatement.executeUpdate();
 			if(statut == 0)
 			{
@@ -120,19 +125,6 @@ public class PostDaoImpl implements PostDao {
 	    return post;
 	}
 	
-
-	@Override
-	public void update(Object... fields) throws DAOException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Post post) throws DAOException {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public List<Post> find(Topic topic) {
 		Connection connexion = null;
@@ -154,6 +146,29 @@ public class PostDaoImpl implements PostDao {
 	    	closeConnectionItems( resultSet, preparedStatement, connexion );
 	    }	
 		return post;
+	}
+	@Override
+	public List<Post> find(User user) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Post> listOfPosts = new LinkedList<>();
+		
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER, false,user.getId());
+	        resultSet = preparedStatement.executeQuery();
+	        if ( resultSet.next() ) {
+	        	listOfPosts.add(map( resultSet )); 
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+	    
+	    return listOfPosts;
 	}
 
 }

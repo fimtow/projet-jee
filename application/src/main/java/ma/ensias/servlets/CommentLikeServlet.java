@@ -7,25 +7,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import ma.ensias.beans.User;
-import ma.ensias.forms.SignInForm;
+import ma.ensias.forms.CommentLikeForm;
 
 /**
- * Servlet implementation class SingIn
+ * Servlet implementation class CommentLikeServlet
  */
 
-public class SignIn extends HttpServlet {
+public class CommentLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final String USER_SESSION = "userSession";
-    
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignIn() {
+    public CommentLikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,13 +39,9 @@ public class SignIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SignInForm form = new SignInForm();
+		CommentLikeForm form = new CommentLikeForm();
 		
-		User user = form.connectUser(request);
-		
-		HttpSession session = request.getSession();
-		
-		session.setAttribute(USER_SESSION, user);
+		form.insertLike(request);
 		
 		String message = new Gson().toJson(form.getResult());
 		

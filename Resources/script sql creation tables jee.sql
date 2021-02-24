@@ -67,6 +67,9 @@ create table image(
 create table invitation(
     id int not null primary key AUTO_INCREMENT,
     joined int not null,
+    description text not null,
+    location varchar(50) not null,
+    date date not null,
     post int not null,
     foreign key(post) references post(id)
 );
@@ -79,4 +82,24 @@ create table member(
     primary key(userid, topicid),
     foreign key(userid) references user(id),
     foreign key(topicid) references topic(id)
+);
+
+-- Table post likes
+create table postlike(
+    userid int not null,
+    postid int not null,
+    islike boolean,
+    primary key(userid, postid),
+    foreign key(userid) references user(id),
+    foreign key(postid) references post(id)
+);
+
+-- Table comment likes
+create table commentlike(
+    userid int not null,
+    commentid int not null,
+    islike boolean,
+    primary key(userid, commentid),
+    foreign key(userid) references user(id),
+    foreign key(commentid) references comment(id)
 );

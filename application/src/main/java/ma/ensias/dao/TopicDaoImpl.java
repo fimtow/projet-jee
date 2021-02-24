@@ -18,6 +18,7 @@ public class TopicDaoImpl implements TopicDao {
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
 	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
+	private static final String SQL_SELECT_TITLE = "select id,title,description,iconUrl,coverUrl,isevent from topic WHERE title LIKE ?";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	
 	
@@ -35,8 +36,8 @@ public class TopicDaoImpl implements TopicDao {
 		topic.setDescription(resultset.getString("description"));
 		topic.setTitle(resultset.getString("title"));
 		topic.setIconUrl(resultset.getString("iconUrl"));	
+		topic.setCoverUrl(resultset.getString("coverUrl"));
 		topic.setMembers(daoFactory.getMemberDao().find(topic));
-		
 		return topic;
 	}
 
@@ -110,6 +111,33 @@ public class TopicDaoImpl implements TopicDao {
 	    
 	    return listOfTopics;
 	}
+	
+	public List<Topic> find (String title) throws DAOException 
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Topic topic = null;
+		List<Topic> listOfTopics = new LinkedList<>();
+		title = '%'+title+"%";
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_TITLE ,false,title);
+	        resultSet = preparedStatement.executeQuery();
+	        while( resultSet.next() ) {
+	        	
+	            topic = map( resultSet ); 
+	            listOfTopics.add(topic);
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }	
+	    
+	    return listOfTopics;
+	}
 
 	@Override
 	public Topic find(int id) throws DAOException {
@@ -136,11 +164,6 @@ public class TopicDaoImpl implements TopicDao {
 	    return topic;
 	}
 	
-	
-	
-	
-	
-
 	@Override
 	public void update(Topic topic) throws DAOException {
 		Connection connexion = null;
@@ -167,6 +190,8 @@ public class TopicDaoImpl implements TopicDao {
 			closeConnectionItems(preparedStatement, connexion );
 		}
 	}
+
+
 
 	
 

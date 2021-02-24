@@ -8,6 +8,8 @@ class User {
   -String username
   -String password
   -String email
+  +User()
+  +User(String username,String password,String email)
   +Int getId()
   +String getUsername()
   +String getPassword()
@@ -24,6 +26,9 @@ class Topic {
   -String description
   -String iconUrl
   -String coverUrl
+  +Topic()
+  +Topic(String title, String description, String iconUrl, String coverUrl,User user)
+  +Topic(String title, String description, String iconUrl, String coverUrl)
   +Int getId()
   +String getTitle()
   +String getDescription()
@@ -38,6 +43,8 @@ class Topic {
 class Event {
   -String location
   -Date date
+  +Event()
+  +Event(String title,String description,String location, Date date ,User user)
   +String getLocation()
   +Date getDate()
   +void setLocation(String location)
@@ -45,11 +52,19 @@ class Event {
   
 }
 class Post {
+   +{static}int IMAGE = 0;
+   +{static}int TEXT = 1;
+   +{static}int INVITATION = 2;
   -Int id
   -String title
   -Int likes
   -Int dislikes
   -Date date
+  -int type
+  +Post()
+  +Post(String title,Content content,Topic topic,User user)
+  +Post(String title,Content content,User user)
+  +Post(String title,Topic topic,User user)
   +Int getId()
   +String getTitle()
   +Int getLikes()
@@ -67,6 +82,8 @@ class Comment {
   -Int likes
   -Int dislikes
   -Date date
+  +Comment()
+  +Comment(String text, User user, Post post)
   +Int getId()
   +String getText()
   +Int getLikes()
@@ -78,21 +95,43 @@ class Comment {
   +void setDislikes(Int dislikes)
   +void setDate(Date date)
 }
-abstract class Content
+abstract class Content{
+    -int id
+    -int postId
+    +int getId()
+    +void setId(int id)
+    +int getPostId()
+    +void setPostId(int postId)
+}
 class Text {
     -String text
+    +Text()
+    +Text(String text)
     +String getText()
     +void setText(String text)
 }
 class Image {
     -String url
+    +Image()
+    +Image(String url)
     +String getUrl()
     +void setUr(String url)
 }
 class Invitation {
+    -String description
+    -String location
+    -Date date
     -Int joined
+    +Invitation()
+    +Invitation(String description,Date date,String location)
     +String getJoined()
     +void setJoined(String joined)
+    +String getDescription()
+    +setDescription(String description)
+    +String getLocation()
+    +void setLocation(String location)
+    +Date getDate()
+    +void setDate(Date date)
 }
 
 Topic <|-down- Event: Inheritance
@@ -100,7 +139,7 @@ Content <|-down- Text: Inheritance
 Content <|-down- Image: Inheritance
 Content <|-down- Invitation: Inheritance
 Post "1" *-up- "1" Content: Composition
-Post "1" -- "1" User: Own
+Post "*" -- "1" User: Own
 Topic "many" -- "many" User: Moderate
 Comment "many" -- "1" User: Own
 Comment "many" -- "1" Post: Own

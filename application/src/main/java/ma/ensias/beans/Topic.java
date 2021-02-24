@@ -12,7 +12,9 @@ public class Topic {
 	private String coverUrl;
 	private Map<User,Boolean> members;
 	
-	public Topic(){}
+	public Topic(){
+		this.members = new HashMap<>();
+	}
 	
 	public Topic(String title, String description, String iconUrl, String coverUrl,User user)
 	{

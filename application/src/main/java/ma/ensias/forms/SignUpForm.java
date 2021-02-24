@@ -2,12 +2,11 @@ package ma.ensias.forms;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
-import ma.ensias.dao.UserDaoImpl;
+import ma.ensias.dao.UserDao;
+
 
 
 public final class SignUpForm {
@@ -56,7 +55,7 @@ public final class SignUpForm {
             user.setEmail( email );
             user.setPassword(password);
             DAOFactory daoFactory = DAOFactory.getInstance();
-        	UserDaoImpl userDao = (UserDaoImpl)daoFactory.getUserDao();
+        	UserDao userDao = daoFactory.getUserDao();
         	userDao.create(user);
             
         } else {
@@ -71,9 +70,9 @@ public final class SignUpForm {
 
     private void checkUsernameinDataBase(String username) throws Exception {
     	DAOFactory daoFactory = DAOFactory.getInstance();
-    	UserDaoImpl userDao = (UserDaoImpl)daoFactory.getUserDao();
+    	UserDao userDao = daoFactory.getUserDao();
     	
-        if ( userDao.find(username,userDao.USERNAME) != null ) {
+        if ( userDao.find(username,UserDao.USERNAME) != null ) {
         	
         	throw new Exception( "The username is used , Please chose another one" );
         } 
@@ -81,9 +80,9 @@ public final class SignUpForm {
     }
     private void checkEmailinDataBase(String email) throws Exception {
     	DAOFactory daoFactory = DAOFactory.getInstance();
-    	UserDaoImpl userDao = (UserDaoImpl)daoFactory.getUserDao();
+    	UserDao userDao = daoFactory.getUserDao();
     	
-        if ( userDao.find(email,userDao.EMAIL) != null ) {
+        if ( userDao.find(email,UserDao.EMAIL) != null ) {
         	
         	throw new Exception( "The email is used , Please chose another one" );
         } 
