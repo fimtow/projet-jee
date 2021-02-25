@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/Auth/auth.guard';
 
 import { PostPage } from './post.page';
 
@@ -9,8 +10,9 @@ const routes: Routes = [
     component: PostPage
   },
   {
-    path: 'crpost',
-    loadChildren: () => import('./crpost/crpost.module').then( m => m.CrpostPageModule)
+    path: 'create',
+    loadChildren: () => import('./crpost/crpost.module').then( m => m.CrpostPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

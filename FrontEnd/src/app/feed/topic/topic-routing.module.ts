@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/Auth/auth.guard';
 
 import { TopicPage } from './topic.page';
 
@@ -9,8 +10,9 @@ const routes: Routes = [
     component: TopicPage
   },
   {
-    path: 'crtopic',
-    loadChildren: () => import('./crtopic/crtopic.module').then( m => m.CrtopicPageModule)
+    path: 'create',
+    loadChildren: () => import('./crtopic/crtopic.module').then( m => m.CrtopicPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

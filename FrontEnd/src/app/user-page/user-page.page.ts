@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { AuthService } from '../Auth/auth.service';
 
 interface post {
   id?: number,
@@ -25,9 +27,14 @@ export class UserPagePage implements OnInit {
     {title:'Avantages de l internet', likes: 300, dislikes: 100}
   ];
   public joinedTopics: string[] = [];
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.retreive().pipe(tap(resData => {
+      console.log(resData);
+      this.username = resData.user.username;
+      this.email = resData.user.email;
+    })).subscribe();
   }
 
 }

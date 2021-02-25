@@ -13,8 +13,8 @@ export class AuthService {
   public apiUrl: string = 'http://localhost:80/application';
   private _cookieValue = new BehaviorSubject<string>('');
   private optionRequete = {
-    headers: new HttpHeaders({ 
-      'Access-Control-Allow-Origin':'*'
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*'
     }),
     observe: 'events',
     responseType: 'json',
@@ -56,9 +56,6 @@ export class AuthService {
       if (!storedData || !storedData.value) {
         return false;
       }
-      // const parsedData = JSON.parse(storedData.value) as {
-      //   auth: boolean
-      // };
       const parsedData = JSON.parse(storedData.value);
       if (parsedData.isAuthenticated) {
         this._authenticated = parsedData.isAuthenticated;
@@ -75,28 +72,19 @@ export class AuthService {
     username: string,
     password: string
   ) {
-    return this.httpClient.post<boolean>(
-      this.apiUrl + `/signin?username=${username}&password=${password}`, {}, 
-      // {
-      //   headers: new HttpHeaders({ 
-      //     // 'Access-Control-Allow-Origin':'*'
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   }),
-      //   observe: 'events',
-      //   responseType: 'json',
-      //   withCredentials: true
-      // }
-      )
-      .pipe(take(1), tap(resData => {
-        this._authenticated = resData;
-        if (this._authenticated) {
-          this._authStatusListener.next(true);
-          this.storeAuthData();
-        }
-      }));
-      // .subscribe(data => {
-      //   console.log(data);
-      // });
+    return this.httpClient.post<any>(
+      this.apiUrl + `/signin?username=${username}&password=${password}`, {},
+      {
+        withCredentials: true
+      }
+    ).pipe(tap(resData => {
+      console.log(resData);
+      this._authenticated = resData;
+      if (this._authenticated) {
+        this._authStatusListener.next(true);
+        this.storeAuthData();
+      }
+    }));
   }
 
   // resetPasswordRequest(email: string) {
@@ -118,8 +106,8 @@ export class AuthService {
     Plugins.Storage.clear().then(() => {
       this.router.navigateByUrl('/login');
       //if (!this.router.url.includes("/home") && !this.router.url.includes("/login") && !this.router.url.includes("/register"))
-        //this.navCtrl.navigateRoot("/login");
-        //this.router.navigateByUrl('/login');
+      //this.navCtrl.navigateRoot("/login");
+      //this.router.navigateByUrl('/login');
     });
   }
 
@@ -133,14 +121,11 @@ export class AuthService {
     });
   }
 
-  isAuthenticated(){
+  recheckAuth() {
     return from(Plugins.Storage.get({ key: 'authData' })).pipe(take(1), map(storedData => {
       if (!storedData || !storedData.value) {
         return false;
       }
-      // const parsedData = JSON.parse(storedData.value) as {
-      //   auth: boolean
-      // };
       const parsedData = JSON.parse(storedData.value);
       if (parsedData.isAuthenticated) {
         this._authenticated = parsedData.isAuthenticated;
@@ -149,8 +134,16 @@ export class AuthService {
       } else {
         return false;
       }
-
     }));
+  }
+
+  retreive() {
+    return this.httpClient.get<any>(
+      this.apiUrl + '/user?id=1',
+      {
+        withCredentials: true
+      }
+    );
   }
 
 }

@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { CookieService } from 'ngx-cookie-service';
+import { take, tap } from 'rxjs/operators';
 
 import '../../../assets/login-animation.js';
 import { AuthService } from '../auth.service';
@@ -45,7 +46,7 @@ export class LoginPage implements OnInit {
       loadingElement.present();
       this.authService.authenticate(username, password)
         .subscribe(resData => {
-          console.log(resData);
+          //console.log(resData);
           if (resData) {
             loadingElement.dismiss();
             this.navCtrl.navigateRoot('/home');
@@ -54,14 +55,13 @@ export class LoginPage implements OnInit {
           }
           else {
             loadingElement.dismiss();
-            loadingElement.dismiss();
-          this.alertCtrl.create({
-            header: 'Something wrong',
-            message: 'Username or password incorrect',
-            buttons: ['Ok']
-          }).then(alertElement => {
-            alertElement.present();
-          });
+            this.alertCtrl.create({
+              header: 'Something wrong',
+              message: 'Username or password incorrect',
+              buttons: ['Ok']
+            }).then(alertElement => {
+              alertElement.present();
+            });
             console.log("Login failed");
             // this.modalCtrl.create({
             //   component: VerifyEmailComponent,
@@ -90,8 +90,9 @@ export class LoginPage implements OnInit {
 
   }
 
-  login0(form: NgForm) {
-    console.log(form.value);
-  }
-
 }
+
+// .pipe(tap(resData => {
+//   loadingElement.dismiss();
+//   console.log(resData);
+// })).subscribe();

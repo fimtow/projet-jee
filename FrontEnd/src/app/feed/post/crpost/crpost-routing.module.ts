@@ -8,6 +8,18 @@ const routes: Routes = [
     path: '',
     component: CrpostPage
   }
+  // {
+  //   path: 'pimage',
+  //   loadChildren: () => import('./pimage/pimage.module').then( m => m.PimagePageModule)
+  // },
+  // {
+  //   path: 'ptext',
+  //   loadChildren: () => import('./ptext/ptext.module').then( m => m.PtextPageModule)
+  // },
+  // {
+  //   path: 'pinvit',
+  //   loadChildren: () => import('./pinvit/pinvit.module').then( m => m.PinvitPageModule)
+  // }
 ];
 
 @NgModule({
