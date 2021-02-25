@@ -1,12 +1,11 @@
-package ma.ensias.test;
+package unittests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
@@ -17,23 +16,12 @@ class TopicDaoTest {
 	
 	public static TopicDao topicDao;
 	
-	@BeforeAll
+	@Before
     static void setup(){
 		topicDao = DAOFactory.getInstance().getTopicDao();
         System.out.println("Starting Testing , all variables are set");
     }
-	@BeforeEach
-    void setupThis(){
-        System.out.println("A Test will begin ");
-    }
-	@AfterEach
-	void tearThis(){
-      System.out.println("Test finished");
-	}
-	@AfterAll
-    static void tear(){
-        System.out.println("All Tests finished");
-    } 
+	
 	
 	@Test
 	void testCreate()
