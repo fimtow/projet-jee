@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ma.ensias.beans.User;
 import ma.ensias.forms.SignUpForm;
@@ -48,7 +49,10 @@ public class SignUpServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute(USER_SESSION, user); 
 		
-		String message = new Gson().toJson(signupform.geterrors());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", signupform.getResult());
+		jsonObject.add("errors",new Gson().toJsonTree(signupform.geterrors()));
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

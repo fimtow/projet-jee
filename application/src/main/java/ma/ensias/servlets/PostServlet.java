@@ -44,6 +44,7 @@ public class PostServlet extends HttpServlet {
 		if(!postForm.getResult())
 		{ 
 			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("success", postForm.getResult());
     		jsonObject.addProperty("error", "Inexistent post");
     		message = jsonObject.toString();
 		}
@@ -52,6 +53,7 @@ public class PostServlet extends HttpServlet {
 			Gson gson = new Gson();
 			JsonElement jsonElement = gson.toJsonTree(post);
 			JsonElement jsonElement2 = gson.toJsonTree(postForm.getComments());
+			jsonElement.getAsJsonObject().addProperty("success", postForm.getResult());
 			jsonElement.getAsJsonObject().add("comments", jsonElement2);
 			message = gson.toJson(jsonElement);
 		}
@@ -70,8 +72,11 @@ public class PostServlet extends HttpServlet {
 		PostForm postForm = new PostForm();
 		postForm.createPost(request);
 		
-		Gson gson = new Gson();
-		String message = gson.toJson(postForm);
+
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", postForm.getResult());
+		String message = jsonObject.toString();
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

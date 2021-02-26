@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ma.ensias.forms.CommentLikeForm;
 
@@ -42,7 +42,9 @@ public class CommentLikeServlet extends HttpServlet {
 		
 		form.insertLike(request);
 		
-		String message = new Gson().toJson(form.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", form.getResult());
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

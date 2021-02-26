@@ -10,7 +10,7 @@ import ma.ensias.dao.TopicDao;
 
 public class SearchTopic {
 	
-	public boolean succes = false; 
+	public boolean success = false; 
 	public List<Topic> listOfTopics;
 	
 	public SearchTopic(HttpServletRequest request)
@@ -22,7 +22,7 @@ public class SearchTopic {
 		TopicDao topicDao = DAOFactory.getInstance().getTopicDao();
 		listOfTopics = topicDao.find(nameTyped);
 		if(listOfTopics.size() > 0)
-			succes = true;
+			success = true;
 		
 	}
 	

@@ -43,6 +43,7 @@ public class TopicServlet extends HttpServlet {
 		if(!topicForm.getResult())
 		{ 
 			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("success", topicForm.getResult());
     		jsonObject.addProperty("error", "Inexistent topic");
     		message = jsonObject.toString();
 		}
@@ -55,6 +56,7 @@ public class TopicServlet extends HttpServlet {
 				jsonElement.getAsJsonObject().addProperty("joined", topicForm.getJoined());
 			}
 			JsonElement jsonElement2 = gson.toJsonTree(topicForm.getPosts());
+			jsonElement.getAsJsonObject().addProperty("success", topicForm.getResult());
 			jsonElement.getAsJsonObject().add("posts", jsonElement2);
 			message = gson.toJson(jsonElement);
 		}
@@ -73,7 +75,10 @@ public class TopicServlet extends HttpServlet {
 		TopicForm topicForm = new TopicForm();
 		topicForm.createTopic(request);
 		
-		String message = new Gson().toJson(topicForm.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", topicForm.getResult());
+		String message = jsonObject.toString();
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

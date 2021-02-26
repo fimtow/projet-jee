@@ -35,10 +35,9 @@ public class HomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HomeGenerator home = new HomeGenerator(request);
-		System.out.println(home.getListOfTopics());
-		System.out.println(home.getListOfPosts());
-		// TODO : Test 
+		
 		String message = new Gson().toJson(home);
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

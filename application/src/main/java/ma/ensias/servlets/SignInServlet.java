@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ma.ensias.beans.User;
 import ma.ensias.forms.SignInForm;
@@ -49,7 +49,9 @@ public class SignInServlet extends HttpServlet {
 		
 		session.setAttribute(USER_SESSION, user);
 		
-		String message = new Gson().toJson(form.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", form.getResult());
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
