@@ -21,7 +21,7 @@
 	
 	<servlet>
 	<servlet-name>SignIn</servlet-name>
-	<servlet-class>ma.ensias.servlets.SignIn</servlet-class>
+	<servlet-class>ma.ensias.servlets.SignInServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
