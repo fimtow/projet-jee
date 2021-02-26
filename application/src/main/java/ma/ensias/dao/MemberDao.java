@@ -16,6 +16,8 @@ public interface MemberDao {
 	
 	public Map<User,Boolean> find(Topic topic) throws DAOException;
 	
+	public boolean find(User user,int idTopic) throws DAOException;
+	
 	public void delete(Topic topic, User user) throws DAOException;
 	
 

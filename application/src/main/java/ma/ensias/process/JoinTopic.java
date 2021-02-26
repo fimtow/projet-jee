@@ -21,11 +21,16 @@ public class JoinTopic {
 			return;
 		}
 		String idTopicString = getFieldValue(request,"idtopic"); 
+		
 		if(idTopicString == null)
 		{
 			return;
 		}
 		int idTopic = Integer.parseInt(idTopicString);
+		if(DAOFactory.getInstance().getMemberDao().find(user,idTopic))
+		{
+			return;
+		}
 		DAOFactory.getInstance().getMemberDao().create(user,idTopic,false);
 		succes = true;
 	}
