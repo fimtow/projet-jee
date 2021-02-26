@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import ma.ensias.beans.Post;
@@ -39,24 +38,16 @@ public class PostServlet extends HttpServlet {
 		PostForm postForm = new PostForm();
 		Post post = postForm.searchPost(request);
 		
-		
-		String message;
-		if(!postForm.getResult())
-		{ 
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("success", postForm.getResult());
-    		jsonObject.addProperty("error", "Inexistent post");
-    		message = jsonObject.toString();
-		}
-		else
+		Gson gson = new Gson();
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", postForm.getResult());
+		jsonObject.add("errors", gson.toJsonTree(postForm.getErrors()));
+		if(postForm.getResult())
 		{
-			Gson gson = new Gson();
-			JsonElement jsonElement = gson.toJsonTree(post);
-			JsonElement jsonElement2 = gson.toJsonTree(postForm.getComments());
-			jsonElement.getAsJsonObject().addProperty("success", postForm.getResult());
-			jsonElement.getAsJsonObject().add("comments", jsonElement2);
-			message = gson.toJson(jsonElement);
+			jsonObject.add("post", gson.toJsonTree(post));
+			jsonObject.add("comments", gson.toJsonTree(postForm.getComments()));
 		}
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

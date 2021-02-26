@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import ma.ensias.forms.CommentForm;
@@ -44,6 +45,7 @@ public class CommentServlet extends HttpServlet {
 		
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("success", form.getResult());
+		jsonObject.add("errors", new Gson().toJsonTree(form.getErrors()));
 		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
