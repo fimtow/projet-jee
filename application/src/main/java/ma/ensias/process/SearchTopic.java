@@ -23,7 +23,10 @@ public class SearchTopic {
 		listOfTopics = topicDao.find(nameTyped);
 		if(listOfTopics.size() > 0)
 			succes = true;
-		
+		for(Topic topic : listOfTopics)
+		{
+			topic.setMembers(null);
+		}
 	}
 	
 
