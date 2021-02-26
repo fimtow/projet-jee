@@ -13,8 +13,8 @@ import ma.ensias.beans.Post;
 public class InvitationDaoImpl implements InvitationDao{
 
 	private DAOFactory daoFactory;
-	private static final String SQL_SELECT_BY_ID = "SELECT description,date,location,joined,post FROM invitation WHERE id = ?";
-	private static final String SQL_SELECT_BY_POST = "SELECT description,date,location,joined,post FROM invitation WHERE post = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id,description,date,location,joined,post FROM invitation WHERE id = ?";
+	private static final String SQL_SELECT_BY_POST = "SELECT id,description,date,location,joined,post FROM invitation WHERE post = ?";
 	private static final String SQL_INSERT = "INSERT INTO invitation (description,date,location,joined,post) VALUES (?,?,?,?,?)";
 	private static final String SQL_UPDATE = "UPDATE invitation SET joined=? WHERE id=?;";
 	

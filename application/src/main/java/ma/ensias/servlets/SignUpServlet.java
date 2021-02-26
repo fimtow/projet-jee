@@ -35,17 +35,13 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doPost(request,response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		SignUpForm signupform  = new SignUpForm();
 		User user = signupform.createUser(request);
 		
@@ -59,12 +55,6 @@ public class SignUpServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		out.print(message);
 		out.flush();
-		
-	
-		
-		  
-		 
-		
 	}
 
 }
