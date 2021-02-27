@@ -9,6 +9,7 @@ import ma.ensias.beans.Post;
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
+import ma.ensias.dao.MemberDao;
 import ma.ensias.dao.PostDao;
 import ma.ensias.dao.TopicDao;
 
@@ -24,6 +25,17 @@ public class TopicForm {
     
     private boolean success = true;
     private List<Post> posts;
+    private boolean joined;
+    private boolean logged = false;
+    public boolean getJoined()
+    {
+    	return joined;
+    }
+    
+    public boolean getLogged()
+    {
+    	return logged;
+    }
     public boolean getResult() {
         return success;
     }
@@ -63,6 +75,18 @@ public class TopicForm {
         
         if(success)
         {
+        	
+        	// topic members isn't showing correctly (it's showing the user oject reference) , so i hid it
+        	topic.setMembers(null);
+        	
+            HttpSession session = request.getSession();
+            User cuser = (User) session.getAttribute( SESSION_USER );
+            if(cuser != null)
+            {
+            	logged = true;
+            	MemberDao memberDao = daoFactory.getMemberDao();
+            	joined = memberDao.find(cuser, topic);
+            }
         	PostDao postDao = daoFactory.getPostDao();
         	posts = postDao.find(topic);
         	for(Post post : posts)

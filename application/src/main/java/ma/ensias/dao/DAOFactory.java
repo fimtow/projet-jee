@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class DAOFactory {
 
-    private static final String FICHIER_PROPERTIES       = "ma/ensias/dao/dao.properties";
+    private static final String FICHIER_PROPERTIES       = "dao.properties";
     private static final String PROPERTY_URL             = "url";
     private static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
     private static final String PROPERTY_MOT_DE_PASSE    = "motdepasse";
@@ -114,6 +114,16 @@ public class DAOFactory {
     public UserDao getUserDao()
     {
     	return new UserDaoImpl( this );
+    }
+    
+    public PostLikeDao getPostLikeDao()
+    {
+    	return new PostLikeDaoImpl( this );
+    }
+    
+    public CommentLikeDao getCommentLikeDao()
+    {
+    	return new CommentLikeDaoImpl( this );
     }
     
 }

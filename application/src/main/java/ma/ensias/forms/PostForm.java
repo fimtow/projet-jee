@@ -32,14 +32,6 @@ public class PostForm {
      */
     private static final String TOPIC_FIELD = "topic";
     /*
-     * si text 
-     */
-    private static final String TEXT_FIELD = "text";
-    /*
-     * si image 
-     */
-    private static final String URL_FIELD = "url";
-    /*
      * si le post est event
      */
     private static final String LOCATION_FIELD = "location";
@@ -117,14 +109,14 @@ public class PostForm {
 	    	if(typeOfContent.equals("text"))
 	    	{
 	    		post.setType(Post.TEXT);
-	    		content = new Text(getFieldValue(request,TEXT_FIELD));
+	    		content = new Text(getFieldValue(request,"text"));
 	    		
 	    		 
 	    	}
 	    	else
 	    	{
 	    		post.setType(Post.IMAGE);
-	    		content = new Image(getFieldValue(request,URL_FIELD));
+	    		content = new Image(getFieldValue(request,"url"));
 	    	}
 	    	
 	    	

@@ -20,6 +20,7 @@ public class MemberDaoImpl implements MemberDao{
 	public static final String SQL_INSERT = "INSERT INTO member(userid,topicid,ismoderator) values (?,?,?)";
 	public static final String SQL_SELECT_BY_TOPIC = "SELECT userid,topicid,ismoderator FROM member WHERE topicid = ? ";
 	public static final String SQL_SELECT_BY_USER = "SELECT topicid FROM member WHERE member.userid = ? ";
+	public static final String SQL_SELECT_BY_USER_TOPIC = "SELECT * FROM member WHERE userid = ?  and topicid = ?";
 	public static final String SQL_DELETE = "DELETE FROM member WHERE userid = ? AND topicid = ?";
 	
 	private DAOFactory daoFactory;
@@ -189,6 +190,29 @@ public class MemberDaoImpl implements MemberDao{
 			closeConnectionItems(preparedStatement,connexion);
 		}
 		
+	}
+
+	@Override
+	public boolean find(User user, Topic topic) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean joined =  false;
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER_TOPIC ,false, user.getId(), topic.getId());
+	        resultSet = preparedStatement.executeQuery();
+	       if( resultSet.next() )
+	        {
+	    	   	joined = true;
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
+
+		return joined;
 	}
 
 	
