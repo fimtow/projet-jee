@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ma.ensias.beans.User;
 import ma.ensias.forms.SignInForm;
@@ -34,8 +35,7 @@ public class SignInServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -50,7 +50,10 @@ public class SignInServlet extends HttpServlet {
 		
 		session.setAttribute(USER_SESSION, user);
 		
-		String message = new Gson().toJson(form.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", form.getResult());
+		jsonObject.add("errors", new Gson().toJsonTree(form.getErrors()));
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

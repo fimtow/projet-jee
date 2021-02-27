@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ma.ensias.forms.CommentForm;
 
@@ -31,8 +32,7 @@ public class CommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("404");
 	}
 
 	/**
@@ -43,7 +43,10 @@ public class CommentServlet extends HttpServlet {
 		
 		form.createComment(request);
 		
-		String message = new Gson().toJson(form.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", form.getResult());
+		jsonObject.add("errors", new Gson().toJsonTree(form.getErrors()));
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

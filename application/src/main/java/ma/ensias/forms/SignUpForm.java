@@ -32,7 +32,14 @@ public final class SignUpForm {
         String username = getFieldValue( request, USERNAME_FIELD );
         String password = getFieldValue( request, PASSWORD_FIELD );
         String email = getFieldValue( request, EMAIL_FIELD );
-      
+        
+        if(username == null || password == null || email == null)
+        {
+        	result = false;
+        	errors.put("fields", "missing fields value");
+        	return null;
+        }
+        
         User user = new User();
        
         try {

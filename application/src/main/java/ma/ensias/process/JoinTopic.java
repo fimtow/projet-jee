@@ -10,7 +10,12 @@ public class JoinTopic {
 	
 	public static final String SESSION_USER = "userSession";
 	
-	public boolean succes = false; ;
+	public boolean success = false;
+	
+	public boolean getResult()
+	{
+		return success;
+	}
 	
 	public JoinTopic(HttpServletRequest request)
 	{	
@@ -27,7 +32,7 @@ public class JoinTopic {
 		}
 		int idTopic = Integer.parseInt(idTopicString);
 		DAOFactory.getInstance().getMemberDao().create(user,idTopic,false);
-		succes = true;
+		success = true;
 	}
 	
 	

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import ma.ensias.beans.Topic;
@@ -39,26 +38,21 @@ public class TopicServlet extends HttpServlet {
 		Topic topic = topicForm.searchTopic(request);
 		
 		
-		String message;
-		if(!topicForm.getResult())
-		{ 
-			JsonObject jsonObject = new JsonObject();
-    		jsonObject.addProperty("error", "Inexistent topic");
-    		message = jsonObject.toString();
-		}
-		else
+		Gson gson = new Gson();
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", topicForm.getResult());
+		jsonObject.add("errors", gson.toJsonTree(topicForm.getErrors()));
+		if(topicForm.getResult())
 		{
-			Gson gson = new Gson();
-			JsonElement jsonElement = gson.toJsonTree(topic);
+			jsonObject.add("topic", gson.toJsonTree(topic));
 			if(topicForm.getLogged())
 			{
-				jsonElement.getAsJsonObject().addProperty("joined", topicForm.getJoined());
+				jsonObject.addProperty("joined", topicForm.getJoined());
 			}
-			JsonElement jsonElement2 = gson.toJsonTree(topicForm.getPosts());
-			jsonElement.getAsJsonObject().add("posts", jsonElement2);
-			message = gson.toJson(jsonElement);
+			jsonObject.add("posts", gson.toJsonTree(topicForm.getPosts()));
 		}
-		
+		String message = jsonObject.toString();
+
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -73,7 +67,11 @@ public class TopicServlet extends HttpServlet {
 		TopicForm topicForm = new TopicForm();
 		topicForm.createTopic(request);
 		
-		String message = new Gson().toJson(topicForm.getResult());
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", topicForm.getResult());
+		jsonObject.add("errors", new Gson().toJsonTree(topicForm.getErrors()));
+		String message = jsonObject.toString();
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
