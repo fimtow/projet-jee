@@ -7,14 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import ma.ensias.beans.Post;
-import ma.ensias.dao.DAOFactory;
 import ma.ensias.forms.PostForm;
 
 
@@ -41,22 +38,16 @@ public class PostServlet extends HttpServlet {
 		PostForm postForm = new PostForm();
 		Post post = postForm.searchPost(request);
 		
-		
-		String message;
-		if(!postForm.getResult())
-		{ 
-			JsonObject jsonObject = new JsonObject();
-    		jsonObject.addProperty("error", "Inexistent post");
-    		message = jsonObject.toString();
-		}
-		else
+		Gson gson = new Gson();
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", postForm.getResult());
+		jsonObject.add("errors", gson.toJsonTree(postForm.getErrors()));
+		if(postForm.getResult())
 		{
-			Gson gson = new Gson();
-			JsonElement jsonElement = gson.toJsonTree(post);
-			JsonElement jsonElement2 = gson.toJsonTree(postForm.getComments());
-			jsonElement.getAsJsonObject().add("comments", jsonElement2);
-			message = gson.toJson(jsonElement);
+			jsonObject.add("post", gson.toJsonTree(post));
+			jsonObject.add("comments", gson.toJsonTree(postForm.getComments()));
 		}
+		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
@@ -69,24 +60,20 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession httpsession = request.getSession();
-		httpsession.setAttribute("userSession",DAOFactory.getInstance().getUserDao().find(1) );
 		PostForm postForm = new PostForm();
 		postForm.createPost(request);
 		
-		Gson gson = new Gson();
-		String message = gson.toJson(postForm);
+
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("success", postForm.getResult());
+		String message = jsonObject.toString();
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		out.print(message);
 		out.flush();
-		
-		
-		
-		
-		
+	
 	}
 
 }

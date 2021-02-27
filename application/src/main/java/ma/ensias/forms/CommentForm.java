@@ -1,5 +1,8 @@
 package ma.ensias.forms;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +20,12 @@ public class CommentForm {
     public static final String SESSION_USER = "userSession";
     
     private boolean success = true;
+    private Map<String, String>  errors = new HashMap<String, String>();
+    
+    public Map<String, String> getErrors()
+    {
+    	return errors;
+    }
 
     public boolean getResult() {
         return success;
@@ -25,8 +34,19 @@ public class CommentForm {
 
     public void createComment( HttpServletRequest request ) {
         /* get values from form */
-        int postId = Integer.parseInt(getFieldValue( request, POST_FIELD ));
-        String commentText = getFieldValue( request, COMMENT_FIELD );
+    	String stringPostId = getFieldValue( request, POST_FIELD );
+    	String commentText = getFieldValue( request, COMMENT_FIELD );
+    	 
+        if(stringPostId == null || commentText == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing fields value");
+        	return;
+        }
+    	 
+    	 
+        int postId = Integer.parseInt(stringPostId);
+       
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute( SESSION_USER );
         DAOFactory daoFactory = DAOFactory.getInstance();

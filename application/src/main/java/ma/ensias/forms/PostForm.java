@@ -3,7 +3,9 @@ package ma.ensias.forms;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,6 +43,12 @@ public class PostForm {
     
 
     private boolean success = true;
+    private Map<String, String>  errors = new HashMap<String, String>();
+    
+    public Map<String, String> getErrors()
+    {
+    	return errors;
+    }
     private List<Comment> comments;
     
     public boolean getResult() {
@@ -53,6 +61,14 @@ public class PostForm {
     
     	String title = getFieldValue(request,TITLE_FIELD);
     	String typeOfContent = getFieldValue(request,CONTENT_TYPE_FIELD);
+    	
+        if(title == null || typeOfContent == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing fields value");
+        	return;
+        }
+        
     	HttpSession session = request.getSession();
     	User user = (User) session.getAttribute(SESSION_USER);
     	Content content = null ;
@@ -64,6 +80,7 @@ public class PostForm {
     		String location = getFieldValue(request,LOCATION_FIELD);
     		String dateString = getFieldValue(request,DATE_FIELD);
     		String description = getFieldValue(request,DESCRIPTION_FIELD);
+            
     		Date date;
 			try {
 				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
@@ -91,6 +108,7 @@ public class PostForm {
 	    	if(idTopicString == null)
 	    	{	
 	    		success = false;
+	    		errors.put("fields", "missing topic field value");
 	    		return;
 	    	}
 	    	
@@ -98,9 +116,10 @@ public class PostForm {
 	    	DAOFactory daoFactory = DAOFactory.getInstance();
 	    	TopicDao topicDao = daoFactory.getTopicDao();
 	    	Topic topic = topicDao.find(idTopic);
-	    	if(  topic == null)
+	    	if(topic == null)
 	    	{	
 	    		this.success = false;
+	    		errors.put("topic", "inexistent topic");
 	    		return;
 	    	}
 	
@@ -109,14 +128,26 @@ public class PostForm {
 	    	if(typeOfContent.equals("text"))
 	    	{
 	    		post.setType(Post.TEXT);
-	    		content = new Text(getFieldValue(request,"text"));
-	    		
-	    		 
+	    		String value = getFieldValue(request,"text");
+		    	if(value == null)
+		    	{	
+		    		success = false;
+		    		errors.put("fields", "missing topic field value");
+		    		return;
+		    	}
+	    		content = new Text(value);
 	    	}
 	    	else
 	    	{
 	    		post.setType(Post.IMAGE);
-	    		content = new Image(getFieldValue(request,"url"));
+	    		String value = getFieldValue(request,"text");
+		    	if(value == null)
+		    	{	
+		    		success = false;
+		    		errors.put("fields", "missing topic field value");
+		    		return;
+		    	}
+	    		content = new Image(value);
 	    	}
 	    	
 	    	
@@ -140,8 +171,17 @@ public class PostForm {
    
 
     public Post searchPost( HttpServletRequest request ) {
-
-        int id = Integer.parseInt(getFieldValue( request, ID_FIELD ));
+    	String stringId = getFieldValue( request, ID_FIELD );
+    	
+        if(stringId == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing fields value");
+        	return null;
+        }
+    	
+    	
+        int id = Integer.parseInt(stringId);
         
         DAOFactory daoFactory = DAOFactory.getInstance();
         PostDao postDao = daoFactory.getPostDao();
@@ -149,23 +189,25 @@ public class PostForm {
         Post post = postDao.find(id);
         
         if(post == null)
-        	success = false;
-        
-        if(success)
         {
-        	User postUser = post.getUser();
-        	postUser.setPassword(null);
-        	postUser.setEmail(null);
-        	CommentDao commentDao = daoFactory.getCommentDao();
-        	comments = commentDao.find(post);
-        	for(Comment comment : comments)
-        	{
-        		comment.setPost(null);
-        		User user = comment.getUser();
-        		user.setPassword(null);
-        		user.setEmail(null);
-        	}
+        	success = false;
+        	errors.put("post", "inexistent post");
+        	return null;
         }
+        	
+        
+    	User postUser = post.getUser();
+    	postUser.setPassword(null);
+    	postUser.setEmail(null);
+    	CommentDao commentDao = daoFactory.getCommentDao();
+    	comments = commentDao.find(post);
+    	for(Comment comment : comments)
+    	{
+    		comment.setPost(null);
+    		User user = comment.getUser();
+    		user.setPassword(null);
+    		user.setEmail(null);
+    	}
         return post;
     }
     

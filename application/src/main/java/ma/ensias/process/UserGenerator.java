@@ -16,7 +16,7 @@ public class UserGenerator {
 	
 	public User user;
 	public List<Post> listOfPosts;
-	public boolean succes = false;
+	public boolean success = false;
 	
 	
 	public UserGenerator(HttpServletRequest request )
@@ -46,7 +46,7 @@ public class UserGenerator {
 					post.getUser().setPassword(null);
 				}
 				user.setPassword(null);
-				succes = true;
+				success = true;
 			}
 		}
 	}

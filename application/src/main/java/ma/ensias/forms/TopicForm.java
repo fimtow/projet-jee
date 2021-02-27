@@ -1,6 +1,8 @@
 package ma.ensias.forms;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +29,14 @@ public class TopicForm {
     private List<Post> posts;
     private boolean joined;
     private boolean logged = false;
+    
+    private Map<String, String>  errors = new HashMap<String, String>();
+    
+    public Map<String, String> getErrors()
+    {
+    	return errors;
+    }
+    
     public boolean getJoined()
     {
     	return joined;
@@ -50,7 +60,12 @@ public class TopicForm {
         String cover = getFieldValue( request, COVER_FIELD );
         
         if(title == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing fields value");
         	return;
+        }
+        
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute( SESSION_USER );
         
@@ -63,41 +78,52 @@ public class TopicForm {
     }
     public Topic searchTopic( HttpServletRequest request ) {
 
-        int id = Integer.parseInt(getFieldValue( request, ID_FIELD ));
         
+        String stringId	= getFieldValue( request, ID_FIELD );
+        
+        if(stringId == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing fields value");
+        	return null;
+        }
+        
+        int id = Integer.parseInt(stringId);
         DAOFactory daoFactory = DAOFactory.getInstance();
         TopicDao topicDao = daoFactory.getTopicDao();
         
         Topic topic = topicDao.find(id);
         
         if(topic == null)
-        	success = false;
-        
-        if(success)
         {
-        	
-        	// topic members isn't showing correctly (it's showing the user oject reference) , so i hid it
-        	topic.setMembers(null);
-        	
-            HttpSession session = request.getSession();
-            User cuser = (User) session.getAttribute( SESSION_USER );
-            if(cuser != null)
-            {
-            	logged = true;
-            	MemberDao memberDao = daoFactory.getMemberDao();
-            	joined = memberDao.find(cuser, topic);
-            }
-        	PostDao postDao = daoFactory.getPostDao();
-        	posts = postDao.find(topic);
-        	for(Post post : posts)
-        	{
-        		post.setTopic(null);
-        		User user = post.getUser();
-        		user.setPassword(null);
-        		user.setEmail(null);
-        		post.setUser(user);
-        	}
+        	success = false;
+        	errors.put("topic", "Inexistent topic");
+        	return null;
         }
+        
+        	
+    	// topic members isn't showing correctly (it's showing the user oject reference) , so i hid it
+    	topic.setMembers(null);
+    	
+        HttpSession session = request.getSession();
+        User cuser = (User) session.getAttribute( SESSION_USER );
+        if(cuser != null)
+        {
+        	logged = true;
+        	MemberDao memberDao = daoFactory.getMemberDao();
+        	joined = memberDao.find(cuser, topic);
+        }
+    	PostDao postDao = daoFactory.getPostDao();
+    	posts = postDao.find(topic);
+    	for(Post post : posts)
+    	{
+    		post.setTopic(null);
+    		User user = post.getUser();
+    		user.setPassword(null);
+    		user.setEmail(null);
+    		post.setUser(user);
+    	}
+    	
         return topic;
     }
     
