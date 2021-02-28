@@ -53,6 +53,8 @@ public class SignInServlet extends HttpServlet {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("success", form.getResult());
 		jsonObject.add("errors", new Gson().toJsonTree(form.getErrors()));
+		if(form.getResult())
+			jsonObject.addProperty("id", user.getId());
 		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();
