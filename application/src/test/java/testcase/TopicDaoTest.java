@@ -4,28 +4,20 @@ package testcase;
 
 import static org.junit.Assert.assertEquals;
 
-
-import org.junit.Before;
-import org.junit.Test;
-
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.TopicDao;
 
-class TopicDaoTest {
+public class TopicDaoTest {
 	
 	public static TopicDao topicDao = DAOFactory.getInstance().getTopicDao();
 	
-	@Before
-    public  void setup(){
-		
-        System.out.println("Starting Testing , all variables are set");
-    }
 	
 	
-	@Test
-	void testCreate()
+	
+
+	public void testCreate()
 	{	
 		User user = DAOFactory.getInstance().getUserDao().find(1);
 		/*
@@ -41,8 +33,8 @@ class TopicDaoTest {
 		assertEquals(topic.getCoverUrl(),topicFromDB.getCoverUrl());
 	
 	}
-	@Test
-	void testFind()
+	
+	public void testFind()
 	{	
 		User user = DAOFactory.getInstance().getUserDao().find(1);
 		Topic topicExist = new Topic("IA","Ce topic pour les gens qui sont interesse au IA","src/images/icons/ia","src/images/covers/ia",user);
