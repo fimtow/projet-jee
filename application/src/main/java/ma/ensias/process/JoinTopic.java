@@ -31,6 +31,10 @@ public class JoinTopic {
 			return;
 		}
 		int idTopic = Integer.parseInt(idTopicString);
+		if(DAOFactory.getInstance().getMemberDao().find(user,idTopic))
+		{
+			return;
+		}
 		DAOFactory.getInstance().getMemberDao().create(user,idTopic,false);
 		success = true;
 	}
