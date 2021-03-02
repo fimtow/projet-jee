@@ -2,8 +2,6 @@ package testcase;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
 import ma.ensias.beans.Text;

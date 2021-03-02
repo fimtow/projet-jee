@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 
@@ -67,7 +68,8 @@ public class SignInServletTest {
 					response.append(inputLine);
 				}
 				in.close();
-				assertEquals(response.toString(),"true");
+				JSONObject responseJSON = new JSONObject(response.toString());
+				assertEquals(responseJSON.get("success"),true);
 			} else {
 				System.out.println("POST request not worked");
 			}
@@ -106,9 +108,9 @@ public class SignInServletTest {
 					response.append(inputLine);
 				}
 				in.close();
-				assertEquals(response.toString(),"false");
-				// print result
-				System.out.println(response.toString());
+				JSONObject responseJSON = new JSONObject(response.toString());
+				assertEquals(responseJSON.get("success"),false);
+				
 			} else {
 				System.out.println("POST request not worked");
 			}

@@ -50,7 +50,7 @@ public class UserServletTest {
 				in.close();
 				JSONObject responseJSON = new JSONObject(response.toString());
 				JSONObject user = responseJSON.getJSONObject("user");
-				assertEquals(responseJSON.get("succes"),true);
+				assertEquals(responseJSON.get("success"),true);
 				assertEquals(user.get("id"),1);
 				assertEquals(user.get("username"),"Test");
 				assertEquals(user.get("email"),"test@gmail.com");
@@ -93,7 +93,7 @@ public class UserServletTest {
 				}
 				in.close();
 				JSONObject responseJSON = new JSONObject(response.toString());
-				assertEquals(responseJSON.get("succes"),false);
+				assertEquals(responseJSON.get("success"),false);
 			} else {
 				System.out.println("POST request not worked");
 			}

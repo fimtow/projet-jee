@@ -25,7 +25,7 @@ public class SignUpServletTest {
 	
 
     @Test
-    public void GetLoginPage()
+    public void GetSignUpPage()
     {
     	
     	try {
@@ -68,7 +68,7 @@ public class SignUpServletTest {
 				}
 				in.close();
 				JSONObject myResponse = new JSONObject(response.toString());
-				assertEquals(myResponse.getString("result"),"true");
+				assertEquals(myResponse.get("success"),true);
 			} else {
 				System.out.println("POST request not worked");
 			}
@@ -107,8 +107,10 @@ public class SignUpServletTest {
 				in.close();
 				
 				JSONObject responseJSON = new JSONObject(response.toString());
-				assertEquals(responseJSON.getString("email"),"The email is used , Please chose another one");
-				assertEquals(responseJSON.getString("username"),"The username is used , Please chose another one");
+				assertEquals(responseJSON.get("success"),false);
+				JSONObject errors = responseJSON.getJSONObject("errors");
+				assertEquals(errors.getString("email"),"The email is used , Please chose another one");
+				assertEquals(errors.getString("username"),"The username is used , Please chose another one");
 				
 			} else {
 				System.out.println("POST request not worked");
@@ -149,12 +151,14 @@ public class SignUpServletTest {
 				in.close();
 				
 				JSONObject responseJSON = new JSONObject(response.toString());
-				assertEquals(responseJSON.getString("result"),"false");
+				assertEquals(responseJSON.get("success"),false);
+				JSONObject errors = responseJSON.getJSONObject("errors");
+				assertEquals(errors.getString("fields"),"missing fields value");
+				
 				
 			} else {
 				System.out.println("POST request not worked");
 			}
-			
 			
 		}catch(Exception e)
 		{

@@ -16,7 +16,7 @@ public final class SignUpForm {
     private static final String EMAIL_FIELD = "email";
     
 
-    private boolean              result;
+    private boolean	success;
     private Map<String, String>  errors = new HashMap<String, String>();
 
     public Map<String, String> geterrors() {
@@ -24,7 +24,7 @@ public final class SignUpForm {
     }
 
     public Boolean getResult() {
-        return result;
+        return success;
     }
 
     public User createUser( HttpServletRequest request ) {
@@ -35,7 +35,7 @@ public final class SignUpForm {
         
         if(username == null || password == null || email == null)
         {
-        	result = false;
+        	success = false;
         	errors.put("fields", "missing fields value");
         	return null;
         }
@@ -57,7 +57,7 @@ public final class SignUpForm {
 
         if ( errors.isEmpty() ){
         	
-            result = true;
+        	success = true;
             user.setUsername( username );
             user.setEmail( email );
             user.setPassword(password);
@@ -66,7 +66,7 @@ public final class SignUpForm {
         	userDao.create(user);
             
         } else {
-            result = false;
+        	success = false;
         }
 
         return user;
