@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { take, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { PopoverComponent } from './popover/popover.component';
@@ -12,7 +12,7 @@ import { PopoverComponent } from './popover/popover.component';
 export class HeaderComponent implements OnInit {
   private isAuth: boolean = false;
 
-  constructor(private authService: AuthService, private popoverController: PopoverController) {
+  constructor(private navCtrl: NavController, private authService: AuthService, private popoverController: PopoverController) {
     // this.authService.autoLogin().subscribe(data => {
     //   this.isAuth = data;
     //   // console.log("subscribing auth from header: ",data);
@@ -41,5 +41,9 @@ export class HeaderComponent implements OnInit {
     this.authService.authStatusListener.subscribe(data => {
       this.isAuth = data;
     })
+  }
+
+  goToHome(){
+    this.navCtrl.navigateRoot('/')
   }
 }

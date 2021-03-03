@@ -8,14 +8,19 @@ import { AuthService } from 'src/app/Auth/auth.service';
   styleUrls: ['./popover.component.scss'],
 })
 export class PopoverComponent implements OnInit {
-
+  private profile: string = "/profile/";
   constructor(private navCtrl: NavController, private authService: AuthService, private popoverController: PopoverController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.autoLogin().subscribe();
+    this.authService.getUserId().subscribe(data=>{
+      this.profile = this.profile + data;
+    });
+  }
 
   goToProfile(){
     this.popoverController.dismiss();
-    this.navCtrl.navigateRoot('/userpage');
+    this.navCtrl.navigateRoot(this.profile);
   }
 
   signout(){

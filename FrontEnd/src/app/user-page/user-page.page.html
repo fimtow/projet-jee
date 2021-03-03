@@ -30,14 +30,15 @@
                                             </ion-col>
                                             <ion-col size="9">
                                                 <ion-card-header>
-                                                    <ion-card-title><a href="/">{{post.title}}</a></ion-card-title>
-                                                    <ion-card-subtitle>{{ind}}</ion-card-subtitle>
+                                                    <ion-card-title><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></ion-card-title>
+                                                    <ion-card-subtitle>{{post.date}}</ion-card-subtitle>
                                                 </ion-card-header>
                                             </ion-col>
                                             <ion-col size="2">
                                                 <img class="thumbnail" src="../../assets/profile.jpg" />
                                             </ion-col>
                                         </ion-row>
+
                                     </ion-grid>
                                 </ion-card>
                             </ion-col>

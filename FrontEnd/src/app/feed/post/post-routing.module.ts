@@ -8,12 +8,16 @@ const routes: Routes = [
   {
     path: '',
     component: PostPage
-  },
-  {
-    path: 'create',
-    loadChildren: () => import('./crpost/crpost.module').then( m => m.CrpostPageModule),
-    canActivate: [AuthGuard]
   }
+  // {
+  //   path: 'notfound',
+  //   loadChildren: () => import('./p404/p404.module').then( m => m.P404PageModule)
+  // }
+  // {
+  //   path: 'create',
+  //   loadChildren: () => import('./crpost/crpost.module').then( m => m.CrpostPageModule),
+  //   canActivate: [AuthGuard]
+  // }
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
 <ion-header class="ion-no-border" [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Forum JEE
+            <ion-icon (click)="goToHome()" class="forumicon" name="bug-outline"></ion-icon>
+            <div (click)="goToHome()" class="title">STONKS</div>
         </ion-title>
         <ion-buttons slot="end">
             <ng-container *ngIf="isAuth == false">

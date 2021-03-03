@@ -1,9 +1,175 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>post</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+    </ion-toolbar>
 </ion-header>
+<ion-content class="has-header">
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <div class="backgrnd"></div>
+                <div class="image">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="7" offset="1" style="--ion-background-color: #fff;">
+                <ion-grid fixed>
+                    <ion-row>
+                        <ion-col>
+                            <ion-grid fixed>
+                                <ion-card>
+                                    <ion-row>
+                                        <ion-col size="1" class="likescase ion-text-center">
+                                            <ion-icon name="heart-outline"></ion-icon>
+                                            {{postInfos.post.likes}}
+                                            <hr>
+                                            <ion-icon name="heart-dislike-outline"></ion-icon>
+                                            {{postInfos.post.dislikes}}
+                                        </ion-col>
+                                        <ion-col size="11">
+                                            <ion-card-header>
+                                                <ion-card-subtitle class="date">{{postInfos.post.date}}</ion-card-subtitle>
+                                            </ion-card-header>
+                                            <div class="title" *ngIf="postInfos.success && (postInfos.post.type == 0 || postInfos.post.type == 1)">
+                                                t/{{postInfos.post.topic.title}}
+                                            </div>
+                                            <div class="title" *ngIf="postInfos.success && (postInfos.post.type == 2)">
+                                                ev/{{postInfos.post.topic.title}}
+                                            </div>
+                                            <ion-card-header>
+                                                <ion-card-title>{{postInfos.post.title}}</ion-card-title>
+                                            </ion-card-header>
+                                            <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 0)">
+                                                <img src="{{postInfos.post.content.url}}" alt="Cannot load">
+                                            </div>
+                                            <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 1)">
+                                                {{postInfos.post.content.text}}
+                                            </div>
+                                            <div class="invitation" *ngIf="postInfos.success && (postInfos.post.type == 2)">
+                                                <img class="inv-img" src="../../../assets/event-invitation-redimg.jpg" />
 
-<ion-content>
+                                                <div class="invInfos">
+                                                    <ion-grid fixed>
+                                                        <ion-row>
+                                                            <ion-col offset="1" size="6">
+                                                                <ion-icon class="infoicons" name="information-circle-outline"></ion-icon>
+                                                                {{postInfos.post.content.description}}
+                                                            </ion-col>
+                                                            <ion-col size="4">
+                                                                <ion-icon class="infoicons" name="calendar-outline"></ion-icon>
+                                                                {{postInfos.post.content.date}}
+                                                            </ion-col>
+                                                        </ion-row>
+                                                        <ion-row>
+                                                            <ion-col offset="1" size="6">
+                                                                <ion-icon class="infoicons" name="location-outline"></ion-icon>
+                                                                {{postInfos.post.content.location}}
+                                                            </ion-col>
+                                                            <ion-col size="4">
+                                                                <ion-icon class="infoicons" name="people-outline"></ion-icon>
+                                                                {{postInfos.post.content.joined}}
+                                                            </ion-col>
+                                                        </ion-row>
+                                                        <ion-row>
+                                                            <ion-col offset="2" size="8">
+                                                                <ion-button (click)="joinEvent()" [disabled]="joined" class="postbtn" expand="block" fill="clear">
+                                                                    {{joinbtn}}
+                                                                </ion-button>
+                                                            </ion-col>
+                                                        </ion-row>
+                                                    </ion-grid>
+                                                </div>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-card>
+                                <ion-card>
+                                    <ion-row style="background-color: #eeeeee; height: 40px;">
+                                        <ion-col offset="1">
+                                            <div class="commtitle">PLACE A COMMENT</div>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="ion-padding">
+                                        <ion-col size="12">
+                                            <form [formGroup]="commentform">
+                                                <ion-grid fixed>
+                                                    <ion-row>
+                                                        <ion-col size="12 ">
+                                                            <ion-textarea formControlName="text" type="text " placeholder="Place your comment here. "></ion-textarea>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                    <ion-row>
+                                                        <ion-col offset="9" size="3">
+                                                            <ion-button class="commentbtn " (click)="comment() " expand="block " fill="clear " shape="round ">
+                                                                Comment
+                                                            </ion-button>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </form>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="ion-padding comments-title">
+                                        <ion-col size="12">Comments :</ion-col>
+                                    </ion-row>
+                                    <ng-container *ngFor="let comment of comments">
+                                        <ion-row>
+                                            <ion-col offset="1" size="1">
+                                                <img class="commavatar" src="../../../assets/avatar.jpg">
+                                            </ion-col>
+                                            <ion-col size="10">
+                                                <ion-grid fixed class="ion-no-padding">
+                                                    <ion-row>
+                                                        <ion-col size="12">
+                                                            u/{{comment.user.username}} - {{comment.date}}
+                                                        </ion-col>
+                                                    </ion-row>
+                                                    <ion-row>
+                                                        <ion-col size="12">
+                                                            <div class="commtext">{{comment.text}}</div>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                    <ion-row>
+                                                        <ion-col size="8">
+                                                            <div>
+                                                                <hr class="commhr">
+                                                                <div style="padding: 2px 5px 2px 5px;">
+                                                                    <ion-icon name="heart-outline"></ion-icon> {{comment.likes}} likes
+                                                                    <ion-icon name="heart-dislike-outline" style="padding-left: 15px;"></ion-icon> {{comment.dislikes}} dislikes
+                                                                </div>
+                                                                <hr class="commhr">
+                                                            </div>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </ion-col>
+                                        </ion-row>
+                                        <hr>
+                                    </ng-container>
+                                </ion-card>
+                            </ion-grid>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-col>
+            <ion-col size="3 ">
+                <div class="widget w-center ">
+                    <h4 class="profiler ">Author</h4>
+                    <ion-grid fixed>
+                        <ion-row>
+                            <ion-col size="3 ">
+                                <ion-img src="../../../assets/profile.jpg "></ion-img>
+                            </ion-col>
+                            <ion-col size="5 ">
+                                {{postInfos.post.user.username}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <hr>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

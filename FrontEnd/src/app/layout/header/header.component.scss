@@ -48,7 +48,8 @@ ion-toolbar {
 }
 
 ion-title {
-    font-size: 17px;
+    font-size: 18px;
+    font-family: (--ion-font-family, inherit);
 }
 
 .widget {
@@ -74,4 +75,15 @@ ion-title {
 
 .image {
     position: absolute;
+}
+
+.title {
+    transform: translateY(10%) !important;
+}
+
+ion-icon.forumicon {
+    height: 25px;
+    width: 25px;
+    float: left;
+    transform: translateY(-10%);
 }

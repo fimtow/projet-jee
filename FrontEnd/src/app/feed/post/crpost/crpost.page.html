@@ -21,10 +21,9 @@
                                             <hr style="background-color: #aaa9a9;">
                                         </ion-col>
                                     </ion-row>
-                                    <ion-row>
+                                    <!-- <ion-row>
                                         <ion-col size="6">
                                             <ion-item>
-                                                <!-- <ion-label>Choose a topic</ion-label> -->
                                                 <ion-select value="topic" mode="ios" interface="popover" placeholder="Select a topic">
                                                     <ion-select-option value="peperoni">Peperoni Peperoni Peperoni Peperoni</ion-select-option>
                                                     <ion-select-option value="hawaii">Hawaii Hawaii Hawaii Hawaii Hawaii</ion-select-option>
@@ -33,7 +32,7 @@
                                                 <ion-icon name="chevron-down-outline" mode="ios" slot="end"></ion-icon>
                                             </ion-item>
                                         </ion-col>
-                                    </ion-row>
+                                    </ion-row> -->
                                     <ion-row>
                                         <ion-col size="12">
                                             <ion-segment #segment value="text" (ionChange)="ptype = segment.value" [disabled]="disableSegment()">
@@ -79,12 +78,46 @@
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col size="12">
-                                                    <ion-input formControlName="test" type="text" placeholder="Awesome Input"></ion-input>
+                                                    <ion-input class="imgup" formControlName="url" type="text" placeholder="Image URL!"></ion-input>
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col offset="10" size="2">
                                                     <ion-button (click)="submit(iform)" class="postbtn" expand="block" fill="clear">
+                                                        Post
+                                                    </ion-button>
+                                                </ion-col>
+                                            </ion-row>
+                                        </form>
+                                    </ng-container>
+                                    <ng-container *ngIf="ptype == 'invit'">
+                                        <form [formGroup]="invform">
+                                            <ion-row>
+                                                <ion-col size="12">
+                                                    <ion-input formControlName="title" [(ngModel)]="title" class="ion-padding" placeholder="Title"></ion-input>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col size="12">
+                                                    <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col size="12">
+                                                    <ion-input formControlName="location" type="text" placeholder="Location"></ion-input>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col size="12">
+                                                    <ion-item>
+                                                        <ion-label>Date</ion-label>
+                                                        <ion-datetime formControlName="date" displayFormat="MMM DD YYYY" placeholder="Select Date"></ion-datetime>
+                                                    </ion-item>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col offset="10" size="2">
+                                                    <ion-button (click)="submit(invform)" class="postbtn" expand="block" fill="clear">
                                                         Post
                                                     </ion-button>
                                                 </ion-col>
@@ -124,20 +157,9 @@
                         </ion-item>
                     </ion-list>
                 </div>
-                <!-- <div class="widget">
-                <h4 style="background-color: #dd4e35; margin: 0; padding-top: 10px; padding-bottom: 10px; color: #fff;">About the topic !</h4>
-                <hr>
-                <p>
-                    test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                    test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                </p>
-            </div> -->
             </ion-col>
 
         </ion-row>
-        <!-- <ion-row>
-
-  </ion-row> -->
     </ion-grid>
 
 

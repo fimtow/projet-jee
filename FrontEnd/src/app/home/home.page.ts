@@ -11,6 +11,6 @@ export class HomePage {
   constructor(private authService: AuthService) {}
 
   usering(){
-    this.authService.retreive().subscribe();
+    this.authService.retreive().subscribe(data=>{console.log(data)});
   }
 }

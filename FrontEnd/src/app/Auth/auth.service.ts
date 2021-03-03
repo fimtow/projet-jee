@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl: string = 'http://localhost:80/application';
+  public apiUrl: string = 'http://ec2-100-25-131-56.compute-1.amazonaws.com/application';
   private _cookieValue = new BehaviorSubject<string>('');
   private optionRequete = {
     headers: new HttpHeaders({
@@ -40,6 +40,10 @@ export class AuthService {
 
   get userId() {
     return this._userId;
+  }
+
+  set userId(id: string){
+    this._userId = id;
   }
 
 
@@ -73,15 +77,13 @@ export class AuthService {
     password: string
   ) {
     return this.httpClient.post<any>(
-      this.apiUrl + `/signin?username=${username}&password=${password}`, {},
-      {
-        withCredentials: true
-      }
+      this.apiUrl + `/signin?username=${username}&password=${password}`, {}
     ).pipe(tap(resData => {
       console.log(resData);
-      this._authenticated = resData;
+      this._authenticated = resData.success;
       if (this._authenticated) {
         this._authStatusListener.next(true);
+        this.userId = resData.id;
         this.storeAuthData();
       }
     }));
@@ -105,15 +107,13 @@ export class AuthService {
     this._authStatusListener.next(false);
     Plugins.Storage.clear().then(() => {
       this.router.navigateByUrl('/login');
-      //if (!this.router.url.includes("/home") && !this.router.url.includes("/login") && !this.router.url.includes("/register"))
-      //this.navCtrl.navigateRoot("/login");
-      //this.router.navigateByUrl('/login');
     });
   }
 
   private storeAuthData() {
     const data = JSON.stringify({
-      isAuthenticated: this._authenticated
+      isAuthenticated: this._authenticated,
+      userId: this.userId
     });
     Plugins.Storage.set({
       key: 'authData',
@@ -137,9 +137,23 @@ export class AuthService {
     }));
   }
 
+  getUserId(){
+    return from(Plugins.Storage.get({ key: 'authData' })).pipe(take(1), map(storedData => {
+      if (!storedData || !storedData.value) {
+        return "";
+      }
+      const parsedData = JSON.parse(storedData.value);
+      if (parsedData.isAuthenticated) {
+        return parsedData.userId;
+      } else {
+        return "";
+      }
+    }));
+  }
+
   retreive() {
     return this.httpClient.get<any>(
-      this.apiUrl + '/user?id=1',
+      this.apiUrl + '/test',
       {
         withCredentials: true
       }

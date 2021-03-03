@@ -1,0 +1,205 @@
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
+}
+
+ion-content {
+    --ion-background-color: #f2f2f2;
+}
+
+ion-card {
+    box-shadow: none;
+    border: #c7c7c7 solid 1px;
+    margin: 0 0 10px 10px;
+    border-radius: 0;
+    text-decoration: none;
+}
+
+h2.topics {
+    margin-left: 20px;
+    border-bottom: #bbbbbb solid 1px;
+    color: #adadad;
+}
+
+ion-toolbar {
+    --ion-background-color: #dd4e35;
+    color: #fff;
+    font-family: 'Courier New', Courier, sans-serif;
+}
+
+ion-title {
+    font-size: 17px;
+}
+
+.widget {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 2px #e4e4e4;
+    -moz-box-shadow: 0px 2px #e4e4e4;
+    -ms-box-shadow: 0px 2px #e4e4e4;
+    -o-box-shadow: 0px 2px #e4e4e4;
+    box-shadow: 0px 2px #e4e4e4;
+}
+
+.w-center {
+    text-align: center;
+}
+
+.backgrnd {
+    position: relative;
+    height: 15%;
+}
+
+.image {
+    position: absolute;
+}
+
+img.img-avatar {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    left: 10%;
+    transform: translate(0, -60%);
+}
+
+h4.profiler {
+    background-color: #e06b56;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.joined {
+    padding: 5px 0 0 10px;
+}
+
+.joindate {
+    padding-top: 10px;
+    padding-left: 5px;
+    color: #696767;
+}
+
+.jointext {
+    font-weight: 550;
+}
+
+h4.usertopics {
+    background-color: #e06b56;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.likescase {
+    //border-right: 1px solid #c9c9c9;
+    background-color: #eeeeee;
+}
+
+.title {
+    padding-left: 16px;
+    color: #3f3f3f;
+    font-size: medium;
+    font-weight: bolder !important;
+}
+
+.invitation {
+    padding: 10px 5px 10px 5px;
+    margin: 0 16px 16px 16px;
+    border: 2px solid #e06b56;
+    border-radius: 6px;
+}
+
+img.inv-img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.infoicons {
+    padding: 5%;
+    height: 30px;
+    width: 30px;
+    color: #dd4e35;
+}
+
+.invInfos {
+    font-size: large;
+}
+
+ion-button.postbtn {
+    //border: #e06b56 2px solid;
+    background-color: #e06b56;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+ion-card-subtitle.date {
+    position: relative;
+    float: right;
+    --ion-padding-top: 0;
+}
+
+ion-button.commentbtn {
+    border: #3880ff 2px solid;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+ion-textarea {
+    height: 120px;
+    font-size: medium;
+    border-radius: 5px;
+    border: #d4d4d4 1px solid;
+    padding-left: 5px;
+}
+
+.commtitle {
+    padding-top: 10px;
+}
+
+.comments-title {
+    padding-left: 30px;
+}
+
+.commtext {
+    padding: 10px;
+    color: #3f3f3f;
+    font-size: large;
+}
+
+hr.commhr {
+    background-color: #e7e7e7 !important;
+}

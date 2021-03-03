@@ -26,18 +26,40 @@ const routes: Routes = [
     loadChildren: () => import('./Auth/signup/signup.module').then( m => m.SignupPageModule)
   },
   {
-    path: 'userpage',
-    loadChildren: () => import('./user-page/user-page.module').then( m => m.UserPagePageModule),
-    canActivate: [AuthGuard]
+    path: 'profile/:id',
+    loadChildren: () => import('./user-page/user-page.module').then( m => m.UserPagePageModule)
   },
   {
-    path: 'topic',
+    path: 'topic/:id',
     loadChildren: () => import('./feed/topic/topic.module').then( m => m.TopicPageModule)
   },
   {
-    path: 'post',
+    path: 'post/:id',
     loadChildren: () => import('./feed/post/post.module').then( m => m.PostPageModule)
   },
+  {
+    path: 'create',
+    children : [
+      {
+        path: 'post/:id',
+        loadChildren: () => import('./feed/post/crpost/crpost.module').then( m => m.CrpostPageModule)
+      },
+      {
+        path: 'topic',
+        loadChildren: () => import('./feed/topic/crtopic/crtopic.module').then( m => m.CrtopicPageModule)
+      }
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'error',
+    children: [
+      {
+        path: 'notfound',
+        loadChildren: () => import('./feed/p404/p404.module').then( m => m.P404PageModule)
+      }
+    ]
+  }
 ];
 
 @NgModule({
