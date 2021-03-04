@@ -7,7 +7,7 @@ import { post } from './post.model';
   providedIn: 'root'
 })
 export class FeedService {
-  public apiURL: string = 'http://ec2-100-25-131-56.compute-1.amazonaws.com/application';
+  public apiURL: string = 'http://stonks.fimtow.com/application';
 
   constructor(
     private http: HttpClient,
@@ -19,5 +19,13 @@ export class FeedService {
 
   getPostInfo(id: string){
     return this.http.get<post>(this.apiURL+`/post?id=${id}`, {withCredentials: true});
+  }
+
+  subcomment(post:string, comment: string){
+    this.http.post(this.apiURL + `/comment?post=${post}&comment=${comment}`,{}, {withCredentials: true}).subscribe(data=>console.log(data));
+  }
+
+  getHome(){
+    return this.http.get<any>(this.apiURL + "/home", {withCredentials: true});
   }
 }

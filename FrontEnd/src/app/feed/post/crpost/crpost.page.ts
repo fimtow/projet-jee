@@ -69,7 +69,7 @@ export class CrpostPage implements OnInit {
   }
 
   submit(form: FormGroup){
-    this.invform.value.date = formatDate(this.invform.value.date, 'MMM d, y', 'en');
+    this.invform.value.date = formatDate(this.invform.value.date, 'dd/MM/yyyy', 'en');
     console.log(form.value);
   }
 }

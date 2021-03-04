@@ -1,14 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Auth/auth.service';
+import { FeedService } from '../feed/feed.service';
+import { post } from '../feed/post.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
 
-  constructor(private authService: AuthService) {}
+  public listOfPosts: post[] = [];
+  constructor(private authService: AuthService, private feedService: FeedService) {}
+
+  ngOnInit(): void {
+    this.feedService.getHome().subscribe(data => {
+      // this.listOfPosts = data.listOfPosts;
+      this.listOfPosts = data.listOfPosts.sort((obj1, obj2) => {
+        if (obj1.likes > obj2.likes) {
+            return -1;
+        }
+    
+        if (obj1.likes < obj2.likes) {
+            return 1;
+        }
+    
+        return 0;
+    });
+      console.log(this.listOfPosts);
+      console.log(data);
+    });
+  }
 
   usering(){
     this.authService.retreive().subscribe(data=>{console.log(data)});

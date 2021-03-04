@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl: string = 'http://ec2-100-25-131-56.compute-1.amazonaws.com/application';
+  public apiUrl: string = 'http://stonks.fimtow.com/application';
   private _cookieValue = new BehaviorSubject<string>('');
   private optionRequete = {
     headers: new HttpHeaders({

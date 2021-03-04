@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -23,7 +25,7 @@ import { HeaderComponent } from './layout/header/header.component';
     IonicModule.forRoot(), 
     AppRoutingModule, 
     FormsModule, 
-    HttpClientModule
+    HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ 
     provide: RouteReuseStrategy, 

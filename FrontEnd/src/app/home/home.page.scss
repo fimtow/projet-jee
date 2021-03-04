@@ -75,3 +75,28 @@ ion-title {
 .image {
     position: absolute;
 }
+
+.likescase {
+    border-right: 1px solid #eeeeee;
+    background-color: #eeeeee;
+}
+
+ion-card {
+    margin-top: 10px;
+}
+
+a {
+    --color: #dd4e35;
+}
+
+.postedby {
+    padding: 0 0 0 15px;
+}
+
+h3.postlink {
+    padding: 0 0 5px 15px;
+    a {
+        color: #353535;
+        text-decoration: none;
+    }
+}

@@ -45,8 +45,7 @@ export class PostPage implements OnInit {
     public formBuilder: FormBuilder) {
       this.commentform = formBuilder.group({
         id: [''],
-        text: [''],
-        date: ['']
+        text: ['']
       });
     }
 
@@ -71,7 +70,7 @@ export class PostPage implements OnInit {
         }
       })).subscribe();
     });
-    this.authService.autoLogin().subscribe(isAuth => this.isAuthenticated = isAuth);
+    this.authService.autoLogin().subscribe(isAuth => {this.isAuthenticated = isAuth; console.log(isAuth)});
     
   }
 
@@ -100,8 +99,7 @@ export class PostPage implements OnInit {
   }
 
   comment(){
-    this.commentform.value.date = formatDate(new Date(), 'MMM d, y HH:mm', 'en');
-    this.commentform.value.id = this.id;
+    this.feedService.subcomment(this.id,this.commentform.value.text);
     console.log(this.commentform.value);
   }
 }
