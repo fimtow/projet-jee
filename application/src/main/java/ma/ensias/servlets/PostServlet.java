@@ -60,12 +60,14 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		PostForm postForm = new PostForm();
 		postForm.createPost(request);
 		
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("success", postForm.getResult());
+		
 		String message = jsonObject.toString();
 		
 		PrintWriter out = response.getWriter();

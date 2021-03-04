@@ -10,12 +10,13 @@ public class Invitation extends Content {
 	private Date date;
 	private int joined;
 
-	public Invitation(String description,Date date,String location) {
+	public Invitation(String description,Date date,String location,int idTopic) {
 		
 		this.joined = 0;
 		this.description = description;
 		this.date = date;
 		this.location = location;
+		this.setPostId(idTopic);
 	}
 	public Invitation() {
 		
