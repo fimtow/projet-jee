@@ -22,9 +22,14 @@ public class SearchTopic {
 		TopicDao topicDao = DAOFactory.getInstance().getTopicDao();
 		listOfTopics = topicDao.find(nameTyped);
 		if(listOfTopics.size() > 0)
+		{
 			success = true;
-		
-	}
+			for(Topic topic : listOfTopics)
+			{
+				topic.setMembers(null);
+			}
+		}
+	}	
 	
 
 	private static String getFieldValue( HttpServletRequest request, String fieldName ) {

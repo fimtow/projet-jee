@@ -34,6 +34,7 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HomeGenerator home = new HomeGenerator(request);
 		
 		String message = new Gson().toJson(home);

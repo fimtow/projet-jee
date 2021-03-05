@@ -17,7 +17,7 @@ public class TopicDaoImpl implements TopicDao {
 	
 	private static final String SQL_INSERT = "INSERT INTO topic(title,description,iconUrl,coverUrl,isevent) VALUES (?,?,?,?,?) ";
 	private static final String SQL_SELECT_BY_ID = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic WHERE id = ?";
-	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 10";
+	private static final String SQL_RAND_TOPIC = "SELECT id,title,description,iconUrl,coverUrl,isevent FROM topic ORDER BY RAND() LIMIT 5";
 	private static final String SQL_SELECT_TITLE = "select id,title,description,iconUrl,coverUrl,isevent from topic WHERE title LIKE ?";
 	private static final String SQL_UPDATE = "UPDATE topic SET title = ?, description = ?, iconUrl = ?, coverUrl = ?  WHERE id = ?";
 	

@@ -116,7 +116,6 @@
 	<servlet-name>SearchTopic</servlet-name>
 	<url-pattern>/searchtopic</url-pattern>
 	</servlet-mapping>
- 
 	<filter>
 	    <filter-name>CorsFilter</filter-name>
 	    <filter-class>ma.ensias.filters.CORSFilter</filter-class>

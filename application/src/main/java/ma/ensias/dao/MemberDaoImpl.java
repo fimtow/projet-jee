@@ -140,7 +140,34 @@ public class MemberDaoImpl implements MemberDao{
 
 		return topics;
 	}
+	@Override
+	public boolean find(User user,int idTopic)
+	{	
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+	    try {
+	        connexion = daoFactory.getConnection();
+	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_TOPIC ,false, idTopic);
+	        resultSet = preparedStatement.executeQuery();
+	       while( resultSet.next() )
+	        {
+	            if(resultSet.getInt("userid") == user.getId())
+	            {
+	            	return true;
+	            }
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	    	closeConnectionItems( resultSet, preparedStatement, connexion );
+	    }		
 
+		return false ;
+		
+	}
+	
 
 	@Override
 	public void delete(Topic topic , User user) throws DAOException {

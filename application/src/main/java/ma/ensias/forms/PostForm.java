@@ -29,9 +29,7 @@ public class PostForm {
     private static final String ID_FIELD  = "id";
     private static final String TITLE_FIELD = "title";
     private static final String CONTENT_TYPE_FIELD = "type_content";
-    /*
-     * si le post est image ou texte
-     */
+    public static final String SESSION_USER = "userSession";
     private static final String TOPIC_FIELD = "topic";
     /*
      * si le post est event
@@ -39,7 +37,16 @@ public class PostForm {
     private static final String LOCATION_FIELD = "location";
     private static final String DATE_FIELD = "date";
     private static final String DESCRIPTION_FIELD = "description";
-    public static final String SESSION_USER = "userSession";
+    /*
+     * si le post est text
+     */
+    private static final String TEXT_FIELD = "text";
+    /*
+     * si le post est image
+     */
+    private static final String URL_FIELD = "url";
+    
+  
     
 
     private boolean success = true;
@@ -74,46 +81,57 @@ public class PostForm {
     	Content content = null ;
     	Post post;
     	
+    	String idTopicString = getFieldValue(request,TOPIC_FIELD);
+    	if(idTopicString == null)
+    	{
+    		success = false;
+    		errors.put("idTopic", "missing fields value");
+    		return;
+    	}
+    	int idTopic = Integer.parseInt(idTopicString);
+    	
     	if(typeOfContent.equals("invitation"))
     	{	
     		
     		String location = getFieldValue(request,LOCATION_FIELD);
     		String dateString = getFieldValue(request,DATE_FIELD);
     		String description = getFieldValue(request,DESCRIPTION_FIELD);
-            
     		Date date;
+    		if( location == null || dateString == null || description == null)
+    		{	
+    			success = false;
+    			return;
+    		}
 			try {
 				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
 			} catch (ParseException e) {
 				
-				e.printStackTrace();
+				errors.put("date", "Invalid date");
 				success = false;
 				return;
 			}
 			
-    		Invitation invitation = new Invitation(description,date,location);
+    		Invitation invitation = new Invitation(description,date,location,idTopic);
     		Event event = new Event(title,description,location,date,user);
     		DAOFactory.getInstance().getEventDao().create(event);
-    		post = new Post(title,invitation,event,user);
+    		
+    		DAOFactory daoFactory = DAOFactory.getInstance();
+	    	TopicDao topicDao = daoFactory.getTopicDao();
+	    	Topic topic = topicDao.find(idTopic);
+	    	if(topic == null)
+	    	{	
+	    		this.success = false;
+	    		errors.put("topic", "inexistent topic");
+	    		return;
+	    	}
+    		post = new Post(title,invitation,topic,user);
     		DAOFactory.getInstance().getPostDao().create(post);
     		invitation.setPostId(post.getId());
     		DAOFactory.getInstance().getInvitationDao().create(invitation);
-    		
-			
     	}
-    	else
-    	{
-	    	String idTopicString = getFieldValue(request,TOPIC_FIELD);
-	    
-	    	if(idTopicString == null)
-	    	{	
-	    		success = false;
-	    		errors.put("fields", "missing topic field value");
-	    		return;
-	    	}
-	    	
-	    	int idTopic = Integer.parseInt(idTopicString);
-	    	DAOFactory daoFactory = DAOFactory.getInstance();
+    	else if( typeOfContent.equals("text") || typeOfContent.equals("image"))
+    	{	
+    		DAOFactory daoFactory = DAOFactory.getInstance();
 	    	TopicDao topicDao = daoFactory.getTopicDao();
 	    	Topic topic = topicDao.find(idTopic);
 	    	if(topic == null)
@@ -128,7 +146,7 @@ public class PostForm {
 	    	if(typeOfContent.equals("text"))
 	    	{
 	    		post.setType(Post.TEXT);
-	    		String value = getFieldValue(request,"text");
+	    		String value = getFieldValue(request,TEXT_FIELD);
 		    	if(value == null)
 		    	{	
 		    		success = false;
@@ -140,7 +158,7 @@ public class PostForm {
 	    	else
 	    	{
 	    		post.setType(Post.IMAGE);
-	    		String value = getFieldValue(request,"text");
+	    		String value = getFieldValue(request,URL_FIELD);
 		    	if(value == null)
 		    	{	
 		    		success = false;
@@ -164,8 +182,15 @@ public class PostForm {
 	    	{
 	    		daoFactory.getImageDao().create((Image)content);
 	    	}
+    		
+    		
+    	}
+    	else
+    	{
+    		success = false;
+    		errors.put("topic", "inexistent type");
+    		return;
     	}	
-    	
     }
     
    

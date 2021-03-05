@@ -42,6 +42,21 @@ public class HomeGenerator implements Serializable  {
 			getRandomTopics();
 			getPostsOfTopic();
 		}
+		
+		listOfTopics = null;
+		
+		for(Post post : listOfPosts)
+		{	
+			User user = post.getUser();
+			user.setPassword(null);
+			user.setEmail(null);
+			Topic topic = post.getTopic() ;
+			topic.setCoverUrl(null);
+			topic.setMembers(null);
+			topic.setDescription(null);
+			
+			
+		}
 	}
 	
 	public void getPostsOfTopic()
