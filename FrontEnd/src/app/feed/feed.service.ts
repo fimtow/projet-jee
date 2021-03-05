@@ -1,5 +1,7 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { post } from './post.model';
 
@@ -7,7 +9,7 @@ import { post } from './post.model';
   providedIn: 'root'
 })
 export class FeedService {
-  public apiURL: string = 'http://stonks.fimtow.com/application';
+  public apiURL: string = 'https://stonks.fimtow.com/application';
 
   constructor(
     private http: HttpClient,
@@ -22,10 +24,25 @@ export class FeedService {
   }
 
   subcomment(post:string, comment: string){
-    this.http.post(this.apiURL + `/comment?post=${post}&comment=${comment}`,{}, {withCredentials: true}).subscribe(data=>console.log(data));
+    return this.http.post<any>(this.apiURL + `/comment?post=${post}&comment=${comment}`,{}, {withCredentials: true});
   }
 
   getHome(){
     return this.http.get<any>(this.apiURL + "/home", {withCredentials: true});
+  }
+
+  createPost(form: FormGroup, topic: string){
+    var fmval = form.value;
+    console.log(fmval);
+    if(fmval.type == 0){
+      return this.http.post<any>(this.apiURL + `/post?title=${fmval.title}&type_content=text&text=${fmval.text}&topic=${topic}`,{}, {withCredentials: true});
+    }
+    if(fmval.type == 1){
+      return this.http.post<any>(this.apiURL + `/post?title=${fmval.title}&type_content=image&image=${fmval.url}&topic=${topic}`,{}, {withCredentials: true});
+    }
+    if(fmval.type == 2){
+      fmval.date = formatDate(fmval.date, 'dd/MM/yyyy', 'en');
+      return this.http.post<any>(this.apiURL + `/post?title=${fmval.title}&type_content=invitation&location=${fmval.location}&date=${fmval.date}&description=${fmval.description}&topic=${topic}`,{}, {withCredentials: true});
+    }
   }
 }

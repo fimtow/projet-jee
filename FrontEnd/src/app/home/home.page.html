@@ -31,12 +31,14 @@
                                                 {{post.dislikes}}
                                             </ion-col>
                                             <ion-col size="9">
-                                                <div class="postedby">Posted by u/{{post.user.username}} - {{post.date}}</div>
+                                                <div class="postedby">Posted by u/<a [routerLink]="[ '/profile', post.user.id]">{{post.user.username}}</a> - {{post.date}}</div>
+                                                <h6 class="topiclink" *ngIf="post.type == 0 || post.type == 1"><a [routerLink]="[ '/topic', post.topic.id]">t/{{post.topic.title}}</a></h6>
+                                                <h6 class="topiclink" *ngIf="post.type == 2"><a [routerLink]="[ '/topic', post.topic.id]">ev/{{post.topic.title}}</a></h6>
                                                 <h3 class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></h3>
                                                 <!-- <div class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></div> -->
                                             </ion-col>
-                                            <ion-col size="2">
-                                                <img class="thumbnail" src="../../assets/profile.jpg" />
+                                            <ion-col size="2" *ngIf="post.type == 2">
+                                                <img class="thumbnail" src="../../../assets/event-invitation-redimg.jpg" />
                                             </ion-col>
                                         </ion-row>
                                     </ion-grid>

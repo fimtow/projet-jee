@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl: string = 'http://stonks.fimtow.com/application';
+  public apiUrl: string = 'https://stonks.fimtow.com/application';
   private _cookieValue = new BehaviorSubject<string>('');
   private optionRequete = {
     headers: new HttpHeaders({
@@ -77,7 +77,7 @@ export class AuthService {
     password: string
   ) {
     return this.httpClient.post<any>(
-      this.apiUrl + `/signin?username=${username}&password=${password}`, {}
+      this.apiUrl + `/signin?username=${username}&password=${password}`, {}, {withCredentials: true}
     ).pipe(tap(resData => {
       console.log(resData);
       this._authenticated = resData.success;

@@ -40,7 +40,7 @@
                                                 <ion-card-title>{{postInfos.post.title}}</ion-card-title>
                                             </ion-card-header>
                                             <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 0)">
-                                                <img src="{{postInfos.post.content.url}}" alt="Cannot load">
+                                                <img [src]="postInfos.post.content.url" alt="Cannot load">
                                             </div>
                                             <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 1)">
                                                 {{postInfos.post.content.text}}
@@ -85,12 +85,12 @@
                                 </ion-card>
                                 <ion-card>
                                     <ion-row style="background-color: #eeeeee; height: 40px;">
-                                        <ion-col offset="1">
+                                        <ion-col size="12">
                                             <div class="commtitle">PLACE A COMMENT</div>
                                         </ion-col>
                                     </ion-row>
                                     <ion-row class="ion-padding">
-                                        <ion-col size="12">
+                                        <ion-col offset="1" size="11">
                                             <form [formGroup]="commentform">
                                                 <ion-grid fixed>
                                                     <ion-row>
@@ -110,14 +110,22 @@
                                         </ion-col>
                                     </ion-row>
                                     <ion-row class="ion-padding comments-title">
-                                        <ion-col size="12">Comments :</ion-col>
+                                        <ion-col offset="1" size="11">
+                                            Comments :
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row *ngIf="comments.length == 0">
+                                        <ion-col offset="2" size="10">
+                                            <div>No comment !</div>
+                                            <hr>
+                                        </ion-col>
                                     </ion-row>
                                     <ng-container *ngFor="let comment of comments">
                                         <ion-row>
-                                            <ion-col offset="1" size="1">
+                                            <ion-col offset="2" size="1">
                                                 <img class="commavatar" src="../../../assets/avatar.jpg">
                                             </ion-col>
-                                            <ion-col size="10">
+                                            <ion-col size="9">
                                                 <ion-grid fixed class="ion-no-padding">
                                                     <ion-row>
                                                         <ion-col size="12">

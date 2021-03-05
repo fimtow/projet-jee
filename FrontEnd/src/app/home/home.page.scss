@@ -77,8 +77,8 @@ ion-title {
 }
 
 .likescase {
-    border-right: 1px solid #eeeeee;
-    background-color: #eeeeee;
+    background-color: #f2f2f2;
+    padding-top: 10px;
 }
 
 ion-card {
@@ -91,6 +91,10 @@ a {
 
 .postedby {
     padding: 0 0 0 15px;
+    a {
+        color: #737373;
+        text-decoration: none;
+    }
 }
 
 h3.postlink {
@@ -99,4 +103,17 @@ h3.postlink {
         color: #353535;
         text-decoration: none;
     }
+}
+
+h6.topiclink {
+    padding: 5px 0 0 15px;
+    margin: 0;
+    a {
+        color: #737373;
+        text-decoration: none;
+    }
+}
+
+img.thumbnail {
+    border-radius: 50%;
 }

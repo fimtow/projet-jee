@@ -78,12 +78,14 @@
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col size="12">
-                                                    <ion-input class="imgup" formControlName="url" type="text" placeholder="Image URL!"></ion-input>
+                                                    <!-- <ion-input class="imgup" formControlName="url" type="text" placeholder="Image URL!"></ion-input> -->
+                                                    <input #imageInput type="file" (change)="imageInputChange(imageInput)" accept="image/*">
+                                                    <!-- <button mat-raised-button color="primary" (click)="addImage()">Add Image</button> -->
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col offset="10" size="2">
-                                                    <ion-button (click)="submit(iform)" class="postbtn" expand="block" fill="clear">
+                                                    <ion-button (click)="submitImg(iform)" class="postbtn" expand="block" fill="clear">
                                                         Post
                                                     </ion-button>
                                                 </ion-col>

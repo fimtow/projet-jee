@@ -27,7 +27,7 @@ interface comment {
 })
 export class PostPage implements OnInit {
   public id: string = '';
-  public postInfos: post = { success: false, post: { user: { username: '' }, content: { url: '', text: '', joined: 0 }, topic: { title: '' } } };
+  public postInfos: post = { success: false, post: { user: { username: "" }, content: { url: "", text: "", joined: 0 }, topic: { title: "" } } };
 
   private isAuthenticated: boolean = false;
   private joinbtn: string = "Join"
@@ -44,7 +44,6 @@ export class PostPage implements OnInit {
     private authService: AuthService,
     public formBuilder: FormBuilder) {
       this.commentform = formBuilder.group({
-        id: [''],
         text: ['']
       });
     }
@@ -99,7 +98,20 @@ export class PostPage implements OnInit {
   }
 
   comment(){
-    this.feedService.subcomment(this.id,this.commentform.value.text);
-    console.log(this.commentform.value);
+    this.feedService.subcomment(this.id,this.commentform.value.text).subscribe(data=>{
+      console.log(data);
+      if(data.success){
+        this.commentform.reset();
+        this.feedService.getPostInfo(this.id).pipe(tap(resData => {
+          if (resData.success) {
+            this.comments = resData.comments;
+            console.log("Comments : ",this.comments);
+          } else {
+            this.navCtrl.navigateRoot('/error/notfound');
+          }
+        })).subscribe();
+      }
+    });
+    
   }
 }

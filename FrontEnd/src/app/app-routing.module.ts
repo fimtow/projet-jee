@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Auth/auth.guard';
+import { QuitGuard } from './Auth/quit.guard';
 
 const routes: Routes = [
   {
@@ -15,15 +16,18 @@ const routes: Routes = [
   },
   {
     path: 'homepage',
-    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule)
+    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule),
+    canActivate: [QuitGuard]
   },
   {
     path: 'login',
-    loadChildren: () => import('./Auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./Auth/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [QuitGuard]
   },
   {
     path: 'signup',
-    loadChildren: () => import('./Auth/signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./Auth/signup/signup.module').then( m => m.SignupPageModule),
+    canActivate: [QuitGuard]
   },
   {
     path: 'profile/:id',

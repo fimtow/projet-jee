@@ -16,6 +16,9 @@ export class HomePage implements OnInit{
   ngOnInit(): void {
     this.feedService.getHome().subscribe(data => {
       // this.listOfPosts = data.listOfPosts;
+      data.listOfPosts.forEach(post => {
+        post.title = this.titleCaseWord(post.title);
+      });
       this.listOfPosts = data.listOfPosts.sort((obj1, obj2) => {
         if (obj1.likes > obj2.likes) {
             return -1;
@@ -34,5 +37,10 @@ export class HomePage implements OnInit{
 
   usering(){
     this.authService.retreive().subscribe(data=>{console.log(data)});
+  }
+
+  titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1);
   }
 }
