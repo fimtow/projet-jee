@@ -3,6 +3,8 @@ package testcase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Test;
+
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
 import ma.ensias.dao.UserDao;
@@ -14,7 +16,7 @@ public class UserDaoTest {
 	
 	
 	
-	
+	@Test
 	public void testCreate()
 	{
 		User user = new User("Test","TestPassword","test@gmail.com");
@@ -24,7 +26,7 @@ public class UserDaoTest {
 		assertEquals(userFromDataBase.getPassword(),UserDaoImpl.getMd5(user.getPassword()));
 		assertEquals(userFromDataBase.getEmail(),user.getEmail());
 	}
-	
+	@Test
 	public void testFind()
 	{
 		User userExistInDB = new User("Test","TestPassword","test@gmail.com");

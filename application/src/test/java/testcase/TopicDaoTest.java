@@ -4,6 +4,8 @@ package testcase;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 import ma.ensias.beans.Topic;
 import ma.ensias.beans.User;
 import ma.ensias.dao.DAOFactory;
@@ -16,7 +18,7 @@ public class TopicDaoTest {
 	
 	
 	
-
+	@Test
 	public void testCreate()
 	{	
 		User user = DAOFactory.getInstance().getUserDao().find(1);
@@ -33,7 +35,7 @@ public class TopicDaoTest {
 		assertEquals(topic.getCoverUrl(),topicFromDB.getCoverUrl());
 	
 	}
-	
+	@Test
 	public void testFind()
 	{	
 		User user = DAOFactory.getInstance().getUserDao().find(1);
