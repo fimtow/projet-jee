@@ -14,6 +14,7 @@ export class HomePage implements OnInit {
   constructor(private authService: AuthService, private feedService: FeedService) { }
 
   ngOnInit(): void {
+    this.authService.autoLogin().subscribe(isAuth => { console.log(isAuth) });
     this.feedService.getHome().subscribe(data => {
       data.listOfPosts.forEach(post => {
         post.title = this.titleCaseWord(post.title);
@@ -32,10 +33,6 @@ export class HomePage implements OnInit {
       console.log(this.listOfPosts);
       console.log(data);
     });
-  }
-
-  usering() {
-    this.authService.retreive().subscribe(data => { console.log(data) });
   }
 
   titleCaseWord(word: string) {

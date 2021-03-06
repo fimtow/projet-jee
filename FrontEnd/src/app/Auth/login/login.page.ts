@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
       loadingElement.present();
       this.authService.authenticate(username, password)
         .subscribe(resData => {
-          if (resData) {
+          if (resData.success) {
             loadingElement.dismiss();
             this.navCtrl.navigateRoot('/home');
           }

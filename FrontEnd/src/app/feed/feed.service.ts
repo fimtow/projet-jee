@@ -35,6 +35,10 @@ export class FeedService {
     return this.http.get<any>(this.apiURL + "/home", {withCredentials: true});
   }
 
+  joinTopic(topic: string){
+    return this.http.post<any>(this.apiURL + `/jointopic?idtopic=${topic}`,{}, {withCredentials: true});
+  }
+
   createPost(form: FormGroup, topic: string){
     var fmval = form.value;
     console.log(fmval);

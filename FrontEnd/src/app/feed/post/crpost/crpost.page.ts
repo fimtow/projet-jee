@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController, NavController } from '@ionic/angular';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { FeedService } from '../../feed.service';
@@ -38,7 +39,9 @@ export class CrpostPage implements OnInit {
   constructor(public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private feedService: FeedService,
-    private imageService: ImageService) {
+    private imageService: ImageService,
+    private navCtrl: NavController,
+    private alertCtrl: AlertController) {
     this.tform = formBuilder.group({
       title: [''],
       text: [''],
@@ -97,6 +100,17 @@ export class CrpostPage implements OnInit {
   submit(form: FormGroup) {
     this.feedService.createPost(form, this.topicId).subscribe(data => {
       console.log(data);
+      if(data.success){
+        this.alertCtrl.create({
+          header: 'Success',
+          message: 'Post Created Successfully',
+          buttons: ['Ok']
+        }).then(alertElement => {
+          alertElement.present();
+        }).then(()=>{
+          this.navCtrl.back();
+        }); 
+      }
     });
     console.log(form.value)
   }
@@ -111,6 +125,18 @@ export class CrpostPage implements OnInit {
         form.value.url = resData.data.link;
         this.feedService.createPost(form, this.topicId).pipe(tap(crdata => {
           console.log("feedservice.createpost : ",crdata);
+          if(crdata.success){
+            this.alertCtrl.create({
+              header: 'Success',
+              message: 'Post Created Successfully',
+              buttons: ['Ok']
+            }).then(alertElement => {
+              alertElement.present();
+            }).then(()=>{
+              this.navCtrl.back();
+            });
+            
+          }
         })).subscribe();
       }
       else {

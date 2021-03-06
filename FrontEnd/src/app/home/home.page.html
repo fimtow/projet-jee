@@ -31,7 +31,6 @@
                                                 <h6 class="topiclink" *ngIf="post.type == 0 || post.type == 1"><a [routerLink]="[ '/topic', post.topic.id]">t/{{post.topic.title}}</a></h6>
                                                 <h6 class="topiclink" *ngIf="post.type == 2"><a [routerLink]="[ '/topic', post.topic.id]">ev/{{post.topic.title}}</a></h6>
                                                 <h3 class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></h3>
-                                                <!-- <div class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></div> -->
                                             </ion-col>
                                             <ion-col size="2" *ngIf="post.type == 2">
                                                 <img class="thumbnail" src="../../../assets/event-invitation-redimg.jpg" />
@@ -45,34 +44,18 @@
                 </ion-grid>
 
             </ion-col>
-            <!-- <ion-col size="1">
-            </ion-col> -->
             <ion-col size="2">
                 <div class="widget">
-                    <h4 style="background-color: #dd4e35; margin: 0; padding-top: 10px; padding-bottom: 10px; color: #fff;">About the topic !</h4>
-                    <hr>
-                    <p>
-                        <ion-button (click)="usering()" expand="block" fill="clear" shape="round">
-                            Click me
-                        </ion-button>
-                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                    </p>
+                    <h4 class="about">Welcome Back !</h4>
                 </div>
+
                 <div class="widget">
-                    <h4 style="background-color: #dd4e35; margin: 0; padding-top: 10px; padding-bottom: 10px; color: #fff;">About the topic !</h4>
+                    <h4 class="about">Some interesting topics</h4>
                     <hr>
-                    <p>
-                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                    </p>
                 </div>
             </ion-col>
 
         </ion-row>
-        <!-- <ion-row>
-
-        </ion-row> -->
     </ion-grid>
 
 </ion-content>
