@@ -67,6 +67,7 @@ public class PostServlet extends HttpServlet {
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("success", postForm.getResult());
+		jsonObject.add("errors", new Gson().toJsonTree(postForm.getErrors()));
 		
 		String message = jsonObject.toString();
 		

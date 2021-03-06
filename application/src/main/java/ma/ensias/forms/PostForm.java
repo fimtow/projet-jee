@@ -69,10 +69,16 @@ public class PostForm {
     	String title = getFieldValue(request,TITLE_FIELD);
     	String typeOfContent = getFieldValue(request,CONTENT_TYPE_FIELD);
     	
-        if(title == null || typeOfContent == null)
+        if(title == null )
         {
         	success = false;
-        	errors.put("fields", "missing fields value");
+        	errors.put("fields", "missing title field value");
+        	return;
+        }
+        if( typeOfContent == null)
+        {
+        	success = false;
+        	errors.put("fields", "missing type of content field value");
         	return;
         }
         
@@ -162,7 +168,7 @@ public class PostForm {
 		    	if(value == null)
 		    	{	
 		    		success = false;
-		    		errors.put("fields", "missing topic field value");
+		    		errors.put("fields", "missing url field value");
 		    		return;
 		    	}
 	    		content = new Image(value);

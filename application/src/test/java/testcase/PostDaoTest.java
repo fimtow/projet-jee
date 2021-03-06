@@ -15,7 +15,7 @@ public class PostDaoTest {
 	public static PostDao postDao = DAOFactory.getInstance().getPostDao();
 	
 
-	
+
 	public void testCreate()
 	{	
 		Content content = new Text("text de post");
@@ -26,11 +26,11 @@ public class PostDaoTest {
 		assertEquals(postDao.find(post.getId()).getTitle(),post.getTitle());
 		
 	}
-
+	
 	public void testFind()
 	{
 		Post post = postDao.find(1);
-		assertEquals(post.getTitle(),"test de post");
+		assertEquals(post.getTitle(),"Test post");
 	}
 	
 }

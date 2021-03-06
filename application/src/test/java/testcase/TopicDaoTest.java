@@ -16,7 +16,7 @@ public class TopicDaoTest {
 	
 	
 	
-
+	
 	public void testCreate()
 	{	
 		User user = DAOFactory.getInstance().getUserDao().find(1);
