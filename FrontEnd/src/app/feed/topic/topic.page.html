@@ -1,9 +1,74 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>topic</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+    <div class="backgrnd">
+    </div>
+    <div class="imgContainer">
+        <ion-grid>
+            <ion-row>
+                <ion-col offset="2" size="2">
+                    <img class="image" src="../../../assets/topic.png" alt="" />
+                </ion-col>
+                <ion-col size="4">
+                    <div class="topicTitle">
+                        {{topicTitle}}
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-button (click)="joinTopic()" [disabled]="joined" class="postbtn" expand="block" fill="clear">
+                        {{joinbtn}}
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6" offset="2" class="postscards">
+                <ion-grid fixed>
+                    <ion-row>
+                        <ion-col>
+                            <ng-container *ngFor="let post of listOfPosts">
+                                <ion-card>
+                                    <ion-grid fixed>
+                                        <ion-row>
+                                            <ion-col size="1" class="likescase ion-text-center">
+                                                <ion-icon name="heart-outline"></ion-icon>
+                                                {{post.likes}}
+                                                <hr>
+                                                <ion-icon name="heart-dislike-outline"></ion-icon>
+                                                {{post.dislikes}}
+                                            </ion-col>
+                                            <ion-col size="9">
+                                                <div class="postedby">Posted by u/<a [routerLink]="[ '/profile', post.user.id]">{{post.user.username}}</a> - {{post.date}}</div>
+                                                <h3 class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></h3>
+                                            </ion-col>
+                                            <ion-col size="2" *ngIf="post.type == 2">
+                                                <img class="thumbnail" src="../../../assets/event-invitation-redimg.jpg" />
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-card>
+                            </ng-container>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-col>
+            <ion-col size="2">
+                <div class="widget">
+                    <h4 class="about">About the topic !</h4>
+                    <hr>
+                    <p>
+                        {{getDesc()}}
+                    </p>
+                </div>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

@@ -40,7 +40,7 @@
                                                 <ion-card-title>{{postInfos.post.title}}</ion-card-title>
                                             </ion-card-header>
                                             <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 0)">
-                                                <img [attr.src]="postInfos.post.content.url" alt="Cannot load" />
+                                                <img [attr.src]="getImageURL()" alt="Cannot load" />
                                             </div>
                                             <div style="padding: 0 15px 15px 15px;" class="content" *ngIf="postInfos.success && (postInfos.post.type == 1)">
                                                 {{postInfos.post.content.text}}

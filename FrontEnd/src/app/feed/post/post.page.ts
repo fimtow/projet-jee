@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { AlertController, AngularDelegate, LoadingController, NavController } from '@ionic/angular';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { FeedService } from '../feed.service';
@@ -41,11 +41,12 @@ export class PostPage implements OnInit {
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
-    public formBuilder: FormBuilder) {
-      this.commentform = formBuilder.group({
-        text: ['']
-      });
-    }
+    public formBuilder: FormBuilder,
+    private alertCtrl: AlertController) {
+    this.commentform = formBuilder.group({
+      text: ['']
+    });
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -60,7 +61,7 @@ export class PostPage implements OnInit {
           loadingElement.dismiss();
           this.postInfos = resData;
           this.comments = resData.comments;
-          console.log("Comments : ",this.comments);
+          console.log("Comments : ", this.comments);
           console.log(this.postInfos);
         } else {
           loadingElement.dismiss();
@@ -68,8 +69,8 @@ export class PostPage implements OnInit {
         }
       })).subscribe();
     });
-    this.authService.autoLogin().subscribe(isAuth => {this.isAuthenticated = isAuth; console.log(isAuth)});
-    
+    this.authService.autoLogin().subscribe(isAuth => { this.isAuthenticated = isAuth; console.log(isAuth) });
+
   }
 
   titleCaseWord(word: string) {
@@ -96,21 +97,46 @@ export class PostPage implements OnInit {
     }
   }
 
-  comment(){
-    this.feedService.subcomment(this.id,this.commentform.value.text).subscribe(data=>{
-      console.log(data);
-      if(data.success){
-        this.commentform.reset();
-        this.feedService.getPostInfo(this.id).pipe(tap(resData => {
-          if (resData.success) {
-            this.comments = resData.comments;
-            console.log("Comments : ",this.comments);
-          } else {
-            this.navCtrl.navigateRoot('/error/notfound');
-          }
-        })).subscribe();
-      }
+  comment() {
+    this.loadingCtrl.create({
+      spinner: 'crescent'
+    }).then(loadingElement => {
+      loadingElement.present();
+      this.feedService.subcomment(this.id, this.commentform.value.text).subscribe(data => {
+        console.log(data);
+        if (data.success) {
+          loadingElement.dismiss();
+          this.commentform.reset();
+          this.feedService.getPostInfo(this.id).pipe(tap(resData => {
+            if (resData.success) {
+              this.comments = resData.comments;
+              console.log("Comments : ", this.comments);
+            } else {
+              this.navCtrl.navigateRoot('/error/notfound');
+            }
+          })).subscribe();
+        }
+        else {
+          loadingElement.dismiss();
+          this.alertCtrl.create({
+            header: 'Something wrong',
+            message: 'Please retry again !',
+            buttons: ['Ok']
+          }).then(alertElement => {
+            alertElement.present();
+          });
+          console.log("Commenting failed");
+        }
+      });
     });
-    
+  }
+
+  getImageURL() {
+    var item = 'url';
+    if (this.postInfos.post['content']) {
+      if(this.postInfos.post.content[item]){
+        return this.postInfos.post.content.url;
+      }
+    }
   }
 }
