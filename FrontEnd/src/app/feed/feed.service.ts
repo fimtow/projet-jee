@@ -20,7 +20,11 @@ export class FeedService {
   }
 
   getPostInfo(id: string){
-    return this.http.get<post>(this.apiURL+`/post?id=${id}`, {withCredentials: true});
+    return this.http.get<any>(this.apiURL+`/post?id=${id}`, {withCredentials: true});
+  }
+
+  getTopicInfo(id: string){
+    return this.http.get<any>(this.apiURL+`/topic?id=${id}`, {withCredentials: true});
   }
 
   subcomment(post:string, comment: string){
