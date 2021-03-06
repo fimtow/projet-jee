@@ -10,7 +10,7 @@ import { post } from '../feed/post.model';
 })
 export class HomePage implements OnInit{
 
-  public listOfPosts: post[] = [];
+  public listOfPosts :any[] = [];
   constructor(private authService: AuthService, private feedService: FeedService) {}
 
   ngOnInit(): void {

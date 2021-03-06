@@ -10,7 +10,7 @@ import { PopoverComponent } from './popover/popover.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  private isAuth: boolean = false;
+  public isAuth: boolean = false;
 
   constructor(private navCtrl: NavController, private authService: AuthService, private popoverController: PopoverController) {
     // this.authService.autoLogin().subscribe(data => {

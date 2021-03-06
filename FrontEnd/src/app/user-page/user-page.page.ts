@@ -15,7 +15,7 @@ export class UserPagePage implements OnInit {
   public userId: string = '';
   public username: string = "lorem";
   public email: string = "lorem@ipsum.it";
-  public listPosts : post[] = [];
+  public listPosts : any;
   public joinedTopics: string[] = [];
   constructor(
     private route: ActivatedRoute,

@@ -1,9 +1,8 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { FeedService } from '../feed.service';
 import { post } from '../post.model';
@@ -27,11 +26,11 @@ interface comment {
 })
 export class PostPage implements OnInit {
   public id: string = '';
-  public postInfos: post = { success: false, post: { user: { username: "" }, content: { url: "", text: "", joined: 0 }, topic: { title: "" } } };
+  public postInfos: any = { success: false, post: { user: { username: "" }, content: { url: "", text: "", joined: 0 }, topic: { title: "" } } };
 
   private isAuthenticated: boolean = false;
-  private joinbtn: string = "Join"
-  private joined: boolean = false;
+  public joinbtn: string = "Join"
+  public joined: boolean = false;
 
   public comments: comment[] = [];
 

@@ -11,17 +11,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layout/header/header.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PopoverComponent } from './layout/header/popover/popover.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    PopoverComponent
   ],
   entryComponents: [],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     IonicModule.forRoot(), 
     AppRoutingModule, 
     FormsModule, 

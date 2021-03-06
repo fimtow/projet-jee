@@ -15,15 +15,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  public username: string = '';
+  public password: string = '';
 
-  public cookieValue: string = '';
   constructor(
     private authService: AuthService,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private router: Router,
-    private loadingCtrl: LoadingController,
-    private cookieService: CookieService
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -46,12 +45,9 @@ export class LoginPage implements OnInit {
       loadingElement.present();
       this.authService.authenticate(username, password)
         .subscribe(resData => {
-          //console.log(resData);
           if (resData) {
             loadingElement.dismiss();
             this.navCtrl.navigateRoot('/home');
-            // this.cookieValue = this.cookieService.get('JSESSIONID');
-            // console.log(this.cookieValue);
           }
           else {
             loadingElement.dismiss();
@@ -63,17 +59,6 @@ export class LoginPage implements OnInit {
               alertElement.present();
             });
             console.log("Login failed");
-            // this.modalCtrl.create({
-            //   component: VerifyEmailComponent,
-            //   componentProps: {
-            //     'email': email,
-            //     'password': password,
-            //     'role': role
-            //   }
-            // }).then(modalElement => {
-            //   loadingElement.dismiss();
-            //   modalElement.present();
-            // });
           }
         }, err => {
           console.log(err);
@@ -87,12 +72,5 @@ export class LoginPage implements OnInit {
           });
         });
     });
-
   }
-
 }
-
-// .pipe(tap(resData => {
-//   loadingElement.dismiss();
-//   console.log(resData);
-// })).subscribe();
