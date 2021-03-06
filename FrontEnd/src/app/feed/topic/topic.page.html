@@ -14,7 +14,7 @@
                 </ion-col>
                 <ion-col size="4">
                     <div class="topicTitle">
-                        {{topicTitle}}
+                        {{topicInfos.title}}
                     </div>
                 </ion-col>
                 <ion-col size="2">
@@ -59,12 +59,17 @@
 
             </ion-col>
             <ion-col size="2">
-                <div class="widget">
+                <div class="widget ion-align-items-center">
                     <h4 class="about">About the topic !</h4>
                     <hr>
-                    <p>
+                    <p class="desc">
                         {{getDesc()}}
                     </p>
+                    <hr>
+                    <ion-button [routerLink]="[ '/create/post/', topicId]" class="postcrt" fill="clear">
+                        Create Post
+                    </ion-button>
+                    <hr>
                 </div>
             </ion-col>
 

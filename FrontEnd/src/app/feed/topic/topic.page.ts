@@ -12,7 +12,7 @@ import { FeedService } from '../feed.service';
 })
 export class TopicPage implements OnInit {
   public topicId: string;
-  public topicTitle: string = '';
+  public topicInfos: any = {id: 0, title:'', description: ''};
   public listOfPosts :any[] = [];
 
   public joinbtn: string = "Join"
@@ -42,7 +42,7 @@ export class TopicPage implements OnInit {
         console.log(resData);
         if (resData.success) {
           resData.topic.title = this.titleCaseWord(resData.topic.title);
-          this.topicTitle = resData.topic.title;
+          this.topicInfos = resData.topic;
           if(this.isAuthenticated){
             if(resData.joined){
               this.joined = true;
@@ -75,5 +75,11 @@ export class TopicPage implements OnInit {
   titleCaseWord(word: string) {
     if (!word) return word;
     return word[0].toUpperCase() + word.substr(1);
+  }
+
+  getDesc(){
+    if(this.topicInfos['description']){
+      return this.topicInfos.description;
+    }
   }
 }
