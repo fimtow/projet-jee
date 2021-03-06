@@ -159,7 +159,7 @@ public class PostDaoImpl implements PostDao {
 	        connexion = daoFactory.getConnection();
 	        preparedStatement =  initQueryPrepared( connexion, SQL_SELECT_BY_USER, false,user.getId());
 	        resultSet = preparedStatement.executeQuery();
-	        if ( resultSet.next() ) {
+	        while ( resultSet.next() ) {
 	        	listOfPosts.add(map( resultSet )); 
 	        }
 	    } catch ( SQLException e ) {

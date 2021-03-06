@@ -14,7 +14,7 @@ public class UserDaoTest {
 	
 	
 	
-	
+
 	public void testCreate()
 	{
 		User user = new User("Test","TestPassword","test@gmail.com");
