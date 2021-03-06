@@ -2,8 +2,6 @@ package testcase;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import ma.ensias.beans.Content;
 import ma.ensias.beans.Post;
 import ma.ensias.beans.Text;
@@ -17,7 +15,7 @@ public class PostDaoTest {
 	public static PostDao postDao = DAOFactory.getInstance().getPostDao();
 	
 
-	@Test
+
 	public void testCreate()
 	{	
 		Content content = new Text("text de post");
@@ -28,7 +26,7 @@ public class PostDaoTest {
 		assertEquals(postDao.find(post.getId()).getTitle(),post.getTitle());
 		
 	}
-	@Test
+	
 	public void testFind()
 	{
 		Post post = postDao.find(1);
