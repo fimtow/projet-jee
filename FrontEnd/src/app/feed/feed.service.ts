@@ -38,7 +38,7 @@ export class FeedService {
       return this.http.post<any>(this.apiURL + `/post?title=${fmval.title}&type_content=text&text=${fmval.text}&topic=${topic}`,{}, {withCredentials: true});
     }
     if(fmval.type == 1){
-      return this.http.post<any>(this.apiURL + `/post?title=${fmval.title}&type_content=image&image=${fmval.url}&topic=${topic}`,{}, {withCredentials: true});
+      return this.http.post<any>(this.apiURL + '/post',{}, {params: {title: fmval.title, type_content:'image', url: fmval.url, topic: topic},withCredentials: true});
     }
     if(fmval.type == 2){
       fmval.date = formatDate(fmval.date, 'dd/MM/yyyy', 'en');
