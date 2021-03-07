@@ -4,7 +4,11 @@
             <ion-icon (click)="goToHome()" class="forumicon" name="bug-outline"></ion-icon>
             <div (click)="goToHome()" class="title">STONKS</div>
         </ion-title>
+
         <ion-buttons slot="end">
+            <ion-button (click)="searchbarShown = !searchbarShown; searchTop='';" expand="block" fill="clear" shape="round">
+                <ion-icon name="search-outline"></ion-icon>
+            </ion-button>
             <ng-container *ngIf="isAuth == false">
                 <ion-button routerLink="/login">
                     Sign in
@@ -16,9 +20,13 @@
             <ng-container *ngIf="isAuth == true">
                 <ion-button (click)="presentPopover($event)" expand="block" fill="clear" shape="round">
                     <ion-icon name="person-sharp"></ion-icon>
+                    {{username}}
                     <ion-icon name="chevron-down-outline"></ion-icon>
                 </ion-button>
             </ng-container>
         </ion-buttons>
     </ion-toolbar>
+    <ng-container>
+        <ion-searchbar [(ngModel)]="searchTop" *ngIf="searchbarShown" (ionChange)="search()"></ion-searchbar>
+    </ng-container>
 </ion-header>

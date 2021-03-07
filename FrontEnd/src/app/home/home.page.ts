@@ -39,4 +39,13 @@ export class HomePage implements OnInit {
     if (!word) return word;
     return word[0].toUpperCase() + word.substr(1);
   }
+
+  getImageURL(index: number) {
+    var item = 'url';
+    if (this.listOfPosts[index]['content']) {
+      if(this.listOfPosts[index].content[item]){
+        return this.listOfPosts[index].content.url;
+      }
+    }
+  }
 }

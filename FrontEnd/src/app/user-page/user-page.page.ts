@@ -81,5 +81,14 @@ export class UserPagePage implements OnInit {
     if (!word) return word;
     return word[0].toUpperCase() + word.substr(1);
   }
+
+  getImageURL(ind: number) {
+    var item = 'url';
+    if (this.listPosts[ind]['content']) {
+      if(this.listPosts[ind].content[item]){
+        return this.listPosts[ind].content.url;
+      }
+    }
+  }
 }
 

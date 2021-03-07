@@ -31,10 +31,10 @@
                                                 <ion-card-subtitle class="date">{{postInfos.post.date}}</ion-card-subtitle>
                                             </ion-card-header>
                                             <div class="title" *ngIf="postInfos.success && (postInfos.post.type == 0 || postInfos.post.type == 1)">
-                                                t/{{postInfos.post.topic.title}}
+                                                <a [routerLink]="[ '/topic', postInfos.post.topic.id]">t/{{postInfos.post.topic.title}}</a>
                                             </div>
                                             <div class="title" *ngIf="postInfos.success && (postInfos.post.type == 2)">
-                                                ev/{{postInfos.post.topic.title}}
+                                                <a [routerLink]="[ '/topic', postInfos.post.topic.id]">ev/{{postInfos.post.topic.title}}</a>
                                             </div>
                                             <ion-card-header>
                                                 <ion-card-title>{{postInfos.post.title}}</ion-card-title>

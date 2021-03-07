@@ -1,9 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>signup</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <form [formGroup]="registerForm">
+        <div class="signupTitle">
+            SIGN UP
+        </div>
+        <hr>
+        <label for="username">USERNAME</label>
+        <ion-input formControlName="username" type="text" placeholder="username"></ion-input>
+
+        <label for="email">EMAIL</label>
+        <ion-input formControlName="email" type="email" placeholder="email"></ion-input>
+
+        <label for="password">PASSWORD</label>
+        <ion-input formControlName="password" type="password" placeholder="password"></ion-input>
+
+        <ion-button (click)="signup(registerForm)" [disabled]="!registerForm.valid" expand="block" fill="clear">Register</ion-button>
+    </form>
 </ion-content>

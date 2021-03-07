@@ -5,6 +5,7 @@ import { tap, map, take } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { NavController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -158,6 +159,12 @@ export class AuthService {
         withCredentials: true
       }
     );
+  }
+
+  signup(form: FormGroup){
+    return this.httpClient.post<any>(
+      this.apiUrl + "/signup", {}, {params: {username: form.value.username, email: form.value.email, password: form.value.password}, withCredentials: true}
+    )
   }
 
 }

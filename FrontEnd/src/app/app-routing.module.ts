@@ -15,9 +15,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'homepage',
-    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule),
-    canActivate: [QuitGuard]
+    path: 'homepage/:id',
+    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule)
   },
   {
     path: 'login',
@@ -63,6 +62,10 @@ const routes: Routes = [
         loadChildren: () => import('./feed/p404/p404.module').then( m => m.P404PageModule)
       }
     ]
+  },
+  {
+    path: 'search/:srch',
+    loadChildren: () => import('./feed/search/search.module').then( m => m.SearchPageModule)
   }
 ];
 

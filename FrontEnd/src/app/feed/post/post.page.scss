@@ -125,9 +125,13 @@ h4.usertopics {
 
 .title {
     padding-left: 16px;
-    color: #3f3f3f;
-    font-size: medium;
-    font-weight: bolder !important;
+    padding-bottom: 0;
+    a {
+        color: #3f3f3f;
+        font-size: medium;
+        font-weight: bolder !important;
+        text-decoration: none;
+    }
 }
 
 .invitation {

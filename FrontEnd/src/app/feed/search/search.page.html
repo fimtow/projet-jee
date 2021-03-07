@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="8" offset="2">
+                <div class="widget">
+                    <h4 class="about">Search Result</h4>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="8" offset="2" style="--ion-background-color: #fff;">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ng-container *ngFor="let topic of listOfTopics; let ind = index">
+                                <ion-card>
+                                    <ion-grid fixed>
+                                        <ion-row>
+                                            <ion-col size="9">
+                                                <h5 class="topiclink"><a [routerLink]="[ '/topic', topic.id]">t/{{topic.title}}</a></h5>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-card>
+                            </ng-container>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,6 +1,7 @@
 {
   "projects": {
     "stonks0": "stonks-b0982",
-    "default": "stonks-20"
+    "stonks1": "stonks-20",
+    "default": "stonks-innov"
   }
 }
